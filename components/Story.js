@@ -1,15 +1,24 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-const Story = () => {
+const Story = ({name}) => {
   return (
     <View style={styles.story}>
-      <View style={styles.storyimage}>
+      <View
+        style={styles.storyimage}
+        colors={[
+          '#00FFFF',
+          '#17C8FF',
+          '#329BFF',
+          '#4C64FF',
+          '#6536FF',
+          '#8000FF',
+        ]}>
         <Image
-          source={require('../assets/images/profile.png')}
+          source={require('../assets/images/punk8033.png')}
           style={styles.image}></Image>
       </View>
-      <Text style={styles.txt}>Arpit</Text>
+      <Text style={styles.txt}>{name}</Text>
     </View>
   );
 };
@@ -22,16 +31,16 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
-    marginLeft: 5,
-    marginRight: 5,
-    width: 60,
-    height: 60,
+    // marginLeft: 5,
+    // marginRight: 5,
+    width: 80,
+    height: 80,
     justifyContent: 'center',
   },
   image: {
-    width: 55,
-    height: 55,
-    borderRadius: 30,
+    width: 60,
+    height: 60,
+    borderRadius: 50,
     padding: 10,
   },
   txt: {
@@ -40,11 +49,11 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   storyimage: {
-    width: 63,
-    height: 63,
+    width: 70,
+    height: 70,
     borderWidth: 3,
-    borderColor: '#ff8501',
-    borderRadius: 30,
+    borderColor: '#087613',
+    borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },

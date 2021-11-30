@@ -1,16 +1,16 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 
-const Chat = () => {
+const Chat = ({name}) => {
   return (
     <View style={styles.chatcontainer}>
       <View style={styles.profilecontainer}>
         <Image
-          source={require('../assets/images/profile.png')}
+          source={require('../assets/images/punk8033.png')}
           style={styles.profileimage}></Image>
       </View>
       <View style={styles.txtcontainer}>
-        <Text style={styles.txtname}>Vijay Mehra</Text>
+        <Text style={styles.txtname}>{name}</Text>
         <Text style={styles.txtmsg}>this is last Message...</Text>
       </View>
     </View>
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   profilecontainer: {
     height: 55,
     width: 55,
-    // backgroundColor: '#000000',
-    borderRadius: 30,
+    backgroundColor: '#',
+    borderRadius: 25,
     marginLeft: 20,
   },
   profileimage: {
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     fontSize: 10,
     paddingBottom: 5,
     // marginBottom: 5,
-    marginTop: -6,
-    marginLeft: 4,
+    marginTop: -3,
+    // marginLeft: 4,
     fontFamily: 'Poppins-Medium',
   },
   txtcontainer: {

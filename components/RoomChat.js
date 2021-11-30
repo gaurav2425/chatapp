@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // backgroundColor: "#FFFF",
     backgroundColor: '#FAF5EF',
+    // backgroundColor: '#606060',
 
     marginTop: 1,
     alignItems: 'center',
@@ -56,11 +57,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // left: 10,
     fontSize: 14,
-    // marginTop: 10,
+    marginTop: 2,
     // fontWeight: "700",
-    letterSpacing: 0.5,
+    letterSpacing: 0.2,
     color: '#000000',
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-BlackItalic',
   },
   image: {
     width: 55,
@@ -83,8 +84,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     left: 10,
-    fontSize: 13,
-    marginTop: 4,
+    marginTop: -3,
+    fontSize: 11,
+    // marginTop: 0,
     fontFamily: 'Poppins-Medium',
     color: '#000000',
   },
@@ -96,9 +98,7 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     justifyContent: 'center',
-
-    right: 10,
-    top: 15,
+    backgroundColor: '#708090',
   },
   txt2: {
     fontSize: 10,
@@ -116,18 +116,20 @@ const styles = StyleSheet.create({
   },
   txt3: {
     color: '#000000',
+    backgroundColor: '#FFFF',
     fontSize: 10,
   },
   txtcontainerpart1: {
     display: 'flex',
     flexDirection: 'row',
-    // backgroundColor: "#FF69B4",
-    alignItems: 'center',
+    // backgroundColor: '#FF69B4',
+    // alignItems: 'center',
     marginTop: 10,
     paddingLeft: 10,
   },
   verifyicon: {
     left: 5,
     color: '#32CD32',
+    marginTop: 7,
   },
 });

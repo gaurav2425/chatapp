@@ -35,7 +35,7 @@ const SearchScreen = ({navigation}) => {
             size={30}
             style={styles.icon1}></Ionicons>
           <Text style={styles.txt}>Explore</Text>
-          <AntDesign name="contacts" size={30} style={styles.icon2}></AntDesign>
+          <AntDesign name="contacts" size={27} style={styles.icon2}></AntDesign>
         </View>
         <View style={styles.inputcontainermain}>
           <View style={styles.inputcontainer}>
@@ -48,7 +48,8 @@ const SearchScreen = ({navigation}) => {
               style={{
                 fontSize: 12,
                 fontFamily: 'Poppins-Medium',
-              }}></TextInput>
+              }}
+              style={styles.txtinput}></TextInput>
           </View>
         </View>
       </View>
@@ -211,7 +212,8 @@ const inputcontainermain = '50%';
 const searchscreenheader1 = '50%';
 const fivepercent = '7%';
 const scrollcontainer = '100%';
-
+const P90 = '90%';
+// const P100 = '90%';
 const styles = StyleSheet.create({
   searchscreenmain: {
     backgroundColor: '#FAF5EF',
@@ -221,15 +223,13 @@ const styles = StyleSheet.create({
   searchscreenheader: {
     width: widthmain,
     justifyContent: 'center',
-    backgroundColor: '#FFFF',
-
-    height: 120,
+    // height: 110,
     position: 'absolute',
   },
   inputcontainer: {
     display: 'flex',
     flexDirection: 'row',
-    width: widthinput,
+    width: P90,
     alignItems: 'center',
     // paddingTop: 10,
     // paddingBottom: 10,
@@ -237,45 +237,52 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFE4E1',
     backgroundColor: '#F3EBE0',
     // borderWidth: 0.5,
+    backgroundColor: '#FFE4E1',
   },
   inputcontainermain: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: inputcontainermain,
-    backgroundColor: '#FF69B4',
+    height: 60,
+    backgroundColor: '#FAF5EF',
   },
   searchscreenheader1: {
-    backgroundColor: '#D2B48C',
+    backgroundColor: '#FAF5EF',
     // flex: 0.4,
     alignItems: 'center',
     justifyContent: 'space-between',
     // paddingTop: 35,
-    height: searchscreenheader1,
+    height: 50,
     display: 'flex',
     flexDirection: 'row',
   },
   txt: {
     fontSize: 16,
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Bold',
+    color: '#000000',
   },
   iconsearch: {
-    marginLeft: 5,
+    marginLeft: 10,
     marginRight: 5,
+    // backgroundColor: '#FFFF',
+    alignSelf: 'center',
+    fontSize: 30,
+    color: '#000000',
   },
   txt1: {
     marginLeft: fivepercent,
-    fontSize: 14,
+    fontSize: 13,
     // fontWeight: "700",
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Bold',
+    color: '#000000',
   },
   txt1container: {
     // paddingTop: 10,
     // paddingBottom: 10,
-    backgroundColor: '#FFFF',
+    // backgroundColor: '#FFFF',
   },
   scrollcontainer: {
     height: scrollcontainer,
-    marginTop: 130,
+    marginTop: 125,
   },
   icon1: {
     paddingLeft: 20,
@@ -284,5 +291,10 @@ const styles = StyleSheet.create({
   icon2: {
     paddingRight: 25,
     color: '#000000',
+  },
+  txtinput: {
+    height: 50,
+    width: P90,
+    borderRadius: 15,
   },
 });

@@ -6,6 +6,7 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setEmail} from '../actions/index';
@@ -43,6 +44,7 @@ const Login = ({navigation}) => {
         })
         .catch(err => {
           console.log(err);
+          throw err;
         });
     };
     fetchMYAPI();
@@ -50,10 +52,13 @@ const Login = ({navigation}) => {
 
   return (
     <View style={styles.logincontainer}>
-      <Text style={styles.txtlogo}>SpanCock</Text>
+      {/* <Text style={styles.txtlogo}>SpanCock</Text> */}
       <View style={styles.fieldscontainer}>
         <View style={styles.txtcontainer}>
-          <Text style={styles.txt}>Login</Text>
+          {/* <Text style={styles.txt}>Login</Text> */}
+          <Image
+            source={require('../assets/images/span.png')}
+            style={{width: 150, height: 55}}></Image>
         </View>
         <TextInput
           placeholder="Email"
@@ -74,12 +79,22 @@ const Login = ({navigation}) => {
             color="#841584"
             accessibilityLabel="Learn more about this purple button"></Button>
         </View> */}
-        <Text style={styles.txt2} onPress={() => navigation.replace('signup')}>
+        {/* <Text style={styles.txt2} onPress={() => navigation.replace('signup')}>
           Create a New Account
-        </Text>
+        </Text> */}
         <TouchableOpacity style={styles.btn} onPress={() => sendCredentials()}>
           <Text style={styles.btntxt}>Login</Text>
         </TouchableOpacity>
+      </View>
+      <View style={styles.txt2container}>
+        <Text style={styles.txt2} onPress={() => navigation.replace('signup')}>
+          Create a New Account ?
+        </Text>
+        <Text
+          style={styles.txt2Register}
+          onPress={() => navigation.replace('signup')}>
+          Register
+        </Text>
       </View>
     </View>
   );
@@ -92,6 +107,7 @@ const styles = StyleSheet.create({
   logincontainer: {
     flex: 1,
     backgroundColor: '#FAF5EF',
+    justifyContent: 'space-between',
   },
   txt: {
     color: '#000000',
@@ -103,6 +119,8 @@ const styles = StyleSheet.create({
   txtcontainer: {
     width: P90,
     // backgroundColor: '#FFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
     alignSelf: 'center',
   },
   txtlogo: {
@@ -120,6 +138,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingLeft: 10,
     fontFamily: 'Poppins-Medium',
+    borderWidth: 1,
+    // borderColor: '#7D7878',
+    borderColor: '#D9D3D3',
   },
   name: {
     // backgroundColor: '#000000',
@@ -140,9 +161,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     fontFamily: 'Poppins-Medium',
     paddingLeft: 10,
+    borderWidth: 1,
+    // borderColor: '#7D7878',
+    borderColor: '#D9D3D3',
   },
   fieldscontainer: {
-    paddingTop: 60,
+    paddingTop: 150,
   },
   btncontainer: {
     width: P90,
@@ -152,7 +176,7 @@ const styles = StyleSheet.create({
   btn: {
     height: 50,
     width: P90,
-    backgroundColor: '#860F7A',
+    backgroundColor: '#3E3C9C',
     alignSelf: 'center',
     borderRadius: 10,
     alignItems: 'center',
@@ -163,15 +187,31 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#FFFF',
     fontSize: 18,
-    fontFamily: 'Poppins-SemiBold',
-    letterSpacing: 1,
+    fontFamily: 'Poppins-Medium',
+    // letterSpacing: 1,
   },
   txt2: {
     color: '#000000',
-    width: P90,
-    alignSelf: 'center',
+    // width: P90,
+
     paddingTop: 10,
     marginLeft: 10,
-    fontFamily: 'Poppins-BoldItalic',
+    fontFamily: 'Poppins-Medium',
+    // backgroundColor: '#FFFF',
+  },
+  txt2Register: {
+    fontFamily: 'Poppins-Bold',
+    // backgroundColor: '#FFFF',
+    paddingTop: 10,
+    marginLeft: 5,
+    color: '#000000',
+  },
+  txt2container: {
+    // backgroundColor: '#F65F65',
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    paddingBottom: 30,
   },
 });

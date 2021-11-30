@@ -23,10 +23,17 @@ const ProfileScreen = () => {
           size={30}
           style={{color: '#000000'}}></Ionicons>
         <View style={styles.profileheaderright}>
-          <Ionicons
-            name="share-social-outline"
-            size={25}
-            style={styles.profileheaderrighticon1}></Ionicons>
+          <TouchableRipple
+            onPress={() => console.log('Pressed')}
+            rippleColor="rgba(0, 0, 0, .1)"
+            borderless
+            style={styles.profileheaderrighticon1ripple}>
+            <Ionicons
+              name="share-social-outline"
+              size={25}
+              style={styles.profileheaderrighticon1}></Ionicons>
+          </TouchableRipple>
+
           {/* <Text>{myState}</Text> */}
           <TouchableRipple
             onPress={() => console.log('Pressed')}
@@ -107,7 +114,7 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   profileheaderrighticon1: {
-    marginRight: 30,
+    // marginRight: 30,
     color: '#000000',
   },
   profileline: {
@@ -192,5 +199,14 @@ const styles = StyleSheet.create({
     marginRight: 20,
     padding: 10,
     borderRadius: 30,
+  },
+  profileheaderrighticon1ripple: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    padding: 10,
+    marginRight: 20,
+    borderRadius: 50,
   },
 });

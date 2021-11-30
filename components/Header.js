@@ -6,19 +6,34 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {TouchableRipple} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 import Story from './Story';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Header = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.headercontainer}>
       <View style={styles.headercontainer1}>
-        <Text style={styles.txt}>SpanCock</Text>
+        {/* <Text style={styles.txt}>SpanCock</Text> */}
+        <TouchableRipple
+          onPress={() => navigation.navigate('explore')}
+          rippleColor="rgba(0, 0, 0, .1)"
+          borderless
+          style={{marginLeft: 25}}
+          // style={styles.profilecontainerripple}
+        >
+          <AntDesign
+            name="find"
+            size={27}
+            style={styles.exploreicon}></AntDesign>
+        </TouchableRipple>
         <View style={styles.righticons}>
           {/* <SimpleLineIcons
         name="compass"
         size={27}
         style={styles.exploreicon}></SimpleLineIcons> */}
-          <TouchableRipple
+          {/* <TouchableRipple
             onPress={() => console.log('Pressed')}
             rippleColor="rgba(0, 0, 0, .1)"
             borderless
@@ -26,6 +41,18 @@ const Header = () => {
             <Image
               source={require('../assets/images/clubs.png')}
               style={styles.clubiconimage}></Image>
+          </TouchableRipple> */}
+
+          <TouchableRipple
+            onPress={() => navigation.navigate('FriendRequests')}
+            // onPress={() => navigation.navigate('ChatScreen')}
+            rippleColor="rgba(0, 0, 0, .1)"
+            borderless
+            style={styles.profilecontainerripple}>
+            <Ionicons
+              name="person-add"
+              size={24}
+              style={styles.addfriendicon}></Ionicons>
           </TouchableRipple>
 
           <TouchableRipple
@@ -35,19 +62,8 @@ const Header = () => {
             style={styles.profilecontainerripple}>
             <FontAwesome
               name="bell-o"
-              size={25}
-              style={styles.bellicon}></FontAwesome>
-          </TouchableRipple>
-
-          <TouchableRipple
-            onPress={() => console.log('Pressed')}
-            rippleColor="rgba(0, 0, 0, .1)"
-            borderless
-            style={styles.profilecontainerripple}>
-            <AntDesign
-              name="find"
               size={27}
-              style={styles.exploreicon}></AntDesign>
+              style={styles.bellicon}></FontAwesome>
           </TouchableRipple>
 
           {/* <AntDesign name="plus" size={25}></AntDesign> */}
@@ -59,7 +75,7 @@ const Header = () => {
             style={styles.profilecontainerripple}>
             <View style={styles.profilecontainer}>
               <Image
-                source={require('../assets/images/profile.png')}
+                source={require('../assets/images/cryptopunk.png')}
                 style={styles.image}></Image>
             </View>
           </TouchableRipple>
@@ -124,7 +140,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderColor: '#F3EFEA',
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     height: 60,
   },
   icon: {
@@ -141,6 +157,10 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontWeight: 'bold',
     // marginRight: 20,
+  },
+  addfriendicon: {
+    color: '#000000',
+    fontWeight: 'bold',
   },
   bellicon: {
     color: '#000000',
@@ -172,8 +192,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     display: 'flex',
     flexDirection: 'row',
-    marginRight: 10,
+    marginRight: 4,
     padding: 5,
     borderRadius: 30,
+    paddingRight: 8,
+    paddingLeft: 8,
   },
 });

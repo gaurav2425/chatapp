@@ -10,6 +10,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Zocial from 'react-native-vector-icons/Zocial';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Octicons from 'react-native-vector-icons/Octicons';
 import Todo from '../screens/Todo';
 import Search from '../screens/Search';
 const Tab = createBottomTabNavigator();
@@ -19,6 +22,7 @@ const BottomTabNavigation = () => {
     <Tab.Navigator
       screenOptions={{
         keyboardHidesTabBar: true,
+        tabBarHideOnKeyboard: true,
       }}>
       <Tab.Screen
         name="hometab"
@@ -31,7 +35,7 @@ const BottomTabNavigation = () => {
           tabBarIcon: ({focused}) => (
             <Entypo
               name={focused ? 'home' : 'home'}
-              size={25}
+              size={26}
               color={focused ? '#000000' : '#101010'}
             />
           ),
@@ -47,9 +51,9 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <EvilIcons
-              name={focused ? 'search' : 'search'}
-              size={35}
+            <AntDesign
+              name={focused ? 'search1' : 'search1'}
+              size={25}
               color={focused ? '#000000' : '#101010'}
             />
           ),
@@ -65,14 +69,32 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <Fontisto
-              name={focused ? 'user-secret' : 'user-secret'}
+            <Octicons
+              name={focused ? 'gist-secret' : 'gist-secret'}
               size={23}
               color={focused ? '#000000' : '#101010'}
             />
           ),
         }}
         component={ProfileScreen}></Tab.Screen>
+
+      <Tab.Screen
+        name="plus"
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarActiveBackgroundColor: '#FAF5EF',
+          tabBarInactiveBackgroundColor: '#FAF5EF',
+
+          tabBarIcon: ({focused}) => (
+            <AntDesign
+              name={focused ? 'plus' : 'plus'}
+              size={25}
+              color={focused ? '#000000' : '#101010'}
+            />
+          ),
+        }}
+        component={Search}></Tab.Screen>
 
       <Tab.Screen
         name="signup"
@@ -83,9 +105,9 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <Fontisto
-              name={focused ? 'user-secret' : 'user-secret'}
-              size={23}
+            <Zocial
+              name={focused ? 'call' : 'call'}
+              size={25}
               color={focused ? '#000000' : '#101010'}
             />
           ),

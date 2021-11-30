@@ -9,6 +9,8 @@ import Home from '../screens/Home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Authenticated from '../screens/Authenticated';
 import ChatScreen from '../screens/ChatScreen';
+import Explore from '../screens/Explore';
+import FriendRequests from '../screens/FriendRequests';
 const Stack = createNativeStackNavigator();
 const ScreenStackNavigation = () => {
   const [isloggedin, setLoggedin] = useState(null);
@@ -34,6 +36,10 @@ const ScreenStackNavigation = () => {
         <Stack.Screen name="signup" component={SignUp} />
         <Stack.Screen name="login" component={Login} />
         <Stack.Screen name="ChatScreen" component={ChatScreen} />
+        <Stack.Screen
+          name="FriendRequests"
+          component={FriendRequests}></Stack.Screen>
+        <Stack.Screen name="explore" component={Explore}></Stack.Screen>
         <Stack.Screen name="home" component={Authenticated} />
 
         {/* {isloggedin == null ? (
