@@ -4,7 +4,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OrientationLoadingOverlay from 'react-native-orientation-loading-overlay';
 import Loader from 'react-native-mask-loader';
-const AddFriendChat = ({name, username, clickevents, removerequest}) => {
+const FriendRequests = ({name, username, clickevents, removerequest}) => {
   const [addFriend, setAddFriend] = useState(false);
 
   const [token, setToken] = useState('');
@@ -53,15 +53,6 @@ const AddFriendChat = ({name, username, clickevents, removerequest}) => {
           //   backgroundColor: '#F65F65',
         }}>
         <View style={styles.btncontainer}>
-          <Text
-            style={styles.btntxt}
-            // onPress={(() => removerequest, setAddFriend(!addFriend))}
-            // onPress={(() => clickevents(), setAddFriend(!addFriend))}
-            onPress={addfriend}>
-            Delete
-          </Text>
-        </View>
-        <View style={styles.btncontainer}>
           {addFriend ? (
             <Text
               style={styles.btntxt1}
@@ -76,9 +67,19 @@ const AddFriendChat = ({name, username, clickevents, removerequest}) => {
               // onPress={(() => removerequest, setAddFriend(!addFriend))}
               // onPress={(() => clickevents(), setAddFriend(!addFriend))}
               onPress={addfriend}>
-              Add Friend
+              Confirm
             </Text>
           )}
+        </View>
+
+        <View style={styles.btncontainer}>
+          <Text
+            style={styles.btntxtdel}
+            // onPress={(() => removerequest, setAddFriend(!addFriend))}
+            // onPress={(() => clickevents(), setAddFriend(!addFriend))}
+            onPress={addfriend}>
+            Delete
+          </Text>
         </View>
         {/* <OrientationLoadingOverlay
           visible={true}
@@ -97,7 +98,7 @@ const AddFriendChat = ({name, username, clickevents, removerequest}) => {
   );
 };
 
-export default AddFriendChat;
+export default FriendRequests;
 
 const width = '70%';
 // const txtwidth = "79%";
@@ -137,6 +138,17 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     backgroundColor: '#FFFF',
     color: '#000000',
+    fontFamily: 'Poppins-Medium',
+    fontSize: 12,
+    borderRadius: 15,
+  },
+  btntxtdel: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: '#FF4141',
+    color: '#FFFF',
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
     borderRadius: 15,

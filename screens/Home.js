@@ -14,14 +14,39 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Header from '../components/Header';
 import Chat from '../components/Chat';
 import Story from '../components/Story';
+import {useSelector, useDispatch} from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import {MyProfileInfoAction} from '../actions/MyProfileInfoaction';
+import {UserClickAction} from '../actions/UserClick';
+import {UserData, UserPassword} from '../actions/Useraction';
 const Home = ({navigation}) => {
   //   const [token, setToken] = useState('');
   const [data, setData] = useState([]);
   const [profileData, setProfileData] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [profile, setProfile] = useState([]);
+  // const [token, setToken] = useState('');
+
+  const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
+  console.log(MyProfileInfo);
+
+  const MyClick = useSelector(state => state.UserClick);
+  console.log('User Clicked');
+  console.log('User Clicked');
+  console.log(MyClick);
+  console.log('User Clicked');
+  console.log('User Clicked');
+
+  const dispatch = useDispatch();
+  const tokenmain = AsyncStorage.getItem('token');
+
   const fetchtoken = async () => {
     const token = await AsyncStorage.getItem('token');
+    console.log(token);
+    console.log(token);
+    console.log(token);
+    console.log(token);
+    console.log(token);
     // setToken(tokenauth);
     fetch('http://192.168.1.7:5000/api/auth', {
       headers: new Headers({
@@ -32,10 +57,41 @@ const Home = ({navigation}) => {
       .then(data => {
         console.log(data);
         setData(data);
+        // setToken(token);
       });
   };
+
+  const handleReduxData = async data => {
+    const token = await AsyncStorage.getItem('token');
+    dispatch(
+      MyProfileInfoAction({
+        data,
+        token: token,
+      }),
+    );
+  };
+
+  const fetchMyProfileInfo = async () => {
+    const token = await AsyncStorage.getItem('token');
+    // setToken(tokenauth);
+    fetch('http://192.168.1.7:5000/api/profile/myprofileinfo', {
+      headers: new Headers({
+        'x-auth-token': token,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('I am MyProfile');
+        console.log(data);
+        console.log('I am MyProfile');
+        setProfile(data);
+        handleReduxData(data);
+      });
+  };
+
   useEffect(() => {
     fetchtoken();
+    fetchMyProfileInfo();
   }, []);
 
   const LogOut = () => {
@@ -58,8 +114,8 @@ const Home = ({navigation}) => {
         setProfileData(data);
       })
       .catch(err => {
-        console.log(err);
-        throw err;
+        // console.log(err);
+        // throw err;
       });
   };
 
@@ -67,10 +123,12 @@ const Home = ({navigation}) => {
     fetchProfile();
   }, []);
 
+  // console.log('I am My profile from redux', MyProfileInfo);
+
   const fetchFriends = async () => {
     const token = await AsyncStorage.getItem('token');
     // setToken(tokenauth);
-    fetch('http://192.168.1.7:5000/api/users/n1/myfriends', {
+    fetch('http://192.168.1.7:5000/api/users/myfriends/all', {
       headers: new Headers({
         'x-auth-token': token,
       }),
@@ -81,8 +139,8 @@ const Home = ({navigation}) => {
         setFriends(data);
       })
       .catch(err => {
-        console.log(err);
-        throw err;
+        // console.log(err);
+        // throw err;
       });
   };
 
@@ -93,7 +151,7 @@ const Home = ({navigation}) => {
     console.log('_________');
   }, []);
 
-  //   console.log(profileData);
+  console.log(friends);
 
   return (
     <View style={styles.homecontainer}>
@@ -138,16 +196,32 @@ const Home = ({navigation}) => {
           </View>
         </View>
         <Text style={styles.chattxt}>Friends Chat</Text>
-        <TouchableRipple
-          onPress={() => navigation.navigate('ChatScreen')}
-          rippleColor="rgba(0, 0, 0, .1)"
-          borderless>
-          <Chat name={data.name}></Chat>
-        </TouchableRipple>
-
-        <Chat name="arpit jaggi"></Chat>
-
         {friends.map((friend, index) => {
+          return (
+            <TouchableRipple
+              // onPress={() => navigation.navigate('ChatScreen')}
+              rippleColor="rgba(0, 0, 0, .1)"
+              borderless
+              key={index}
+              onPress={() => {
+                // console.log(friend.user)
+                let userclickId = friend.user;
+                navigation.navigate('ChatScreen');
+
+                dispatch(
+                  UserClickAction({
+                    userclickId,
+                  }),
+                );
+              }}>
+              <Chat name={friend.name}></Chat>
+            </TouchableRipple>
+          );
+        })}
+
+        {/* <Chat name="arpit jaggi"></Chat> */}
+
+        {/* {friends.map((friend, index) => {
           // <Chat name={friend.name}></Chat>;
           console.log(friend.email);
 
@@ -160,25 +234,25 @@ const Home = ({navigation}) => {
               <Chat name={friend.name}></Chat>
             </TouchableRipple>
           );
-        })}
+        })} */}
 
-        <Chat name="gaurav burande"></Chat>
+        {/* <Chat name="gaurav burande"></Chat>
         <Chat name="Ajinkya sahu"></Chat>
         <Chat name="swaraj pawar"></Chat>
         <Chat name="pinky sharma"></Chat>
         <Chat name="naman yadav"></Chat>
         <Chat name="vishal singh"></Chat>
         <Chat name="karan mehra"></Chat>
-        <Chat name="hemant thackrey"></Chat>
+        <Chat name="hemant thackrey"></Chat> */}
 
-        <Text style={styles.txt1}>Email: {data.email}</Text>
+        {/* <Text style={styles.txt1}>Email: {data.email}</Text>
         <Text style={styles.txt1}>Name: {data.name}</Text>
         <Text style={styles.txt1}>Username :{data.username}</Text>
-        <Text style={styles.txt1}>Err :{profileData.msg}</Text>
-        <TouchableOpacity style={styles.btn} onPress={() => LogOut()}>
-          <Text style={styles.btntxt}>LogOut</Text>
-        </TouchableOpacity>
+        <Text style={styles.txt1}>Err :{profileData.msg}</Text> */}
       </ScrollView>
+      <TouchableOpacity style={styles.btn} onPress={() => LogOut()}>
+        <Text style={styles.btntxt}>LogOut</Text>
+      </TouchableOpacity>
 
       {/* <BottomTabNavigation></BottomTabNavigation> */}
 

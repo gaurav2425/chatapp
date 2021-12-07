@@ -1,12 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-const Message = ({message}) => {
+const Message = ({message, messagereceived}) => {
   return (
     <View style={styles.messagechats}>
-      {/* <View style={styles.chatmessagecontainerreceived}>
-        <Text style={styles.chatmessagereceived}>{message}</Text>
-      </View> */}
+      {messagereceived === ' ' ? null : (
+        <View style={styles.chatmessagecontainerreceived}>
+          <Text style={styles.chatmessagereceived}>{messagereceived}</Text>
+        </View>
+      )}
 
       {/* <View style={styles.chatmessagecontainer}>
         <Text style={styles.chatmessage}>Hello, I am Here</Text>
@@ -21,6 +23,12 @@ const Message = ({message}) => {
           aaj ek event ghetoy te record karaychay
         </Text>
       </View> */}
+
+      {/* {messagereceived === '' ? null : (
+        <View style={styles.chatmessagecontainerreceived}>
+          <Text style={styles.chatmessagereceived}>{messagereceived}</Text>
+        </View>
+      )} */}
 
       <View style={styles.chatmessagecontainer}>
         <Text style={styles.chatmessage}>{message}</Text>

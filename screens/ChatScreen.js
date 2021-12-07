@@ -15,7 +15,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import socketIO from 'socket.io-client';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-
+import {useSelector, useDispatch} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // import "./UserAgent";
@@ -26,37 +27,51 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {Button} from 'react-native-paper';
 import ChatInput from '../components/ChatInput';
 
+const ENDPOINT = 'http://192.168.1.7:5000/';
+
 const ChatScreen = ({navigation: {goBack}}) => {
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState([]);
   const [id, setId] = useState('');
+  const [friendUser, setFriendUser] = useState([]);
+  const [chats, setchats] = useState([]);
   const scrollViewRef = useRef();
-  const ENDPOINT = 'http://192.168.1.7:9000/';
+
   let socket = socketIO(ENDPOINT, {transports: ['websocket']});
 
-  const sendCredentials = () => {
+  console.log('My Click From Chatting');
+  const MyClick = useSelector(state => state.UserClick);
+  const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
+
+  console.log('MY Info');
+  console.log(MyProfileInfo.data.user);
+  console.log('MY Info');
+  console.log(MyClick);
+  console.log('My Click From Chatting');
+
+  const sendCredentials = async () => {
+    const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
-      fetch('http://192.168.1.7:9000/messages/new', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      fetch(
+        `http://192.168.1.7:5000/api/users/${MyClick.userclickId}/newmessage`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+          },
+          body: JSON.stringify({
+            receiverId: MyClick.userclickId,
+            senderId: MyProfileInfo.data.user,
+            message: message,
+            received: false,
+          }),
         },
-        body: JSON.stringify({
-          message: message,
-          received: false,
-        }),
-      })
+      )
         .then(res => res.json())
         .then(async data => {
           console.log(data);
-
-          // try {
-          //   await AsyncStorage.setItem('token', data.token);
-          //   navigation.replace('home');
-          // } catch (e) {
-          //   //saving error
-          //   console.log('Error hai', e);
-          // }
         })
         .catch(err => {
           console.log(err);
@@ -73,28 +88,79 @@ const ChatScreen = ({navigation: {goBack}}) => {
     sendCredentials();
   };
 
-  // var connectionOptions = {
-  //   "force new connection": true,
-  //   reconnectionAttempts: "Infinity",
-  //   timeout: 10000,
-  //   transports: ["websocket"],
-  //   withCredentials: true,
-  //   jsonp: true,
-  // };
-  // const socket = io.connect("http://localhost:3000");
-  // const [message, setMessage] = useState("");
-  // const [chat, setChat] = useState([]);
-  // let socket;
-  // const send = () => {
-  //   const message = document.getElementById("chatInput").value;
-  //   socket.emit("message", {});
-  //   document.getElementById("chatInput").value == "";
-  // };
-  // const ENDPOINT = 'http://192.168.1.5:3000/';
-  // let socket = socketIo(ENDPOINT, {
-  //   transports: ['websocket'],
-  //   jsonp: false,
-  // });
+  const fetchClickedUserData = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const fetchMYAPI = async () => {
+      fetch(
+        `http://192.168.1.7:5000/api/users/myfriends/all/${MyClick.userclickId}`,
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+          },
+        },
+      )
+        .then(res => res.json())
+        .then(data => {
+          console.log('Data Of FriendUser');
+          console.log(data);
+          console.log('Data Of FriendUser');
+          setFriendUser(data);
+
+          // try {
+          //   await AsyncStorage.setItem('token', data.token);
+          //   navigation.replace('home');
+          // } catch (e) {
+          //   //saving error
+          //   console.log('Error hai', e);
+          // }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+    fetchMYAPI();
+  };
+
+  const fetchUserMessges = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const fetchMYAPI = async () => {
+      fetch(
+        `http://192.168.1.7:5000/api/users/${MyClick.userclickId}/readmessage`,
+        // http://localhost:5000/api/users/61ae09b48c78c1f58a5db727/readmessage
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+          },
+          // body: JSON.stringify({
+          //   message: message,
+          //   received: false,
+          // }),
+        },
+      )
+        .then(res => res.json())
+        .then(data => {
+          console.log('Data Of FriendUser');
+          console.log(data.messages);
+          console.log('Data Of FriendUser');
+          setchats(data.messages);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+    fetchMYAPI();
+  };
+
+  useEffect(() => {
+    fetchClickedUserData();
+    fetchUserMessges();
+  }, []);
 
   useEffect(() => {
     let socket = socketIO(ENDPOINT, {transports: ['websocket']});
@@ -176,7 +242,6 @@ const ChatScreen = ({navigation: {goBack}}) => {
   // });
   // });
   console.log(message);
-  // console.log(chat);
 
   return (
     <View style={styles.containermain}>
@@ -195,7 +260,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
               style={styles.image}></Image>
           </View>
           <View>
-            <Text style={styles.name}>Vicky Kaushal</Text>
+            <Text style={styles.name}>{friendUser.name}</Text>
             <Text style={styles.status}>Online</Text>
           </View>
         </View>
@@ -218,7 +283,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
           onContentSizeChange={() =>
             scrollViewRef.current.scrollToEnd({animated: true})
           }>
-          <View style={styles.chatmessagecontainer}>
+          {/* <View style={styles.chatmessagecontainer}>
             {chat.map((item, index) => {
               return (
                 // <Text style={styles.chatmessage} key={index}>
@@ -227,52 +292,34 @@ const ChatScreen = ({navigation: {goBack}}) => {
                 <Message message={item} key={index} />
               );
             })}
+          </View> */}
+          <View>
+            {chats.map((chat, index) => {
+              {
+                chat.senderId === MyProfileInfo.data.user ? (
+                  <Text>From Sender</Text>
+                ) : (
+                  <Text>Not From Sender</Text>
+                );
+              }
+              return (
+                // <Text style={styles.chatmessage} key={index}>
+                //   {payload.message}
+                // </Text>
+                <View key={index}>
+                  {chat.senderId === MyProfileInfo.data.user ? (
+                    <Message message={chat.message} key={index} />
+                  ) : (
+                    <Message messagereceived={chat.message} key={index} />
+                  )}
+                </View>
+
+                // <Text>{}</Text>
+              );
+            })}
           </View>
         </ScrollView>
       </View>
-
-      {/* <View style={styles.chatinputmain}>
-        <View style={styles.chatinput}>
-          <View style={styles.chatinputleft}>
-            <MaterialCommunityIcons
-              name="sticker-emoji"
-              size={25}
-              style={styles.inputicon1}></MaterialCommunityIcons>
-          </View>
-          <View style={styles.txtinputmain}>
-            <TextInput
-              placeholder="Type Something ...."
-              style={styles.input}
-              // autoFocus
-              // value={message}
-              value={message}
-              // onChange={(e) => setMessage(e.target.value)}
-              onChangeText={text => setMessage(text)}></TextInput>
-          </View>
-          <View style={styles.btn}>
-            {message == '' ? (
-              <View style={styles.iconsright}>
-                <Entypo name="mic" size={20} style={styles.iconright1}></Entypo>
-                <EvilIcons
-                  name="camera"
-                  size={30}
-                  style={styles.iconright2}></EvilIcons>
-
-                <Entypo
-                  name="attachment"
-                  size={20}
-                  style={styles.iconright3}></Entypo>
-              </View>
-            ) : (
-              <Ionicons
-                name="ios-send-sharp"
-                size={20}
-                style={styles.btnsend}
-                onPress={send}></Ionicons>
-            )}
-          </View>
-        </View>
-      </View> */}
 
       <View style={styles.chatinputmain}>
         {/* <ChatInput message send></ChatInput> */}
@@ -340,9 +387,9 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
   plusicon: {
-    backgroundColor: '#000000',
+    backgroundColor: '#3E3C9C',
     color: '#FFFF',
-    padding: 10,
+    padding: 7,
     borderRadius: 30,
     marginTop: 3,
     marginRight: 5,
@@ -554,7 +601,7 @@ const styles = StyleSheet.create({
     padding: 7,
     paddingLeft: 10,
     // marginRight: 15,
-    backgroundColor: '#000000',
+    backgroundColor: '#3E3C9C',
     color: '#FFFF',
     marginRight: 10,
   },
@@ -563,7 +610,7 @@ const styles = StyleSheet.create({
     padding: 5,
     // paddingLeft: 10,
     // marginRight: 15,
-    backgroundColor: '#000000',
+    backgroundColor: '#3E3C9C',
     color: '#FFFF',
     marginRight: 10,
   },
@@ -710,3 +757,71 @@ const styles = StyleSheet.create({
 //   alignItems: 'baseline',
 //   paddingBottom: 10,
 // },
+
+// var connectionOptions = {
+//   "force new connection": true,
+//   reconnectionAttempts: "Infinity",
+//   timeout: 10000,
+//   transports: ["websocket"],
+//   withCredentials: true,
+//   jsonp: true,
+// };
+// const socket = io.connect("http://localhost:3000");
+// const [message, setMessage] = useState("");
+// const [chat, setChat] = useState([]);
+// let socket;
+// const send = () => {
+//   const message = document.getElementById("chatInput").value;
+//   socket.emit("message", {});
+//   document.getElementById("chatInput").value == "";
+// };
+// const ENDPOINT = 'http://192.168.1.5:3000/';
+// let socket = socketIo(ENDPOINT, {
+//   transports: ['websocket'],
+//   jsonp: false,
+// });
+
+{
+  /* <View style={styles.chatinputmain}>
+        <View style={styles.chatinput}>
+          <View style={styles.chatinputleft}>
+            <MaterialCommunityIcons
+              name="sticker-emoji"
+              size={25}
+              style={styles.inputicon1}></MaterialCommunityIcons>
+          </View>
+          <View style={styles.txtinputmain}>
+            <TextInput
+              placeholder="Type Something ...."
+              style={styles.input}
+              // autoFocus
+              // value={message}
+              value={message}
+              // onChange={(e) => setMessage(e.target.value)}
+              onChangeText={text => setMessage(text)}></TextInput>
+          </View>
+          <View style={styles.btn}>
+            {message == '' ? (
+              <View style={styles.iconsright}>
+                <Entypo name="mic" size={20} style={styles.iconright1}></Entypo>
+                <EvilIcons
+                  name="camera"
+                  size={30}
+                  style={styles.iconright2}></EvilIcons>
+
+                <Entypo
+                  name="attachment"
+                  size={20}
+                  style={styles.iconright3}></Entypo>
+              </View>
+            ) : (
+              <Ionicons
+                name="ios-send-sharp"
+                size={20}
+                style={styles.btnsend}
+                onPress={send}></Ionicons>
+            )}
+          </View>
+        </View>
+      </View> */
+}

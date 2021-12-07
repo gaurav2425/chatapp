@@ -10,13 +10,32 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setEmail} from '../actions/index';
+import {useSelector, useDispatch} from 'react-redux';
+import {UserData, UserPassword, LoginAction} from '../actions/Useraction';
 // import {useSelector, useDispatch} from 'react-redux';
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const myLoginState = useSelector(state => state.LoginReducer);
+
+  // const mypassword = useSelector(state => state.UserReducer);
+
   // const myState = useSelector(state => state.Login);
   // const dispatch = useDispatch();
+  const userdata = useSelector(state => state);
+  console.log(userdata);
+  console.log(myLoginState);
+  const dispatch = useDispatch();
+
+  const handleLoginReduxData = () => {
+    // setStep(step + 1);
+    dispatch(
+      LoginAction({
+        data,
+      }),
+    );
+  };
 
   const sendCredentials = () => {
     const fetchMYAPI = async () => {
@@ -82,7 +101,10 @@ const Login = ({navigation}) => {
         {/* <Text style={styles.txt2} onPress={() => navigation.replace('signup')}>
           Create a New Account
         </Text> */}
-        <TouchableOpacity style={styles.btn} onPress={() => sendCredentials()}>
+        <TouchableOpacity
+          style={styles.btn}
+          // onPress={(() => handleLoginReduxData, sendCredentials)}
+          onPress={sendCredentials}>
           <Text style={styles.btntxt}>Login</Text>
         </TouchableOpacity>
       </View>

@@ -12,15 +12,39 @@ import {
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Username from './Username';
+
+import {useSelector, useDispatch} from 'react-redux';
+import {incNumber, decNumber} from '../actions/index';
+import {UserData, UserPassword} from '../actions/Useraction';
+import UserReducer from '../reducers/User';
+
 const SignUp = ({navigation}) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [step, setStep] = useState(0);
+  const userdata = useSelector(state => state);
+  console.log(userdata);
 
-  const handleStep = () => {
+  const myState = useSelector(state => state.changeTheNumber);
+  const myemail = useSelector(state => state.UserReducer);
+  // const mypassword = useSelector(state => state.UserReducer);
+  const dispatch = useDispatch();
+
+  // const handleStep = () => {
+  //   setStep(step + 1);
+  // };
+
+  const handleReduxData = () => {
     setStep(step + 1);
+    dispatch(
+      UserData({
+        name: name,
+        email: email,
+        password: password,
+      }),
+    );
   };
 
   const sendCredentials = () => {
@@ -65,11 +89,14 @@ const SignUp = ({navigation}) => {
     //   console.log(response.data);
     // });
   };
-
+  console.log(myemail);
+  // console.log(myemail.email);
+  // console.log(myemail.name);
+  // console.log(myemail.password);
   return (
     <View style={styles.signupcontainermain}>
       {/* <Text style={styles.txtlogo}>SpanCock</Text> */}
-      {step === 0 ? (
+      {myState === 0 ? (
         <View style={styles.signupcontainer}>
           <View style={styles.fieldscontainer}>
             <View style={styles.txtcontainer}>
@@ -110,10 +137,21 @@ const SignUp = ({navigation}) => {
 
             <TouchableOpacity
               style={styles.btn}
-              onPress={(() => sendCredentials(), handleStep)}>
+              // onPress={() => sendCredentials()}
+              onPress={() => dispatch(incNumber())}>
               <Text style={styles.btntxt}>Next</Text>
             </TouchableOpacity>
           </View>
+
+          {/* <Text>{myemail}</Text> */}
+
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={handleReduxData}
+            // onPress={() => dispatch(UserData(email))}
+          >
+            <Text style={styles.btntxt}>Email</Text>
+          </TouchableOpacity>
 
           <View style={styles.txt2container}>
             <Text style={styles.txt2}>Already have an Account ?</Text>

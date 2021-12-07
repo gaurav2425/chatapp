@@ -75,7 +75,7 @@ const Header = () => {
             style={styles.profilecontainerripple}>
             <View style={styles.profilecontainer}>
               <Image
-                source={require('../assets/images/cryptopunk.png')}
+                source={require('../assets/images/punk8033.png')}
                 style={styles.image}></Image>
             </View>
           </TouchableRipple>

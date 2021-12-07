@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
   res.send('Hell This is working');
 });
 CONNECTION_URL =
-  'mongodb+srv://admin:gaurav2184@cluster0.9mvsd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+  'mongodb+srv://admin:gaurav54321@cluster0.9mvsd.mongodb.net/SpanCock?retryWrites=true&w=majority';
 mongoose.connect(CONNECTION_URL, () => {
   console.log('Connected to Database');
 });

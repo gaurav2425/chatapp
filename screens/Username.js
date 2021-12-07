@@ -1,52 +1,81 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {RadioButton} from 'react-native-paper';
+import {useSelector, useDispatch} from 'react-redux';
+import {incNumber, decNumber} from '../actions/index';
+import PunkSelect from './PunkSelect';
+
 const Username = () => {
   const [username, setUsername] = useState('');
+  const myState = useSelector(state => state.changeTheNumber);
+  const myemail = useSelector(state => state.UserReducer);
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.usernamecontainer}>
-      <View style={styles.fieldscontainer}>
-        <View style={styles.txtcontainer}>
-          {/* <Image
+      {myState === 1 ? (
+        <View style={styles.fieldscontainer}>
+          <View style={styles.txtcontainer}>
+            {/* <Image
                 source={require('../assets/images/span.png')}
                 style={{width: 150, height: 55}}></Image> */}
-        </View>
-        <TextInput
-          placeholder="Username"
-          style={styles.username}
-          value={username}
-          autoCapitalize="none"
-          textContentType="name"
-          //   onChangeText={text => setName(text)}
-        ></TextInput>
+          </View>
+          <Text style={styles.usernameheadingtxt}>You Can change it Later</Text>
+          <TextInput
+            placeholder="Username"
+            style={styles.username}
+            value={username}
+            autoCapitalize="none"
+            textContentType="name"
+            //   onChangeText={text => setName(text)}
+          ></TextInput>
 
-        <View style={styles.genderselect}>
-          <Text style={styles.choosegenderheading}>Choose Gender</Text>
+          <View style={styles.containertodo}>
+            {/* onPress={() => dispatch(decNumber())} */}
+            {/* <TouchableOpacity onPress={() => dispatch(decNumber())}>
+              <Text style={styles.txt}>Decrease</Text>
+            </TouchableOpacity> */}
+            {/* <Text style={styles.txt}>{myState}</Text> */}
+            {/* {myState} */}
+            {/* onPress={() => dispatch(incNumber())} */}
+            {/* <TouchableOpacity onPress={() => dispatch(incNumber())}>
+              <Text style={styles.txt}>Increase</Text>
+            </TouchableOpacity> */}
+          </View>
 
-          <View style={styles.radiobuttons}>
-            <View style={styles.radiobuttonmale}>
-              <Text style={styles.txtmale}>Male</Text>
-              <RadioButton></RadioButton>
-            </View>
-            <View style={styles.radiobuttonfemale}>
-              <Text style={styles.txtfemale}>Female</Text>
-              <RadioButton></RadioButton>
-            </View>
-            <View style={styles.radiobuttonother}>
-              <Text style={styles.txtother}>Other</Text>
-              <RadioButton></RadioButton>
+          <View style={styles.genderselect}>
+            <Text style={styles.choosegenderheading}>Choose Gender</Text>
+
+            <View style={styles.radiobuttons}>
+              <View style={styles.radiobuttonmale}>
+                <Text style={styles.txtmale}>Male</Text>
+                <RadioButton></RadioButton>
+              </View>
+              <View style={styles.radiobuttonfemale}>
+                <Text style={styles.txtfemale}>Female</Text>
+                <RadioButton></RadioButton>
+              </View>
+              <View style={styles.radiobuttonother}>
+                <Text style={styles.txtother}>Other</Text>
+                <RadioButton></RadioButton>
+              </View>
             </View>
           </View>
-        </View>
 
-        {/* <TextInput
+          {/* <TextInput
           placeholder="Username"
           style={styles.name}
           value={username}
           autoCapitalize="none"
           textContentType="username"
           onChangeText={text => setUsername(text)}></TextInput> */}
-        {/* <TextInput
+          {/* <TextInput
               placeholder="Email"
               style={styles.email}
               value={email}
@@ -63,21 +92,31 @@ const Username = () => {
               autoCapitalize="none"
               onChangeText={text => setPassword(text)}></TextInput> */}
 
-        {/* <TouchableOpacity
+          {/* <TouchableOpacity
               style={styles.btn}
               onPress={(() => sendCredentials(), handleStep)}>
               <Text style={styles.btntxt}>Next</Text>
             </TouchableOpacity> */}
 
-        <View style={styles.buttons}>
-          <View style={styles.buttonprevious}>
-            <Text style={styles.buttonprevioustxt}>Previous</Text>
-          </View>
-          <View style={styles.buttonnext}>
-            <Text style={styles.buttonnexttxt}>Next</Text>
+          <View style={styles.buttons}>
+            <TouchableOpacity
+              onPress={() => dispatch(decNumber())}
+              style={styles.buttonprevious}>
+              <Text style={styles.buttonprevioustxt}>Previous</Text>
+            </TouchableOpacity>
+
+            <View style={styles.buttonnext}>
+              <Text
+                style={styles.buttonnexttxt}
+                onPress={() => dispatch(incNumber())}>
+                Next
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
+      ) : (
+        <PunkSelect></PunkSelect>
+      )}
     </View>
   );
 };
@@ -111,17 +150,23 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D9D3D3',
   },
+  usernameheadingtxt: {
+    alignSelf: 'center',
+    width: P90,
+    fontFamily: 'Poppins-Medium',
+    color: '#000000',
+  },
   buttons: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     // backgroundColor: '#696969',
     width: P90,
-    paddingTop: 15,
+    paddingTop: 35,
     paddingBottom: 10,
   },
   buttonprevious: {
-    height: 50,
+    height: 40,
     width: P40,
     backgroundColor: '#FFFF',
     alignSelf: 'center',
@@ -132,7 +177,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   buttonnext: {
-    height: 50,
+    height: 40,
     width: P40,
     backgroundColor: '#3E3C9C',
     alignSelf: 'center',
@@ -144,6 +189,7 @@ const styles = StyleSheet.create({
   },
   choosegenderheading: {
     fontFamily: 'Poppins-Medium',
+    color: '#000000',
   },
   buttonprevioustxt: {
     alignSelf: 'center',
@@ -174,18 +220,21 @@ const styles = StyleSheet.create({
   genderselect: {
     width: P90,
     // backgroundColor: '#FFFF',
+    paddingTop: 20,
   },
   radiobuttonother: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 10,
+    paddingTop: 10,
   },
   radiobuttonmale: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     // marginLeft: 10,
+    paddingTop: 10,
   },
   radiobuttonfemale: {
     display: 'flex',
@@ -193,5 +242,6 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,
+    paddingTop: 10,
   },
 });

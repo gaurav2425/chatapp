@@ -3,6 +3,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import ExploreChat from '../components/ExploreChat';
 import AddFriendChat from '../components/AddFriendChat';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FriendRequest from '../components/FriendRequest';
+import {TouchableRipple} from 'react-native-paper';
 const FriendRequests = () => {
   const [data, setData] = useState([]);
   const [name, setName] = useState('');
@@ -24,15 +26,15 @@ const FriendRequests = () => {
     //     settokenData(data);
     //   });
   };
-  useEffect(() => {
-    fetchtoken();
-  }, []);
+  // useEffect(() => {
+  //   fetchtoken();
+  // }, []);
   // console.log(token);
 
   const sendCredentials = async () => {
     const tokenL = await AsyncStorage.getItem('token');
     const fetchMYAPI = async tokenL => {
-      fetch('http://192.168.1.7:5000/api/users/request/myrequests/', {
+      fetch('http://192.168.1.7:5000/api/users/requests/all', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -44,18 +46,57 @@ const FriendRequests = () => {
         .then(data => {
           console.log('_______________');
           console.log(data);
-          console.log(data);
+
           console.log('_______________');
           setData(data);
           // setUsername(data.username);
           // setName(data.name);
         })
-        .catch(err => {
-          console.log(err);
+        .catch(function (error) {
+          console.log(
+            'There has been a problem with your fetch operation: ' +
+              error.message,
+          );
+          // ADD THIS THROW error
           throw error;
         });
     };
     fetchMYAPI(tokenL);
+  };
+
+  const ConfirmFriendRequest = async userId => {
+    const tokenL = await AsyncStorage.getItem('token');
+    const fetchMYAPI = async (tokenL, userId) => {
+      fetch(
+        `http://192.168.1.7:5000/api/users/${userId}/confirmfriendrequest`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-auth-token': tokenL,
+          },
+        },
+      )
+        .then(res => res.json())
+        .then(data => {
+          console.log('_______________');
+          // console.log(data);
+          console.log(data);
+          console.log('_______________');
+
+          // setData(data);
+        })
+        .catch(function (error) {
+          console.log(
+            'There has been a problem with your fetch operation: ' +
+              error.message,
+          );
+          // ADD THIS THROW error
+          throw error;
+        });
+    };
+    fetchMYAPI(tokenL, userId);
   };
 
   useEffect(() => {
@@ -68,11 +109,23 @@ const FriendRequests = () => {
         <Text style={styles.txt}>Requests Pending</Text>
       </View>
       {/* <Text>{data}</Text> */}
+      {}
       {data.map((item, index) => (
-        <AddFriendChat
-          name={item.name}
-          username={item.username}
-          key={index}></AddFriendChat>
+        <TouchableRipple
+          key={index}
+          onPress={() => {
+            console.log('User From Press');
+            console.log(item.user);
+            console.log('User From Press');
+            let userId = item.user;
+            ConfirmFriendRequest(userId);
+          }}
+          rippleColor="rgba(0, 0, 0, .1)"
+          borderless>
+          <FriendRequest
+            name={item.name}
+            username={item.username}></FriendRequest>
+        </TouchableRipple>
         // <Text key={index}>{item.name}</Text>
       ))}
       {/* <Text>{name}</Text>

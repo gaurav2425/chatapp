@@ -9,12 +9,15 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
+import {useSelector, useDispatch} from 'react-redux';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {TouchableRipple} from 'react-native-paper';
 // import {useSelector, useDispatch} from 'react-redux';
 
 const ProfileScreen = () => {
   // const myState = useSelector(state => state.changeTheNumber);
+  const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
+  console.log('From Profile Screen', MyProfileInfo.data.name);
   return (
     <SafeAreaView style={styles.container_main}>
       <View style={styles.profileheader}>
@@ -57,13 +60,17 @@ const ProfileScreen = () => {
       </View>
 
       <View style={styles.nameline}>
-        <Text style={styles.textname}>Gaurav Burande</Text>
-        <Text style={styles.textusername}>@iamgaurav</Text>
+        <Text style={styles.textname}>{MyProfileInfo.data.name}</Text>
+        <Text style={styles.textusername}>@{MyProfileInfo.data.username}</Text>
       </View>
 
       <View style={styles.followline}>
-        <Text style={styles.friendstxt}>Friends 198</Text>
-        {/* <Text style={styles.text4}>Following 15</Text> */}
+        <Text style={styles.friendstxt}>
+          Friends {MyProfileInfo.data.Friends.length}
+        </Text>
+        <Text style={styles.text4}>
+          {MyProfileInfo.data.RequestSent.length}
+        </Text>
       </View>
 
       <View style={styles.bio}>

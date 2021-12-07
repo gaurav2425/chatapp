@@ -32,15 +32,38 @@ const ScreenStackNavigation = () => {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="loading" component={Loading} />
+        <Stack.Screen
+          name="loading"
+          component={Loading}
+          options={{
+            animationEnabled: false,
+          }}
+        />
         <Stack.Screen name="signup" component={SignUp} />
         <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="ChatScreen" component={ChatScreen} />
+        <Stack.Screen
+          name="ChatScreen"
+          component={ChatScreen}
+          options={{
+            animationEnabled: false,
+          }}
+        />
         <Stack.Screen
           name="FriendRequests"
           component={FriendRequests}></Stack.Screen>
-        <Stack.Screen name="explore" component={Explore}></Stack.Screen>
-        <Stack.Screen name="home" component={Authenticated} />
+        <Stack.Screen
+          name="explore"
+          component={Explore}
+          options={{
+            animationEnabled: false,
+          }}></Stack.Screen>
+        <Stack.Screen
+          name="home"
+          component={Authenticated}
+          options={{
+            animationEnabled: false,
+          }}
+        />
 
         {/* {isloggedin == null ? (
           <Stack.Screen name="loading" component={Loading} />
