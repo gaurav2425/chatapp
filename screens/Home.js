@@ -165,7 +165,7 @@ const Home = ({navigation}) => {
       <ScrollView
         style={styles.scrollview}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.storymaincontainer}>
+        {/* <View style={styles.storymaincontainer}>
           <ScrollView
             horizontal={true}
             style={styles.storymaincontainer}
@@ -187,7 +187,7 @@ const Home = ({navigation}) => {
             <Story name="karan"></Story>
             <Story name="hemant"></Story>
           </ScrollView>
-        </View>
+        </View> */}
 
         <View style={styles.searchinputcontainer}>
           <View style={styles.searchcontainer}>
