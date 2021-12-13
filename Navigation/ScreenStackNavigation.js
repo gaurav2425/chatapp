@@ -11,6 +11,9 @@ import Authenticated from '../screens/Authenticated';
 import ChatScreen from '../screens/ChatScreen';
 import Explore from '../screens/Explore';
 import FriendRequests from '../screens/FriendRequests';
+import Notification from '../screens/Notification';
+import ProfileDetail from '../screens/ProfileDetail';
+import Settings from '../screens/Settings';
 const Stack = createNativeStackNavigator();
 const ScreenStackNavigation = () => {
   const [isloggedin, setLoggedin] = useState(null);
@@ -41,29 +44,19 @@ const ScreenStackNavigation = () => {
         />
         <Stack.Screen name="signup" component={SignUp} />
         <Stack.Screen name="login" component={Login} />
+        <Stack.Screen name="ChatScreen" component={ChatScreen} />
         <Stack.Screen
-          name="ChatScreen"
-          component={ChatScreen}
-          options={{
-            animationEnabled: false,
-          }}
-        />
+          name="notification"
+          component={Notification}></Stack.Screen>
         <Stack.Screen
           name="FriendRequests"
           component={FriendRequests}></Stack.Screen>
+        <Stack.Screen name="settings" component={Settings}></Stack.Screen>
         <Stack.Screen
-          name="explore"
-          component={Explore}
-          options={{
-            animationEnabled: false,
-          }}></Stack.Screen>
-        <Stack.Screen
-          name="home"
-          component={Authenticated}
-          options={{
-            animationEnabled: false,
-          }}
-        />
+          name="profiledetail"
+          component={ProfileDetail}></Stack.Screen>
+        <Stack.Screen name="explore" component={Explore}></Stack.Screen>
+        <Stack.Screen name="home" component={Authenticated} />
 
         {/* {isloggedin == null ? (
           <Stack.Screen name="loading" component={Loading} />

@@ -21,8 +21,7 @@ const Header = () => {
           rippleColor="rgba(0, 0, 0, .1)"
           borderless
           style={{marginLeft: 25}}
-          // style={styles.profilecontainerripple}
-        >
+          style={styles.rippleexplore}>
           <AntDesign
             name="find"
             size={27}
@@ -56,7 +55,7 @@ const Header = () => {
           </TouchableRipple>
 
           <TouchableRipple
-            onPress={() => console.log('Pressed')}
+            onPress={() => navigation.navigate('notification')}
             rippleColor="rgba(0, 0, 0, .1)"
             borderless
             style={styles.profilecontainerripple}>
@@ -176,15 +175,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   profilecontainer: {
-    width: 30,
-    height: 30,
+    width: 32,
+    height: 32,
     backgroundColor: '#000000',
-    borderRadius: 10,
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   image: {
     width: 30,
     height: 30,
-    borderRadius: 10,
+    borderRadius: 30,
   },
   profilecontainerripple: {
     // padding: 10,
@@ -193,9 +194,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginRight: 4,
-    padding: 5,
-    borderRadius: 30,
-    paddingRight: 8,
-    paddingLeft: 8,
+    padding: 3,
+    borderRadius: 15,
+    marginRight: 10,
+    paddingRight: 5,
+    paddingLeft: 5,
+  },
+  rippleexplore: {
+    padding: 10,
+    marginLeft: 10,
+    borderRadius: 25,
   },
 });

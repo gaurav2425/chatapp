@@ -7,6 +7,7 @@ import {
   RefreshControl,
   ScrollView,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 import {TouchableRipple} from 'react-native-paper';
 import RoomChat from '../components/RoomChat';
@@ -23,6 +24,7 @@ const SearchScreen = ({navigation}) => {
   const [refreshing, setRefreshing] = React.useState(false);
   const [users, SetUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -41,6 +43,7 @@ const SearchScreen = ({navigation}) => {
       .then(data => {
         console.log(data);
         SetUsers(data);
+        setLoading(false);
       })
       .catch(err => {
         console.log(err);
@@ -88,38 +91,45 @@ const SearchScreen = ({navigation}) => {
         </View>
       </View>
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        style={styles.scrollcontainer}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}></RefreshControl>
-        }>
-        <View style={styles.txt1container}>
-          <Text style={styles.txt1}>Public Profiles to Connect</Text>
+      {loading ? (
+        <View style={styles.searchloadercontainer}>
+          <ActivityIndicator size={50} color="#3E3C9C" />
         </View>
-        <View style={styles.accountcontainer}>
-          {users
-            .filter(user => {
-              if (searchTerm == '') {
-                return user;
-              } else if (
-                user.name.toLowerCase().includes(searchTerm.toLowerCase())
-              ) {
-                return user;
-              }
-            })
-            .map((user, index) => (
-              <ExploreChat
-                name={user.name}
-                username={user.username}
-                key={index}></ExploreChat>
-              // <Text key={index}>{item.name}</Text>
-            ))}
-        </View>
-      </ScrollView>
+      ) : (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          style={styles.scrollcontainer}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}></RefreshControl>
+          }>
+          <View style={styles.txt1container}>
+            <Text style={styles.txt1}>Public Profiles to Connect</Text>
+          </View>
+          <View style={styles.accountcontainer}>
+            {users
+              .filter(user => {
+                if (searchTerm == '') {
+                  return user;
+                } else if (
+                  user.name.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return user;
+                }
+              })
+              .map((user, index) => (
+                <ExploreChat
+                  name={user.name}
+                  username={user.username}
+                  key={index}></ExploreChat>
+                // <Text key={index}>{item.name}</Text>
+              ))}
+          </View>
+        </ScrollView>
+      )}
+
       <StatusBar backgroundColor="#FAF5EF" />
     </View>
   );
@@ -183,7 +193,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Poppins-Bold',
     color: '#000000',
-    marginLeft: 20,
+    marginLeft: 25,
   },
   iconsearch: {
     marginLeft: 10,
@@ -224,6 +234,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     paddingTop: 14,
     // backgroundColor: '#FFFF',
+  },
+  searchloadercontainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
 });
 

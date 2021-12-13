@@ -198,12 +198,13 @@ const styles = StyleSheet.create({
   btn: {
     height: 50,
     width: P90,
-    backgroundColor: '#3E3C9C',
+    backgroundColor: '#0B0883',
+    // backgroundColor: '#0FA60C',
     alignSelf: 'center',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: 20,
   },
   btntxt: {
     alignSelf: 'center',

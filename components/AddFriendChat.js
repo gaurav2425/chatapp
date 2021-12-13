@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import OrientationLoadingOverlay from 'react-native-orientation-loading-overlay';
 import Loader from 'react-native-mask-loader';
 const AddFriendChat = ({name, username, clickevents, removerequest}) => {
   const [addFriend, setAddFriend] = useState(false);

@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-const Message = ({message, messagereceived}) => {
+
+const MessageReceived = ({message, messagereceived}) => {
   return (
     <View style={styles.messagechats}>
       {/* {messagereceived == '' ? null : (
@@ -10,24 +11,29 @@ const Message = ({message, messagereceived}) => {
         </View>
       )} */}
 
+      <View style={styles.chatmessagecontainerreceived}>
+        <Text style={styles.chatmessagereceived}>{messagereceived}</Text>
+      </View>
+
       {/* {messagereceived === '' ? null : (
         <View style={styles.chatmessagecontainerreceived}>
           <Text style={styles.chatmessagereceived}>{messagereceived}</Text>
         </View>
       )} */}
 
-      <View style={styles.chatmessagecontainer}>
+      {/* <View style={styles.chatmessagecontainer}>
         <Text style={styles.chatmessage}>{message}</Text>
-      </View>
+      </View> */}
     </View>
   );
 };
 
-export default Message;
+export default MessageReceived;
 
 const P100 = '100%';
 const styles = StyleSheet.create({
   chatmessage: {
+    padding: 6,
     backgroundColor: '#F3EBE0',
     // backgroundColor: '#41AC1C',
     borderRadius: 18,
@@ -39,7 +45,7 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     fontSize: 14,
     paddingLeft: 10,
-    paddingRight: 10,
+    paddingRight: 7,
     fontFamily: 'Poppins-Medium',
   },
   chatmessagereceived: {
@@ -47,7 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFF',
     borderRadius: 18,
     color: '#000000',
-    marginTop: 4,
+    // marginTop: 4,
     maxWidth: 300,
     paddingTop: 7,
     paddingBottom: 7,
@@ -61,14 +67,14 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     alignItems: 'flex-end',
     // backgroundColor: '#F3EBE0',
-    paddingTop: 1,
-    paddingBottom: 1,
+    paddingTop: 2,
+    paddingBottom: 2,
   },
   chatmessagecontainerreceived: {
     // paddingRight: 5,
     // alignItems: 'flex-start',
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
     // backgroundColor: '#F3EBE0',
     width: P100,
     paddingLeft: 7,
@@ -87,8 +93,8 @@ const styles = StyleSheet.create({
     color: '#000000',
     marginTop: 4,
     maxWidth: 300,
-    paddingTop: 12,
-    paddingBottom: 12,
+    // paddingTop: 2,
+    // paddingBottom: 2,
     fontSize: 16,
   },
   nametxt: {

@@ -14,7 +14,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {TouchableRipple} from 'react-native-paper';
 // import {useSelector, useDispatch} from 'react-redux';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({navigation}) => {
   // const myState = useSelector(state => state.changeTheNumber);
   const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
   console.log('From Profile Screen', MyProfileInfo.data.name);
@@ -39,7 +39,7 @@ const ProfileScreen = () => {
 
           {/* <Text>{myState}</Text> */}
           <TouchableRipple
-            onPress={() => console.log('Pressed')}
+            onPress={() => navigation.navigate('settings')}
             rippleColor="rgba(0, 0, 0, .1)"
             borderless
             style={styles.profileheaderrighticon2ripple}>

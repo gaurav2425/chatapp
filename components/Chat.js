@@ -6,7 +6,7 @@ const Chat = ({name}) => {
     <View style={styles.chatcontainer}>
       <View style={styles.profilecontainer}>
         <Image
-          source={require('../assets/images/punk8033.png')}
+          source={require('../assets/images/myimg.jpeg')}
           style={styles.profileimage}></Image>
       </View>
       <View style={styles.txtcontainer}>
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   profilecontainer: {
     height: 55,
     width: 55,
-    backgroundColor: '#',
-    borderRadius: 25,
+    backgroundColor: '#000000',
+    borderRadius: 35,
     marginLeft: 20,
   },
   profileimage: {

@@ -1,19 +1,20 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-const Story = ({name}) => {
+const Story = ({name, borderless}) => {
   return (
     <View style={styles.story}>
       <View
         style={styles.storyimage}
-        colors={[
-          '#00FFFF',
-          '#17C8FF',
-          '#329BFF',
-          '#4C64FF',
-          '#6536FF',
-          '#8000FF',
-        ]}>
+        // colors={[
+        //   '#00FFFF',
+        //   '#17C8FF',
+        //   '#329BFF',
+        //   '#4C64FF',
+        //   '#6536FF',
+        //   '#8000FF',
+        // ]}
+      >
         <Image
           source={require('../assets/images/punk8033.png')}
           style={styles.image}></Image>

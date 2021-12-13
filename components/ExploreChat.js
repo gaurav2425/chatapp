@@ -2,14 +2,96 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const ExploreChat = ({name, username, clickevents, removerequest}) => {
-  const [addFriend, setAddFriend] = useState(false);
+import {useSelector, useDispatch} from 'react-redux';
+const ExploreChat = ({
+  name,
+  username,
+  myusername,
+  clickevents,
+  removerequest,
+  // userclickId,
+  // newuserclickId,
+  exploreusers,
+}) => {
+  const [results, setResults] = useState([]);
+  const [addFriend, setAddFriend] = useState(true);
+  const [removeFriend, setRemoveFriend] = useState(false);
 
   const [token, setToken] = useState('');
 
   const [data, setData] = useState([]);
 
   const [userId, setUserId] = useState('');
+  const [requestsent, setRequestSent] = useState([]);
+
+  const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
+  // console.log('I am From chattter');
+  // console.log('I am From chattter');
+  // console.log('I am From chattter');
+  // console.log(MyProfileInfo.data.RequestSent);
+  // console.log('I am From chattter');
+  // console.log('I am From chattter');
+  // console.log('I am From chattter');
+
+  // const MyClick = useSelector(state => state.UserClick);
+
+  // console.log(MyClick.userclickId);
+  // let x = data;
+  let x = MyProfileInfo.data.RequestSent;
+  // let y = MyProfileInfo.data;
+
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // console.log(x);
+
+  // function findArrayElementByTitle(array, title) {
+  //   return array.find(element => {
+  //     return element;
+  //   });
+  // }
+
+  // findArrayElementByTitle(x, 'rohan');
+
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // console.log(y);
+
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+
+  // function findArrayElementByTitle(array, username) {
+  //   return array.find(element => {
+  //     return element.username === username;
+  //   });
+  // }
+  // findArrayElementByTitle(x, 'rohan');
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // console.log('Testing 123456789');
+  // Use map to get a simple array of "val" values. Ex: [1,4]
+
+  // let yFilter = y.map(itemY => {
+  //   return itemY.username;
+  // });
+  // console.log('I am From X chattter');
+  // console.log(xFilter);
+  // console.log('I am From X chattter');
+  // console.log(yFilter);
+  // let zFilter = z.map(itemZ => {
+  //   return itemZ;
+  // });
+
+  // Use filter and "not" includes to filter the full dataset by the filter dataset's val.
+  // let filteredX = x.filter(
+  //   itemX => !yFilter.includes(itemX.username) && z.username != itemX.username,
+  // );
 
   const fetchtoken = async () => {
     const token1 = await AsyncStorage.getItem('token');
@@ -25,9 +107,6 @@ const ExploreChat = ({name, username, clickevents, removerequest}) => {
     //     settokenData(data);
     //   });
   };
-  useEffect(() => {
-    fetchtoken();
-  }, []);
 
   // const sendFriendRequest = () => {
   //   const fetchMYAPI = async () => {
@@ -60,34 +139,62 @@ const ExploreChat = ({name, username, clickevents, removerequest}) => {
   //   fetchMYAPI();
   // };
 
-  // const sendFriendRequest = () => {
-  //   const fetchMYAPI = async () => {
-  //     fetch(`http://192.168.1.7:5000/api/users/${userId}/addfriend`, {
-  //       method: 'POST',
-  //       headers: {
-  //         Accept: 'application/json',
-  //         'Content-Type': 'application/json',
-  //         'x-auth-token': token,
-  //       },
-  //     })
-  //       .then(res => res.json())
-  //       .then(data => {
-  //         console.log(data);
-  //         setData(data);
-  //         setUsername(data.username);
-  //         setName(data.name);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   };
-  //   fetchMYAPI();
-  // };
+  const FetchMineData = async () => {
+    const token = await AsyncStorage.getItem('token');
+    const fetchMYAPI = async () => {
+      fetch(`http://192.168.1.7:5000/api/users/mine/me`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'x-auth-token': token,
+        },
+      })
+        .then(res => res.json())
+        .then(async data => {
+          console.log(data);
+          await setData(data);
+          await setRequestSent(data.RequestSent);
+
+          console.log('sent Requests');
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+    fetchMYAPI();
+  };
+
+  useEffect(() => {
+    fetchtoken();
+    FetchMineData();
+  }, []);
+  const inventory = [
+    {name: 'apples', quantity: 2},
+    {name: 'bananas', quantity: 0},
+    {name: 'cherries', quantity: 5},
+  ];
 
   // useEffect(() => {
-  //   sendFriendRequest();
+  const result = requestsent.find(({user}) => user === exploreusers);
+
+  console.log('I am a very New  Result');
+  console.log('I am a very New  Result');
+  console.log('I am a very New  Result');
+  console.log(result);
+  console.log('I am a very  New  Result');
+  console.log('I am a very New  Result');
+  console.log('I am a very New  Result');
   // }, []);
 
+  // const result = requestsent.find(({user}) => user === exploreusers);
+  console.log('________________________');
+  console.log('I am a very New  Result ki');
+  console.log('I am a very New  Result ki');
+  console.log(requestsent);
+  console.log('I am a very New  Result ki');
+  console.log('I am a very New  Result ki');
+  console.log('_______________________');
   const addfriend = () => {
     setAddFriend(!addFriend);
     clickevents();
@@ -95,12 +202,43 @@ const ExploreChat = ({name, username, clickevents, removerequest}) => {
 
   const removefriend = () => {
     setAddFriend(!addFriend);
-    removerequest();
+    // removerequest();
   };
 
+  // console.log('Request Sent');
+  // console.log(data.RequestSent);
+  // console.log('Request Sent');
+  // console.log(data);
+  // console.log(data);
   const cancelrequest = () => {
     console.log('Request Cancelled');
   };
+
+  // const inventory = [
+  //   {name: 'apples', quantity: 2},
+  //   {name: 'bananas', quantity: 0},
+  //   {name: 'cherries', quantity: 5},
+  // ];
+
+  // {requestsent.map(item,index)=>{
+
+  // }}
+
+  // const results = requestsent.find(username => username === myusername);
+  // console.log('results');
+  // console.log(results); // { name: 'cherries', quantity: 5 }
+  // console.log('results');
+
+  // const inventory = [
+  //   {name: 'apples', quantity: 2},
+  //   {name: 'bananas', quantity: 0},
+  //   {name: 'cherries', quantity: 5},
+  // ];
+
+  // const result = inventory.find(({name}) => name === 'cherries');
+
+  // console.log(result); // { name: 'cherries', quantity: 5 }
+
   return (
     <View style={styles.chatcontainer}>
       <View style={styles.chatcontainerleft}>
@@ -121,8 +259,12 @@ const ExploreChat = ({name, username, clickevents, removerequest}) => {
           </View>
         </View>
       </View>
+
+      {/* {requestsent.map((item, index) => {
+        return <Text>{item.username}</Text>;
+      })} */}
       <View style={styles.btncontainer}>
-        {addFriend ? (
+        {result ? (
           <Text
             style={styles.btntxt1}
             // onPress={(() => setAddFriend(!addFriend), clickevents)}
@@ -131,13 +273,25 @@ const ExploreChat = ({name, username, clickevents, removerequest}) => {
             Requested
           </Text>
         ) : (
-          <Text
-            style={styles.btntxt}
-            // onPress={(() => removerequest, setAddFriend(!addFriend))}
-            // onPress={(() => clickevents(), setAddFriend(!addFriend))}
-            onPress={addfriend}>
-            Add Friend
-          </Text>
+          <View>
+            {addFriend ? (
+              <Text
+                style={styles.btntxt}
+                // onPress={(() => removerequest, setAddFriend(!addFriend))}
+                // onPress={(() => clickevents(), setAddFriend(!addFriend))}
+                onPress={addfriend}>
+                Add Friend
+              </Text>
+            ) : (
+              <Text
+                style={styles.btntxt1}
+                // onPress={(() => removerequest, setAddFriend(!addFriend))}
+                // onPress={(() => clickevents(), setAddFriend(!addFriend))}
+                onPress={removefriend}>
+                Requested
+              </Text>
+            )}
+          </View>
         )}
       </View>
     </View>

@@ -19,12 +19,14 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {MyProfileInfoAction} from '../actions/MyProfileInfoaction';
 import {UserClickAction} from '../actions/UserClick';
 import {UserData, UserPassword} from '../actions/Useraction';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 const Home = ({navigation}) => {
   //   const [token, setToken] = useState('');
   const [data, setData] = useState([]);
   const [profileData, setProfileData] = useState([]);
   const [friends, setFriends] = useState([]);
   const [profile, setProfile] = useState([]);
+  const [loading, setLoading] = useState(true);
   // const [token, setToken] = useState('');
 
   const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
@@ -82,7 +84,11 @@ const Home = ({navigation}) => {
       .then(res => res.json())
       .then(data => {
         console.log('I am MyProfile');
+        console.log('I am MyProfile');
+        console.log('I am MyProfile');
         console.log(data);
+        console.log('I am MyProfile');
+        console.log('I am MyProfile');
         console.log('I am MyProfile');
         setProfile(data);
         handleReduxData(data);
@@ -165,7 +171,11 @@ const Home = ({navigation}) => {
             style={styles.storymaincontainer}
             showsHorizontalScrollIndicator={false}>
             <View style={styles.yourstory}>
-              <Story name="You"></Story>
+              <AntDesign
+                name="plus"
+                size={15}
+                style={styles.plusIcon}></AntDesign>
+              <Story name="You" borderless></Story>
             </View>
 
             <Story name="gaurav"></Story>
@@ -187,24 +197,18 @@ const Home = ({navigation}) => {
               style={styles.searchicon}></EvilIcons>
 
             <TextInput
-              placeholder="Search"
-              style={styles.searchinput}
-              // onFocus={() => {
-              //   navigation.navigate("chatscreen");
-              // }}
-            ></TextInput>
+              placeholder="Search For people"
+              style={styles.searchinput}></TextInput>
           </View>
         </View>
         <Text style={styles.chattxt}>Friends Chat</Text>
         {friends.map((friend, index) => {
           return (
             <TouchableRipple
-              // onPress={() => navigation.navigate('ChatScreen')}
               rippleColor="rgba(0, 0, 0, .1)"
               borderless
               key={index}
               onPress={() => {
-                // console.log(friend.user)
                 let userclickId = friend.user;
                 navigation.navigate('ChatScreen');
 
@@ -250,9 +254,9 @@ const Home = ({navigation}) => {
         <Text style={styles.txt1}>Username :{data.username}</Text>
         <Text style={styles.txt1}>Err :{profileData.msg}</Text> */}
       </ScrollView>
-      <TouchableOpacity style={styles.btn} onPress={() => LogOut()}>
+      {/* <TouchableOpacity style={styles.btn} onPress={() => LogOut()}>
         <Text style={styles.btntxt}>LogOut</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {/* <BottomTabNavigation></BottomTabNavigation> */}
 
@@ -271,6 +275,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F8F6EC',
     fontFamily: 'Poppins-Medium',
+    backgroundColor: '#FAF5EF',
   },
   btn: {
     height: 50,
@@ -295,7 +300,7 @@ const styles = StyleSheet.create({
   },
   scrollview: {
     width: P100,
-    flex: 0.9,
+    // flex: 0.9,
   },
   storymaincontainer: {
     display: 'flex',
@@ -321,12 +326,16 @@ const styles = StyleSheet.create({
   searchinput: {
     // backgroundColor: "#FF7F50",
     width: P90,
-    fontSize: 12,
+    // fontSize: 15,
     borderTopRightRadius: 30,
     borderBottomRightRadius: 30,
     paddingLeft: 5,
     // backgroundColor: '#FFFF',
+    // backgroundColor: '#800000',
+
     fontFamily: 'Poppins-Medium',
+    padding: 9,
+    paddingBottom: 6,
   },
   searchcontainer: {
     display: 'flex',
@@ -336,21 +345,34 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // backgroundColor: "#800000",
     backgroundColor: '#FFE4E1',
-    height: 40,
+    // height: 40,
     borderRadius: 10,
     backgroundColor: '#F2EDE6',
     backgroundColor: '#F3EBE0',
-    // backgroundColor: "#F3EEE7",
+
+    // backgroundColor: '#800000',
   },
   searchicon: {
     color: '#000000',
     paddingLeft: 20,
+    fontWeight: 'bold',
   },
   searchinputcontainer: {
     display: 'flex',
     flexDirection: 'row',
     width: P100,
     justifyContent: 'center',
+    // paddingBottom: 10,
     paddingBottom: 10,
+  },
+  plusIcon: {
+    position: 'absolute',
+    right: 10,
+    bottom: 25,
+    backgroundColor: '#3E3C9C',
+    borderRadius: 30,
+    zIndex: 111,
+    padding: 2,
+    color: '#FFFF',
   },
 });

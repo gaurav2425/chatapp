@@ -18,24 +18,32 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {useSelector, useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
-// import "./UserAgent";
-// import { io } from "socket.io-client";
-// import io from 'socket.io-client/dist/socket.io';
-// import {Ionicons, Entypo, MaterialCommunityIcons} from '@expo/vector-icons';
-// import socketIo from 'socket.io-client';
+import MessageReceived from '../components/MessageReceived';
 import {Button} from 'react-native-paper';
+import {TouchableRipple} from 'react-native-paper';
 import ChatInput from '../components/ChatInput';
-
+import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+import Loading from '../screens/Loading';
+import {MyProfileInfoAction} from '../actions/MyProfileInfoaction';
 const ENDPOINT = 'http://192.168.1.7:5000/';
 
 const ChatScreen = ({navigation: {goBack}}) => {
   const [message, setMessage] = useState('');
   const [chat, setChat] = useState([]);
-  const [id, setId] = useState('');
+  const [id, setId] = useState('12345');
   const [friendUser, setFriendUser] = useState([]);
   const [chats, setchats] = useState([]);
   const scrollViewRef = useRef();
+  const [loading, setLoading] = useState(true);
+  console.log('I am your Chats');
+  console.log(chats);
+  console.log('I am your Chats');
+
+  const dispatch = useDispatch();
+
+  // const reversedItems = chats.map(function iterateItems(chats) {
+  //   return chats; // or any logic you want to perform
+  // }).reverse();
 
   let socket = socketIO(ENDPOINT, {transports: ['websocket']});
 
@@ -82,7 +90,12 @@ const ChatScreen = ({navigation: {goBack}}) => {
 
   const send = e => {
     e.preventDefault();
-    socket.emit('message', {message, id});
+    socket.emit('message', {
+      message,
+      id,
+      receiverId: MyClick.userclickId,
+      senderId: MyProfileInfo.data.user,
+    });
     setMessage('');
     console.log('here is msg');
     sendCredentials();
@@ -108,14 +121,6 @@ const ChatScreen = ({navigation: {goBack}}) => {
           console.log(data);
           console.log('Data Of FriendUser');
           setFriendUser(data);
-
-          // try {
-          //   await AsyncStorage.setItem('token', data.token);
-          //   navigation.replace('home');
-          // } catch (e) {
-          //   //saving error
-          //   console.log('Error hai', e);
-          // }
         })
         .catch(err => {
           console.log(err);
@@ -147,6 +152,8 @@ const ChatScreen = ({navigation: {goBack}}) => {
         .then(data => {
           console.log('Data Of FriendUser');
           console.log(data.messages);
+          console.log(data.receiverId);
+          console.log(data);
           console.log('Data Of FriendUser');
           setchats(data.messages);
         })
@@ -171,13 +178,16 @@ const ChatScreen = ({navigation: {goBack}}) => {
       console.log(socket.id);
     });
 
-    socket.emit('joined', () => {
+    socket.emit('joined', data => {
       console.log('joined');
+      // setchats([...chats, data]);
+      console.log(data);
       alert('joined');
     });
 
-    socket.emit('welcome', () => {
+    socket.emit('welcome', data => {
       console.log('welcome to the chat');
+      // setchats([...chats, data]);
     });
 
     socket.on('message', () => {});
@@ -206,18 +216,31 @@ const ChatScreen = ({navigation: {goBack}}) => {
 
   useEffect(() => {
     socket.on('sendMessage', data => {
+      console.log('I am From sendmessage');
       console.log(data.message, data.id);
+
+      console.log('I am From sendmessage');
       setChat([...chat, data.message]);
+      setchats([...chats, data]);
       console.log('This is Message Sent By User');
+      console.log(data.message);
+      console.log(data);
+      console.log('This is Message Sent By User');
+      // fetchUserMessges();
     });
     return () => {
       socket.off();
     };
-  }, [chat]);
+  }, [chat, chats]);
 
   // socket.on("connection", () => {
   //   console.log("connected");
   // });
+  console.log('Chats alert');
+  console.log('Chats alert');
+  // console.log(chats.slice(-1)[0].message);
+  console.log('Chats alert');
+  console.log('Chats alert');
 
   const sendChat = e => {
     e.preventDefault();
@@ -225,35 +248,26 @@ const ChatScreen = ({navigation: {goBack}}) => {
     setMessage('');
     console.log('Pressed');
   };
-
-  // socket.on("connection", () => {
-  //   console.log("connected");
-  // });
-
-  // useEffect(() => {
-  //   socket.on('chat', payload => {
-  //     setChat([...chat, payload]);
-  //     chat.push(payload);
-  //     console.log('socket is active');
-  //   });
-  // setChat([...chat, message]);
-  // socket.on("connection", () => {
-  //   console.log("connected to socket from frontend");
-  // });
-  // });
   console.log(message);
 
   return (
     <View style={styles.containermain}>
       <View style={styles.chatscreenheader}>
         <View style={styles.chatscreenheaderleft}>
-          <Ionicons
-            name="chevron-back-sharp"
-            size={30}
-            style={styles.icon1}
+          <TouchableRipple
             onPress={() => {
               goBack();
-            }}></Ionicons>
+            }}
+            rippleColor="rgba(0, 0, 0, .1)"
+            borderless
+            // style={{marginLeft: 25}}
+            style={styles.backripple}>
+            <Ionicons
+              name="chevron-back-sharp"
+              size={30}
+              style={styles.icon1}></Ionicons>
+          </TouchableRipple>
+
           <View style={styles.imagecontainer}>
             <Image
               source={require('.././assets/images/punk8033.png')}
@@ -283,25 +297,8 @@ const ChatScreen = ({navigation: {goBack}}) => {
           onContentSizeChange={() =>
             scrollViewRef.current.scrollToEnd({animated: true})
           }>
-          {/* <View style={styles.chatmessagecontainer}>
-            {chat.map((item, index) => {
-              return (
-                // <Text style={styles.chatmessage} key={index}>
-                //   {payload.message}
-                // </Text>
-                <Message message={item} key={index} />
-              );
-            })}
-          </View> */}
-          <View>
+          <View style={{paddingTop: 15}} onre>
             {chats.map((chat, index) => {
-              {
-                chat.senderId === MyProfileInfo.data.user ? (
-                  <Text>From Sender</Text>
-                ) : (
-                  <Text>Not From Sender</Text>
-                );
-              }
               return (
                 // <Text style={styles.chatmessage} key={index}>
                 //   {payload.message}
@@ -310,11 +307,12 @@ const ChatScreen = ({navigation: {goBack}}) => {
                   {chat.senderId === MyProfileInfo.data.user ? (
                     <Message message={chat.message} key={index} />
                   ) : (
-                    <Message messagereceived={chat.message} key={index} />
+                    <MessageReceived
+                      messagereceived={chat.message}
+                      key={index}
+                    />
                   )}
                 </View>
-
-                // <Text>{}</Text>
               );
             })}
           </View>
@@ -349,7 +347,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
             ) : (
               <EvilIcons
                 name="camera"
-                size={30}
+                size={27}
                 style={styles.iconright2}></EvilIcons>
             )}
           </View>
@@ -362,6 +360,8 @@ const ChatScreen = ({navigation: {goBack}}) => {
 };
 
 export default ChatScreen;
+
+// export default lastmessage = chats.slice(-1)[0].message;
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -462,7 +462,8 @@ const styles = StyleSheet.create({
 
     // marginTop: 90,
     // backgroundColor: '#F65F96',
-    paddingTop: 60,
+    // paddingTop: 60,
+    marginTop: 50,
   },
 
   imagecontainer: {
@@ -486,8 +487,13 @@ const styles = StyleSheet.create({
     marginTop: 25,
   },
   icon1: {
-    marginLeft: 10,
+    // marginLeft: 10,
     color: '#000000',
+  },
+  backripple: {
+    padding: 5,
+    marginLeft: 10,
+    borderRadius: 20,
   },
   icon2: {
     marginRight: 25,
@@ -604,6 +610,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#3E3C9C',
     color: '#FFFF',
     marginRight: 10,
+    paddingTop: 7,
+    paddingBottom: 7,
   },
   iconright2: {
     borderRadius: 50,
@@ -613,6 +621,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#3E3C9C',
     color: '#FFFF',
     marginRight: 10,
+    paddingTop: 7,
+    paddingBottom: 7,
   },
   btn: {
     backgroundColor: '#F69F69',
@@ -825,3 +835,46 @@ const styles = StyleSheet.create({
         </View>
       </View> */
 }
+
+{
+  /* <View style={styles.chatmessagecontainer}>
+            {chat.map((item, index) => {
+              return (
+                // <Text style={styles.chatmessage} key={index}>
+                //   {payload.message}
+                // </Text>
+                <Message message={item} key={index} />
+              );
+            })}
+          </View> */
+}
+
+// import "./UserAgent";
+// import { io } from "socket.io-client";
+// import io from 'socket.io-client/dist/socket.io';
+// import {Ionicons, Entypo, MaterialCommunityIcons} from '@expo/vector-icons';
+// import socketIo from 'socket.io-client';
+
+// try {
+//   await AsyncStorage.setItem('token', data.token);
+//   navigation.replace('home');
+// } catch (e) {
+//   //saving error
+//   console.log('Error hai', e);
+// }
+
+// socket.on("connection", () => {
+//   console.log("connected");
+// });
+
+// useEffect(() => {
+//   socket.on('chat', payload => {
+//     setChat([...chat, payload]);
+//     chat.push(payload);
+//     console.log('socket is active');
+//   });
+// setChat([...chat, message]);
+// socket.on("connection", () => {
+//   console.log("connected to socket from frontend");
+// });
+// });
