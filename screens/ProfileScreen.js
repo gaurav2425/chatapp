@@ -55,7 +55,7 @@ const ProfileScreen = ({navigation}) => {
         <View style={styles.profile}>
           <Image
             style={styles.profileimage}
-            source={require('../assets/images/myimg.jpeg')}></Image>
+            source={require('../assets/images/punk8033.png')}></Image>
         </View>
       </View>
 
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 45,
-    backgroundColor: '#FFFF',
+    backgroundColor: '#000000',
     marginLeft: 20,
   },
   profileimage: {

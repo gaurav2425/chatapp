@@ -171,11 +171,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F3EBE0',
     // borderWidth: 0.5,
     backgroundColor: '#FFE4E1',
+    backgroundColor: '#F3EBE0',
   },
   inputcontainermain: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 60,
+    height: 55,
     backgroundColor: '#FAF5EF',
   },
   searchscreenheader1: {
