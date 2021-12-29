@@ -37,7 +37,7 @@ const ExploreChat = ({
 
   // console.log(MyClick.userclickId);
   // let x = data;
-  let x = MyProfileInfo.data.RequestSent;
+  let x = MyProfileInfo.myprofile.RequestSent;
   // let y = MyProfileInfo.data;
 
   // console.log('Testing 123456789');

@@ -17,7 +17,7 @@ import {TouchableRipple} from 'react-native-paper';
 const ProfileScreen = ({navigation}) => {
   // const myState = useSelector(state => state.changeTheNumber);
   const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
-  console.log('From Profile Screen', MyProfileInfo.data.name);
+  console.log('From Profile Screen', MyProfileInfo.myprofile.name);
   return (
     <SafeAreaView style={styles.container_main}>
       <View style={styles.profileheader}>
@@ -60,26 +60,32 @@ const ProfileScreen = ({navigation}) => {
       </View>
 
       <View style={styles.nameline}>
-        <Text style={styles.textname}>{MyProfileInfo.data.name}</Text>
-        <Text style={styles.textusername}>@{MyProfileInfo.data.username}</Text>
+        <Text style={styles.textname}>{MyProfileInfo.myprofile.name}</Text>
+        <Text style={styles.textusername}>
+          @{MyProfileInfo.myprofile.username}
+        </Text>
       </View>
 
       <View style={styles.followline}>
         <Text style={styles.friendstxt}>
-          Friends {MyProfileInfo.data.Friends.length}
+          Friends {MyProfileInfo.myprofile.Friends.length}
         </Text>
         <Text style={styles.text4}>
-          {MyProfileInfo.data.RequestSent.length}
+          {MyProfileInfo.myprofile.RequestSent.length}
         </Text>
       </View>
 
-      <View style={styles.bio}>
+      <View style={styles.addbio}>
+        <Text style={styles.addbiotxt}>Add Bio +</Text>
+      </View>
+
+      {/* <View style={styles.bio}>
         <Text style={styles.biotxt}>
           Build anything from console widgets to mobile applications, with our
           free and easy to use API. We provide data on current global outbreaks,
           including COVID-19 and Influenza.
         </Text>
-      </View>
+      </View> */}
 
       {/* <View style={styles.bioline}>
         <Text style={styles.text5}>Add a bio </Text>
@@ -108,8 +114,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     // backgroundColor: '#FFFF',
-    flex: 0.09,
+    // flex: 0.09,
     color: '#000000',
+    height: 55,
   },
   profileheaderright: {
     display: 'flex',
@@ -125,7 +132,8 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   profileline: {
-    flex: 0.18,
+    // flex: 0.18,
+    height: 120,
     // backgroundColor: '#808080',
     justifyContent: 'center',
   },
@@ -144,8 +152,10 @@ const styles = StyleSheet.create({
   },
 
   nameline: {
-    flex: 0.1,
+    // flex: 0.1,
+    height: 50,
     justifyContent: 'center',
+    // backgroundColor: '#FFFF',
   },
   textname: {
     marginLeft: 25,
@@ -164,7 +174,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: 25,
-    flex: 0.08,
+    // flex: 10,
+    height: 50,
+    // backgroundColor: '#FFFF',
   },
   friendstxt: {
     fontFamily: 'Poppins-Medium',
@@ -177,7 +189,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   bioline: {
-    backgroundColor: '#FFFF',
+    // backgroundColor: '#FFFF',
     display: 'flex',
     flexDirection: 'row',
     paddingLeft: 25,
@@ -215,5 +227,15 @@ const styles = StyleSheet.create({
     padding: 10,
     marginRight: 20,
     borderRadius: 50,
+  },
+  addbio: {
+    // backgroundColor: '#FFFF',
+  },
+  addbiotxt: {
+    // backgroundColor: '#FFFF',
+    fontFamily: 'Poppins-Medium',
+    color: '#0B0883',
+    marginLeft: 27,
+    fontSize: 15,
   },
 });

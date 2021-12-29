@@ -39,24 +39,55 @@ const ScreenStackNavigation = () => {
           name="loading"
           component={Loading}
           options={{
-            animationEnabled: false,
+            animation: 'none',
           }}
         />
         <Stack.Screen name="signup" component={SignUp} />
         <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="ChatScreen" component={ChatScreen} />
+        <Stack.Screen
+          name="ChatScreen"
+          component={ChatScreen}
+          options={{
+            animation: 'none',
+          }}
+        />
         <Stack.Screen
           name="notification"
-          component={Notification}></Stack.Screen>
+          component={Notification}
+          options={{
+            animation: 'none',
+          }}></Stack.Screen>
         <Stack.Screen
           name="FriendRequests"
-          component={FriendRequests}></Stack.Screen>
-        <Stack.Screen name="settings" component={Settings}></Stack.Screen>
+          component={FriendRequests}
+          options={{
+            animation: 'none',
+          }}></Stack.Screen>
+        <Stack.Screen
+          name="settings"
+          component={Settings}
+          options={{
+            animation: 'none',
+          }}></Stack.Screen>
         <Stack.Screen
           name="profiledetail"
-          component={ProfileDetail}></Stack.Screen>
-        <Stack.Screen name="explore" component={Explore}></Stack.Screen>
-        <Stack.Screen name="home" component={Authenticated} />
+          component={ProfileDetail}
+          options={{
+            animation: 'none',
+          }}></Stack.Screen>
+        <Stack.Screen
+          name="explore"
+          component={Explore}
+          options={{
+            animation: 'none',
+          }}></Stack.Screen>
+        <Stack.Screen
+          name="home"
+          component={Authenticated}
+          options={{
+            animation: 'none',
+          }}
+        />
 
         {/* {isloggedin == null ? (
           <Stack.Screen name="loading" component={Loading} />

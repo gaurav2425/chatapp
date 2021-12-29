@@ -3,14 +3,24 @@
 // };
 
 const MyProfileInfo = {
-  email: 'gauravbbb@gmail.com',
+  myprofile: {
+    Friends: [],
+    Notifications: [],
+    PendingFriends: [],
+    RequestSent: [],
+    _id: '',
+    name: '',
+    user: '',
+    username: '',
+  },
+  token: '',
 };
 const MyProfileInfoReducer = (state = MyProfileInfo, action) => {
   switch (action.type) {
     case 'MYPROFILEINFO':
-      const {id, data} = action.payload;
+      const {id, myprofile} = action.payload;
       //   return action.payload;
-      return data;
+      return myprofile;
     // case 'SET_PASSWORD':
     //   return data;
     //   const {password} = action.payload;

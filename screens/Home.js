@@ -8,6 +8,7 @@ import {
   StatusBar,
   Image,
   TextInput,
+  RefreshControl,
 } from 'react-native';
 import {TouchableRipple} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,6 +22,10 @@ import {UserClickAction} from '../actions/UserClick';
 import {UserData, UserPassword} from '../actions/Useraction';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 const Home = ({navigation}) => {
+  const wait = timeout => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+  const [refreshing, setRefreshing] = React.useState(false);
   //   const [token, setToken] = useState('');
   const [data, setData] = useState([]);
   const [profileData, setProfileData] = useState([]);
@@ -28,6 +33,11 @@ const Home = ({navigation}) => {
   const [profile, setProfile] = useState([]);
   const [loading, setLoading] = useState(true);
   // const [token, setToken] = useState('');
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
   console.log(MyProfileInfo);
@@ -67,7 +77,7 @@ const Home = ({navigation}) => {
     const token = await AsyncStorage.getItem('token');
     dispatch(
       MyProfileInfoAction({
-        data,
+        myprofile: data,
         token: token,
       }),
     );
@@ -164,7 +174,12 @@ const Home = ({navigation}) => {
       <Header></Header>
       <ScrollView
         style={styles.scrollview}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}></RefreshControl>
+        }>
         {/* <View style={styles.storymaincontainer}>
           <ScrollView
             horizontal={true}
@@ -197,7 +212,7 @@ const Home = ({navigation}) => {
               style={styles.searchicon}></EvilIcons>
 
             <TextInput
-              placeholder="Search For people"
+              placeholder="Search For Friends"
               style={styles.searchinput}></TextInput>
           </View>
         </View>
@@ -210,13 +225,14 @@ const Home = ({navigation}) => {
               key={index}
               onPress={() => {
                 let userclickId = friend.user;
-                navigation.navigate('ChatScreen');
 
                 dispatch(
                   UserClickAction({
                     userclickId,
                   }),
                 );
+
+                navigation.navigate('ChatScreen');
               }}>
               <Chat name={friend.name}></Chat>
             </TouchableRipple>

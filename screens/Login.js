@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
   Image,
+  Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setEmail} from '../actions/index';
@@ -37,6 +38,27 @@ const Login = ({navigation}) => {
     );
   };
 
+  const showAlert = e =>
+    Alert.alert(
+      'Invalid Credientials',
+      'Entered Email or Password is Invalid',
+      [
+        {
+          text: 'ok',
+          // onPress: () => Alert.alert('Cancel Pressed'),
+          style: 'ok',
+        },
+      ],
+
+      {
+        cancelable: true,
+        // onDismiss: () =>
+        //   Alert.alert(
+        //     'This alert was dismissed by tapping outside of the alert dialog.',
+        //   ),
+      },
+    );
+
   const sendCredentials = () => {
     const fetchMYAPI = async () => {
       fetch('http://192.168.1.7:5000/api/auth', {
@@ -59,6 +81,7 @@ const Login = ({navigation}) => {
           } catch (e) {
             //saving error
             console.log('Error hai', e);
+            showAlert(e);
           }
         })
         .catch(err => {

@@ -3,7 +3,7 @@ export const MyProfileInfoAction = data => {
     type: 'MYPROFILEINFO',
     payload: {
       id: new Date().getTime().toString(),
-      data: data,
+      myprofile: data,
     },
   };
 };

@@ -20,7 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const ProfileDetail = ({navigation: {goBack}}) => {
   // const myState = useSelector(state => state.changeTheNumber);
   const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
-  console.log('From Profile Screen', MyProfileInfo.data.name);
+  console.log('From Profile Screen', MyProfileInfo.myprofile.name);
 
   const MyClick = useSelector(state => state.UserClick);
 

@@ -52,7 +52,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
   const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
 
   console.log('MY Info');
-  console.log(MyProfileInfo.data.user);
+  console.log(MyProfileInfo.myprofile.user);
   console.log('MY Info');
   console.log(MyClick);
   console.log('My Click From Chatting');
@@ -71,7 +71,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
           },
           body: JSON.stringify({
             receiverId: MyClick.userclickId,
-            senderId: MyProfileInfo.data.user,
+            senderId: MyProfileInfo.myprofile.user,
             message: message,
             received: false,
           }),
@@ -94,7 +94,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
       message,
       id,
       receiverId: MyClick.userclickId,
-      senderId: MyProfileInfo.data.user,
+      senderId: MyProfileInfo.myprofile.user,
     });
     setMessage('');
     console.log('here is msg');
@@ -304,7 +304,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
                 //   {payload.message}
                 // </Text>
                 <View key={index}>
-                  {chat.senderId === MyProfileInfo.data.user ? (
+                  {chat.senderId === MyProfileInfo.myprofile.user ? (
                     <Message message={chat.message} key={index} />
                   ) : (
                     <MessageReceived
@@ -387,12 +387,16 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
   plusicon: {
-    backgroundColor: '#3E3C9C',
-    color: '#FFFF',
+    backgroundColor: '#F3EBE0',
+    color: '#000000',
     padding: 7,
     borderRadius: 30,
     marginTop: 3,
     marginRight: 5,
+    paddingLeft: 8,
+    borderWidth: 1,
+
+    borderColor: '#EBE4DB',
   },
 
   chatinput: {

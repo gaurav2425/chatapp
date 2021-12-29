@@ -219,10 +219,10 @@ const Explore = ({navigation: {goBack}, navigation}) => {
   console.log('Token From Reducer');
   console.log('Token From Reducer');
 
-  console.log(MyProfileInfo.data.name);
-  console.log(MyProfileInfo.data.Friends);
-  console.log(MyProfileInfo.data.token);
-  console.log(MyProfileInfo.data.RequestSent);
+  console.log(MyProfileInfo.myprofile.name);
+  console.log(MyProfileInfo.myprofile.Friends);
+  console.log(MyProfileInfo.myprofile.token);
+  console.log(MyProfileInfo.myprofile.RequestSent);
   console.log('Token From Reducer');
   console.log('Token From Reducer');
   console.log('Token From Reducer');
@@ -233,7 +233,7 @@ const Explore = ({navigation: {goBack}, navigation}) => {
     fetchMyApi();
     fetchMe();
     FetchMineData();
-  }, [MyProfileInfo.data]);
+  }, [MyProfileInfo.myprofile]);
 
   // console.log('Data From Real Api');
   // console.log('Data From Real Api');
@@ -323,8 +323,8 @@ const Explore = ({navigation: {goBack}, navigation}) => {
   // console.log('Iam Mine ', mine);
 
   let x = data;
-  let y = MyProfileInfo.data.Friends;
-  let z = MyProfileInfo.data;
+  let y = MyProfileInfo.myprofile.Friends;
+  let z = MyProfileInfo.myprofile;
   // let A = newmine.RequestSent;
   // console.log(A);
 

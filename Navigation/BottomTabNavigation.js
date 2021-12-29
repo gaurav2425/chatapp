@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Home from '../screens/Home';
 import SignUp from '../screens/SignUp';
@@ -87,9 +87,9 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <AntDesign
-              name={focused ? 'plus' : 'plus'}
-              size={25}
+            <Feather
+              name={focused ? 'heart' : 'heart'}
+              size={22}
               color={focused ? '#000000' : '#101010'}
             />
           ),
@@ -105,11 +105,11 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <Zocial
-              name={focused ? 'call' : 'call'}
-              size={25}
-              color={focused ? '#000000' : '#101010'}
-            />
+            <View style={styles.profilecontainer}>
+              <Image
+                source={require('../assets/images/punk8033.png')}
+                style={styles.image}></Image>
+            </View>
           ),
         }}
         component={Todo}></Tab.Screen>
