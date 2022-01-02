@@ -47,7 +47,7 @@ const Header = () => {
             // onPress={() => navigation.navigate('ChatScreen')}
             rippleColor="rgba(0, 0, 0, .1)"
             borderless
-            style={styles.profilecontainerripple}>
+            style={styles.profilecontainerripple1}>
             <Ionicons
               name="person-add"
               size={24}
@@ -61,7 +61,7 @@ const Header = () => {
             style={styles.profilecontainerripple}>
             <FontAwesome
               name="bell-o"
-              size={27}
+              size={25}
               style={styles.bellicon}></FontAwesome>
           </TouchableRipple>
 
@@ -73,9 +73,10 @@ const Header = () => {
             borderless
             style={styles.profilecontainerripple}>
             <View style={styles.profilecontainer}>
-              <Image
+              {/* <Image
                 source={require('../assets/images/punk8033.png')}
-                style={styles.image}></Image>
+                style={styles.image}></Image> */}
+              <Text style={styles.txtavatar}>GB</Text>
             </View>
           </TouchableRipple>
 
@@ -177,10 +178,12 @@ const styles = StyleSheet.create({
   profilecontainer: {
     width: 32,
     height: 32,
-    backgroundColor: '#000000',
+    backgroundColor: '#F3EBE0',
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
+    // borderWidth: 1,
+    // borderColor: '#696969',
   },
   image: {
     width: 30,
@@ -200,9 +203,27 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     paddingLeft: 5,
   },
+  profilecontainerripple1: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    // marginRight: 4,
+    // padding: 3,
+    borderRadius: 20,
+    marginRight: 10,
+    paddingRight: 7,
+
+    paddingLeft: 7,
+  },
   rippleexplore: {
     padding: 10,
     marginLeft: 10,
     borderRadius: 25,
+  },
+  txtavatar: {
+    fontFamily: 'Poppins-Medium',
+    color: '#000000',
+    fontSize: 14,
   },
 });

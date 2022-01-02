@@ -36,19 +36,19 @@ const SignUp = ({navigation}) => {
   //   setStep(step + 1);
   // };
 
-  const handleReduxData = () => {
-    setStep(step + 1);
-    dispatch(
-      UserData({
-        name: name,
-        email: email,
-        password: password,
-      }),
-    );
-  };
+  // const handleReduxData = () => {
+  //   setStep(step + 1);
+  //   dispatch(
+  //     UserData({
+  //       name: name,
+  //       email: email,
+  //       password: password,
+  //     }),
+  //   );
+  // };
 
   const sendCredentials = () => {
-    fetchMYAPI = async () => {
+    const fetchMYAPI = async () => {
       fetch('http://192.168.1.7:5000/api/users', {
         method: 'POST',
         headers: {
@@ -58,7 +58,7 @@ const SignUp = ({navigation}) => {
           name: name,
           email: email,
           password: password,
-          username: username,
+          username: 'havan',
         }),
       })
         .then(res => res.json())
@@ -96,85 +96,84 @@ const SignUp = ({navigation}) => {
   return (
     <View style={styles.signupcontainermain}>
       {/* <Text style={styles.txtlogo}>SpanCock</Text> */}
-      {myState === 0 ? (
-        <View style={styles.signupcontainer}>
-          <View style={styles.fieldscontainer}>
-            <View style={styles.txtcontainer}>
-              <Image
-                source={require('../assets/images/span.png')}
-                style={{width: 150, height: 55}}></Image>
-            </View>
-            <TextInput
-              placeholder="Name"
-              style={styles.name}
-              value={name}
-              autoCapitalize="none"
-              textContentType="name"
-              onChangeText={text => setName(text)}></TextInput>
-            {/* <TextInput
+
+      <View style={styles.signupcontainer}>
+        <View style={styles.fieldscontainer}>
+          <View style={styles.txtcontainer}>
+            {/* <Image
+              source={require('../assets/images/span.png')}
+              style={{width: 150, height: 55}}></Image> */}
+            <Text style={styles.txthead}>Create a new account</Text>
+          </View>
+          <TextInput
+            placeholder="Name"
+            style={styles.name}
+            value={name}
+            autoCapitalize="none"
+            textContentType="name"
+            onChangeText={text => setName(text)}></TextInput>
+          {/* <TextInput
           placeholder="Username"
           style={styles.name}
           value={username}
           autoCapitalize="none"
           textContentType="username"
           onChangeText={text => setUsername(text)}></TextInput> */}
-            <TextInput
-              placeholder="Email"
-              style={styles.email}
-              value={email}
-              autoCapitalize="none"
-              textContentType="emailAddress"
-              onChangeText={text => setEmail(text)}></TextInput>
+          <TextInput
+            placeholder="Email"
+            style={styles.email}
+            value={email}
+            autoCapitalize="none"
+            textContentType="emailAddress"
+            onChangeText={text => setEmail(text)}></TextInput>
 
-            <TextInput
-              placeholder="Password"
-              style={styles.password}
-              secureTextEntry={true}
-              textContentType="password"
-              value={password}
-              autoCapitalize="none"
-              onChangeText={text => setPassword(text)}></TextInput>
+          <TextInput
+            placeholder="Password"
+            style={styles.password}
+            secureTextEntry={true}
+            textContentType="password"
+            value={password}
+            autoCapitalize="none"
+            onChangeText={text => setPassword(text)}></TextInput>
 
-            <TouchableOpacity
+          {/* <TouchableOpacity
               style={styles.btn}
               // onPress={() => sendCredentials()}
               onPress={() => dispatch(incNumber())}>
               <Text style={styles.btntxt}>Next</Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* <Text>{myemail}</Text> */}
-
+            </TouchableOpacity> */}
           <TouchableOpacity
             style={styles.btn}
-            onPress={handleReduxData}
+            onPress={() => sendCredentials()}
             // onPress={() => dispatch(UserData(email))}
           >
-            <Text style={styles.btntxt}>Email</Text>
+            <Text style={styles.btntxt}>SignUp</Text>
           </TouchableOpacity>
-
-          <View style={styles.txt2container}>
-            <Text style={styles.txt2}>Already have an Account ?</Text>
-            <Text
-              style={styles.txt2Register}
-              onPress={() => navigation.replace('login')}>
-              Login
-            </Text>
-          </View>
         </View>
-      ) : (
-        <Username></Username>
-      )}
+
+        {/* <Text>{myemail}</Text> */}
+
+        <View style={styles.txt2container}>
+          <Text style={styles.txt2}>Already have an Account ?</Text>
+          <Text
+            style={styles.txt2Register}
+            onPress={() => navigation.replace('login')}>
+            Login
+          </Text>
+        </View>
+      </View>
     </View>
   );
 };
 
 export default SignUp;
-const P90 = '90%';
+const P90 = '85%';
+const P80 = '80%';
 
 const styles = StyleSheet.create({
   signupcontainermain: {
     flex: 1,
+    backgroundColor: '#F65F65',
   },
   signupcontainer: {
     flex: 1,
@@ -189,9 +188,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   txtcontainer: {
-    width: P90,
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: P80,
+    // justifyContent: 'center',
+    // alignItems: 'center',
     // backgroundColor: '#FFFF',
     alignSelf: 'center',
   },
@@ -200,29 +199,29 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'Poppins-BlackItalic',
     textAlign: 'center',
-    paddingTop: 30,
+    // paddingTop: 30,
   },
   email: {
     // backgroundColor: '#FFFF',
     width: P90,
     alignSelf: 'center',
     marginTop: 10,
-    borderRadius: 10,
-    paddingLeft: 10,
+    // borderRadius: 10,
+    // paddingLeft: 10,
     fontFamily: 'Poppins-Medium',
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#D9D3D3',
   },
   name: {
     // backgroundColor: '#FFFF',
     width: P90,
     alignSelf: 'center',
-    marginTop: 10,
-    borderRadius: 10,
+    marginTop: 20,
+    // borderRadius: 10,
     // fontSize: 10,
-    paddingLeft: 10,
+    // paddingLeft: 10,
     fontFamily: 'Poppins-Medium',
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#D9D3D3',
   },
   password: {
@@ -230,29 +229,30 @@ const styles = StyleSheet.create({
     width: P90,
     alignSelf: 'center',
     marginTop: 10,
-    borderRadius: 10,
+    // borderRadius: 10,
     fontFamily: 'Poppins-Medium',
-    paddingLeft: 10,
-    borderWidth: 1,
+    // paddingLeft: 10,
+    borderBottomWidth: 1,
     borderColor: '#D9D3D3',
   },
   fieldscontainer: {
-    paddingTop: 150,
+    paddingTop: 80,
+    // backgroundColor: '#FFFF',
   },
   btncontainer: {
     width: P90,
-    alignSelf: 'center',
-    paddingTop: 10,
+    // alignSelf: 'center',
+    // paddingTop: 10,
   },
   btn: {
     height: 50,
     width: P90,
-    backgroundColor: '#CCCBF1',
+    backgroundColor: '#12BF0E',
     alignSelf: 'center',
-    borderRadius: 10,
-    alignItems: 'center',
+    borderRadius: 30,
+    // alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
+    marginTop: 20,
   },
   btntxt: {
     alignSelf: 'center',
@@ -264,14 +264,14 @@ const styles = StyleSheet.create({
     color: '#000000',
     // width: P90,
     alignSelf: 'center',
-    paddingTop: 10,
+    // paddingTop: 10,
     marginLeft: 10,
     fontFamily: 'Poppins-Medium',
   },
   txt2Register: {
     fontFamily: 'Poppins-Bold',
     // backgroundColor: '#FFFF',
-    paddingTop: 10,
+    // paddingTop: 10,
     marginLeft: 5,
     color: '#000000',
   },
@@ -282,5 +282,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     paddingBottom: 30,
+  },
+  txthead: {
+    fontFamily: 'Poppins-Bold',
+    color: '#000000',
+    fontSize: 28,
   },
 });

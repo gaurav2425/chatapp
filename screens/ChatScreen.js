@@ -10,6 +10,7 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import Message from '../components/Message';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -20,7 +21,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MessageReceived from '../components/MessageReceived';
 import {Button} from 'react-native-paper';
-import {TouchableRipple} from 'react-native-paper';
+import {TouchableRipple, ActivityIndicator} from 'react-native-paper';
 import ChatInput from '../components/ChatInput';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import Loading from '../screens/Loading';
@@ -156,6 +157,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
           console.log(data);
           console.log('Data Of FriendUser');
           setchats(data.messages);
+          setLoading(false);
         })
         .catch(err => {
           console.log(err);
@@ -238,7 +240,9 @@ const ChatScreen = ({navigation: {goBack}}) => {
   // });
   console.log('Chats alert');
   console.log('Chats alert');
-  // console.log(chats.slice(-1)[0].message);
+  // const nametest = chats.slice(-1)[0].message;
+
+  const testingexport = 20;
   console.log('Chats alert');
   console.log('Chats alert');
 
@@ -292,37 +296,45 @@ const ChatScreen = ({navigation: {goBack}}) => {
       </View>
 
       <View style={styles.chatsection}>
-        <ScrollView
-          ref={scrollViewRef}
-          onContentSizeChange={() =>
-            scrollViewRef.current.scrollToEnd({animated: true})
-          }>
-          <View style={{paddingTop: 15}} onre>
-            {chats.map((chat, index) => {
-              return (
-                // <Text style={styles.chatmessage} key={index}>
-                //   {payload.message}
-                // </Text>
-                <View key={index}>
-                  {chat.senderId === MyProfileInfo.myprofile.user ? (
-                    <Message message={chat.message} key={index} />
-                  ) : (
-                    <MessageReceived
-                      messagereceived={chat.message}
-                      key={index}
-                    />
-                  )}
-                </View>
-              );
-            })}
+        {loading ? (
+          <View style={styles.indicatorContainer}>
+            <ActivityIndicator size={40} color="#3E3C9C" />
           </View>
-        </ScrollView>
+        ) : (
+          <ScrollView
+            ref={scrollViewRef}
+            onContentSizeChange={() =>
+              scrollViewRef.current.scrollToEnd({animated: true})
+            }>
+            <View style={{paddingTop: 15}}>
+              {chats.map((chat, index) => {
+                return (
+                  // <Text style={styles.chatmessage} key={index}>
+                  //   {payload.message}
+                  // </Text>
+                  <View key={index}>
+                    {chat.senderId === MyProfileInfo.myprofile.user ? (
+                      <Message message={chat.message} key={index} />
+                    ) : (
+                      <MessageReceived
+                        messagereceived={chat.message}
+                        key={index}
+                      />
+                    )}
+                  </View>
+                );
+              })}
+            </View>
+          </ScrollView>
+        )}
       </View>
 
       <View style={styles.chatinputmain}>
         {/* <ChatInput message send></ChatInput> */}
 
-        <Entypo name="plus" size={20} style={styles.plusicon}></Entypo>
+        <LinearGradient colors={['#8a3ab9', '#e95950']} style={styles.plusicon}>
+          <Entypo name="plus" size={20} style={styles.plusiconmain}></Entypo>
+        </LinearGradient>
 
         <View style={styles.chatinput}>
           <View style={styles.chatinputnew}>
@@ -337,20 +349,25 @@ const ChatScreen = ({navigation: {goBack}}) => {
               value={message}
               onChangeText={text => setMessage(text)}></TextInput>
           </View>
-          <View style={styles.chatinputrighticons}>
+          {/* <LinearGradient
+            colors={['#8a3ab9', '#e95950', '#bc2a8d', '#fccc63']}
+            style={{padding: 10, height: 30, width: 30}}></LinearGradient> */}
+
+          <LinearGradient
+            colors={['#8a3ab9', '#e95950']}
+            style={styles.chatinputrighticons}>
             {message ? (
               <Ionicons
                 name="ios-send-sharp"
                 size={20}
                 style={styles.btnsend}
                 onPress={send}></Ionicons>
-            ) : (
-              <EvilIcons
-                name="camera"
-                size={27}
-                style={styles.iconright2}></EvilIcons>
-            )}
-          </View>
+            ) : // <EvilIcons
+            //   name="camera"
+            //   size={27}
+            //   style={styles.iconright2}></EvilIcons>
+            null}
+          </LinearGradient>
         </View>
       </View>
 
@@ -374,6 +391,7 @@ const styles = StyleSheet.create({
   containermain: {
     backgroundColor: '#FAF5EF',
     backgroundColor: '#F8F6EC',
+    // backgroundColor: '#F65F65',
     flex: 1,
     flexDirection: 'column',
   },
@@ -387,16 +405,19 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
   plusicon: {
-    backgroundColor: '#F3EBE0',
+    // backgroundColor: '#F3EBE0',
     color: '#000000',
-    padding: 7,
+    padding: 10,
     borderRadius: 30,
     marginTop: 3,
-    marginRight: 5,
-    paddingLeft: 8,
+    marginRight: 7,
+    paddingLeft: 10,
     borderWidth: 1,
 
     borderColor: '#EBE4DB',
+  },
+  plusiconmain: {
+    color: '#FFFF',
   },
 
   chatinput: {
@@ -411,7 +432,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     fontFamily: 'Poppins-Medium',
-    height: 45,
+    height: 50,
     marginTop: 3,
   },
   txtinputnew: {
@@ -419,11 +440,14 @@ const styles = StyleSheet.create({
     width: P75,
     fontFamily: 'Poppins-Medium',
     fontSize: 13,
+    minHeight: 10,
+    maxHeight: 50,
+    // backgroundColor: '#FFFF',
   },
 
   chatinputmain: {
     // flex: 0.1,
-    height: 60,
+    height: 70,
     alignItems: 'center',
     justifyContent: 'center',
     paddingBottom: 3,
@@ -432,6 +456,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     // backgroundColor: 'none',
     // backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    // backgroundColor: '#FFFF',
   },
 
   chatscreenheader: {
@@ -606,27 +631,31 @@ const styles = StyleSheet.create({
   },
   btnsend: {
     // marginRight: 10,
+    // backgroundColor: '#FFFF',
 
     borderRadius: 50,
-    padding: 7,
-    paddingLeft: 10,
+    padding: 8,
+    // paddingLeft: 10,
     // marginRight: 15,
-    backgroundColor: '#3E3C9C',
+    // backgroundColor: '#3E3C9C',
     color: '#FFFF',
-    marginRight: 10,
-    paddingTop: 7,
-    paddingBottom: 7,
+    // marginRight: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
   },
   iconright2: {
     borderRadius: 50,
-    padding: 5,
-    // paddingLeft: 10,
-    // marginRight: 15,
-    backgroundColor: '#3E3C9C',
+    padding: 8,
+
     color: '#FFFF',
+    // marginRight: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  chatinputrighticons: {
     marginRight: 10,
-    paddingTop: 7,
-    paddingBottom: 7,
+    borderRadius: 50,
   },
   btn: {
     backgroundColor: '#F69F69',
@@ -657,6 +686,18 @@ const styles = StyleSheet.create({
   },
   iconright3: {
     // padding: 30,
+  },
+  indicatorContainer: {
+    // backgroundColor: '#F65F65',
+    flex: 1,
+    // alignSelf: 'center',
+    display: 'flex',
+
+    // justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    // position: 'absolute',
+    paddingBottom: 20,
   },
 });
 

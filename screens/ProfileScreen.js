@@ -53,9 +53,10 @@ const ProfileScreen = ({navigation}) => {
 
       <View style={styles.profileline}>
         <View style={styles.profile}>
-          <Image
+          {/* <Image
             style={styles.profileimage}
-            source={require('../assets/images/punk8033.png')}></Image>
+            source={require('../assets/images/punk8033.png')}></Image> */}
+          <Text style={styles.txtavatar}>GB</Text>
         </View>
       </View>
 
@@ -70,9 +71,9 @@ const ProfileScreen = ({navigation}) => {
         <Text style={styles.friendstxt}>
           Friends {MyProfileInfo.myprofile.Friends.length}
         </Text>
-        <Text style={styles.text4}>
+        {/* <Text style={styles.text4}>
           {MyProfileInfo.myprofile.RequestSent.length}
-        </Text>
+        </Text> */}
       </View>
 
       <View style={styles.addbio}>
@@ -141,8 +142,10 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 45,
-    backgroundColor: '#000000',
+    backgroundColor: '#F3EBE0',
     marginLeft: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   profileimage: {
     width: 100,
@@ -237,5 +240,11 @@ const styles = StyleSheet.create({
     color: '#0B0883',
     marginLeft: 27,
     fontSize: 15,
+  },
+  txtavatar: {
+    fontFamily: 'Poppins-Light',
+    color: '#101010',
+    fontSize: 45,
+    letterSpacing: 2,
   },
 });

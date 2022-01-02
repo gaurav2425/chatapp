@@ -1,17 +1,29 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-
+import {colors} from '../screens/ChatScreen';
 const Chat = ({name}) => {
+  const fullName = name.split(' ');
+  // const initials = fullName.shift().charAt(0) + fullName.pop().charAt(0);
+  // console.log(initials.toUpperCase());
+
+  const initial = fullName[0].charAt(0).toUpperCase();
+  const initial2 = fullName[0].charAt(1).toUpperCase();
+  console.log(initial);
   return (
     <View style={styles.chatcontainer}>
       <View style={styles.profilecontainer}>
-        <Image
+        {/* <Image
           source={require('../assets/images/punk8033.png')}
-          style={styles.profileimage}></Image>
+          style={styles.profileimage}></Image> */}
+        <Text style={styles.txtavatar}>
+          {initial}
+          {initial2}
+        </Text>
       </View>
       <View style={styles.txtcontainer}>
         <Text style={styles.txtname}>{name}</Text>
-        <Text style={styles.txtmsg}>this is last Message...</Text>
+        {/* <Text style={styles.txtmsg}>{colors.name}</Text> */}
+        <Text style={styles.txtmsg}>Kya pta bhai</Text>
       </View>
     </View>
   );
@@ -32,10 +44,15 @@ const styles = StyleSheet.create({
   },
   profilecontainer: {
     height: 55,
-    width: 55,
-    backgroundColor: '#000000',
-    borderRadius: 35,
+    width: 58,
+    backgroundColor: '#F3EBE0',
+    borderRadius: 27,
     marginLeft: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  txtavatar: {
+    fontSize: 10,
   },
   profileimage: {
     height: 55,
@@ -59,5 +76,10 @@ const styles = StyleSheet.create({
   },
   txtcontainer: {
     marginLeft: 10,
+  },
+  txtavatar: {
+    fontFamily: 'Poppins-Medium',
+    color: '#000000',
+    fontSize: 19,
   },
 });

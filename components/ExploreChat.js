@@ -243,9 +243,10 @@ const ExploreChat = ({
     <View style={styles.chatcontainer}>
       <View style={styles.chatcontainerleft}>
         <View style={styles.imagecontainer}>
-          <Image
+          {/* <Image
             source={require('../assets/images/punk8033.png')}
-            style={styles.image}></Image>
+            style={styles.image}></Image> */}
+          <Text style={styles.txtavatar}>GB</Text>
         </View>
         <View style={styles.txtcontainer}>
           <View style={styles.txtcontainerpart1}>
@@ -358,11 +359,14 @@ const styles = StyleSheet.create({
   },
 
   imagecontainer: {
-    width: 55,
+    width: 58,
     height: 55,
     backgroundColor: '#F65F65',
-    borderRadius: 40,
+    backgroundColor: '#F3EBE0',
+    alignItems: 'center',
+    borderRadius: 27,
     marginLeft: 15,
+    justifyContent: 'center',
   },
   txt: {
     textAlign: 'left',
@@ -445,5 +449,10 @@ const styles = StyleSheet.create({
     left: 5,
     color: '#32CD32',
     marginTop: 7,
+  },
+  txtavatar: {
+    fontFamily: 'Poppins-Medium',
+    color: '#101010',
+    fontSize: 20,
   },
 });

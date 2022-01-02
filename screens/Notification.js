@@ -47,29 +47,29 @@ const NotificationScreen = ({navigation: {goBack}}) => {
   }, []);
   return (
     <View style={styles.notificationcontainer}>
+      <View style={styles.notificationheader}>
+        <TouchableRipple
+          onPress={() => {
+            goBack();
+          }}
+          rippleColor="rgba(0, 0, 0, .1)"
+          borderless
+          // style={{marginLeft: 25}}
+
+          style={styles.backripple}>
+          <Ionicons
+            name="chevron-back-sharp"
+            size={30}
+            style={styles.icon1}></Ionicons>
+        </TouchableRipple>
+        <Text style={styles.nametxt}>Activity</Text>
+      </View>
       {loading ? (
         <View style={styles.notificationloadercontainer}>
           <ActivityIndicator size={50} color="#3E3C9C" />
         </View>
       ) : (
         <View style={styles.notificationcontainer}>
-          <View style={styles.notificationheader}>
-            <TouchableRipple
-              onPress={() => {
-                goBack();
-              }}
-              rippleColor="rgba(0, 0, 0, .1)"
-              borderless
-              // style={{marginLeft: 25}}
-
-              style={styles.backripple}>
-              <Ionicons
-                name="chevron-back-sharp"
-                size={30}
-                style={styles.icon1}></Ionicons>
-            </TouchableRipple>
-            <Text style={styles.nametxt}>Activity</Text>
-          </View>
           <View style={styles.notificationbody}>
             <ScrollView style={styles.notificationbody}>
               {notifications.map((notification, index) => {
