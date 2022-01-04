@@ -4,6 +4,7 @@ import UserReducer from '../reducers/User';
 import LoginReducer from '../reducers/Login';
 import MyProfileInfoReducer from './MyProfileInfo';
 import UserClick from './UserClick';
+import UserClickName from './UserClickName';
 
 const rootReducer = combineReducers({
   changeTheNumber,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   LoginReducer,
   MyProfileInfoReducer,
   UserClick,
+  UserClickName,
 });
 
 export default rootReducer;

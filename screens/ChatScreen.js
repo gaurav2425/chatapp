@@ -15,6 +15,7 @@ import Message from '../components/Message';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import socketIO from 'socket.io-client';
+import testReq from '../Requests/Notification';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {useSelector, useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -50,6 +51,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
 
   console.log('My Click From Chatting');
   const MyClick = useSelector(state => state.UserClick);
+  const MyClickName = useSelector(state => state.UserClickName);
   const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
 
   console.log('MY Info');
@@ -89,6 +91,30 @@ const ChatScreen = ({navigation: {goBack}}) => {
     fetchMYAPI();
   };
 
+  const sendmsgnotification = async () => {
+    const token = await AsyncStorage.getItem('token');
+    fetch(`http://192.168.1.7:5000/api/notification`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
+      },
+      body: JSON.stringify({
+        title: friendUser.name,
+        body: message,
+        mbtoken: friendUser.mobiletoken,
+      }),
+    })
+      .then(res => res.json())
+      .then(async data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const send = e => {
     e.preventDefault();
     socket.emit('message', {
@@ -97,6 +123,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
       receiverId: MyClick.userclickId,
       senderId: MyProfileInfo.myprofile.user,
     });
+    sendmsgnotification();
     setMessage('');
     console.log('here is msg');
     sendCredentials();
@@ -241,7 +268,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
   console.log('Chats alert');
   console.log('Chats alert');
   // const nametest = chats.slice(-1)[0].message;
-
+  console.log(friendUser.mobiletoken);
   const testingexport = 20;
   console.log('Chats alert');
   console.log('Chats alert');
@@ -261,6 +288,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
           <TouchableRipple
             onPress={() => {
               goBack();
+              // testReq();
             }}
             rippleColor="rgba(0, 0, 0, .1)"
             borderless
@@ -268,7 +296,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
             style={styles.backripple}>
             <Ionicons
               name="chevron-back-sharp"
-              size={30}
+              size={32}
               style={styles.icon1}></Ionicons>
           </TouchableRipple>
 
@@ -278,7 +306,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
               style={styles.image}></Image>
           </View>
           <View>
-            <Text style={styles.name}>{friendUser.name}</Text>
+            <Text style={styles.name}>{MyClickName.userclickName}</Text>
             <Text style={styles.status}>Online</Text>
           </View>
         </View>
@@ -522,7 +550,8 @@ const styles = StyleSheet.create({
   backripple: {
     padding: 5,
     marginLeft: 10,
-    borderRadius: 20,
+
+    borderRadius: 25,
   },
   icon2: {
     marginRight: 25,

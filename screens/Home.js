@@ -12,16 +12,21 @@ import {
 } from 'react-native';
 import {TouchableRipple, ActivityIndicator} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LinearGradient from 'react-native-linear-gradient';
 import PushNotification, {Importance} from 'react-native-push-notification';
 import Header from '../components/Header';
+import Firebase from '@react-native-firebase/app';
 import Chat from '../components/Chat';
 import Story from '../components/Story';
 import {useSelector, useDispatch} from 'react-redux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {MyProfileInfoAction} from '../actions/MyProfileInfoaction';
 import {UserClickAction} from '../actions/UserClick';
+import {UserClickNameAction} from '../actions/UserClickName';
 import {UserData, UserPassword} from '../actions/Useraction';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import messaging from '@react-native-firebase/messaging';
+import {state} from 'react-native-push-notification/component';
 const Home = ({navigation}) => {
   const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -42,15 +47,16 @@ const Home = ({navigation}) => {
   }, []);
 
   const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
-  console.log(MyProfileInfo);
+  console.log(MyProfileInfo.mobiletoken);
 
   const MyClick = useSelector(state => state.UserClick);
-  console.log('MyProfileInfo Clicked');
-  console.log('MyProfileInfo Clicked');
-  // console.log(MyClick);
-  console.log(MyProfileInfo);
-  console.log('MyProfileInfo Clicked');
-  console.log('MyProfileInfo Clicked');
+  const MyClickName = useSelector(state => state.UserClickName);
+  console.log('MyProfileInfo moooooo');
+  console.log('MyProfileInfo moooooo');
+  console.log(MyClickName);
+  console.log(MyProfileInfo.mobiletoken);
+  console.log('MyProfileInfo moooooo');
+  console.log('MyProfileInfo moooooo');
 
   const dispatch = useDispatch();
   const tokenmain = AsyncStorage.getItem('token');
@@ -76,12 +82,51 @@ const Home = ({navigation}) => {
       });
   };
 
+  const loadnotification = () => {
+    // Firebase.initializeApp();
+
+    PushNotification.configure({
+      // (optional) Called when Token is generated (iOS and Android)
+      onRegister: function (token) {
+        console.log('TOKEN:', token.os);
+        console.log('TOKEN:', token);
+        console.log('TOKEN:', token);
+        console.log('TOKEN:', token);
+        console.log('TOKEN:', token);
+        console.log('TOKEN:', token);
+        // setMobileToken(token.token);
+
+        // dispatch(
+        //   MyProfileInfoAction({
+        //     mobiletoken: '12345678',
+        //   }),
+        // );
+      },
+
+      onNotification: function (notification) {
+        console.log('NOTIFICATION:', notification);
+      },
+
+      senderID: '388911307516',
+
+      // IOS ONLY (optional): default: all - Permissions to register.
+      permissions: {
+        alert: true,
+        badge: true,
+        sound: true,
+      },
+      popInitialNotification: true,
+      requestPermissions: true,
+    });
+  };
+
   const handleReduxData = async data => {
     const token = await AsyncStorage.getItem('token');
     dispatch(
       MyProfileInfoAction({
         myprofile: data,
         token: token,
+        mobiletoken: mobileToken,
       }),
     );
   };
@@ -100,6 +145,7 @@ const Home = ({navigation}) => {
         console.log('I am MyProfile');
         console.log('I am MyProfile');
         console.log(data);
+        console.log(data.mobiletoken);
         console.log('I am MyProfile');
         console.log('I am MyProfile');
         console.log('I am MyProfile');
@@ -109,6 +155,17 @@ const Home = ({navigation}) => {
   };
 
   useEffect(() => {
+    Firebase.messaging()
+      .getToken()
+      .then(token => {
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+        console.log(token);
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+      });
     fetchtoken();
     fetchMyProfileInfo();
   }, []);
@@ -202,39 +259,120 @@ const Home = ({navigation}) => {
     );
   };
 
+  // useEffect(() => {
+  //   sendMobileToken();
+  // }, []);
+
+  // useEffect(() => {
+  //   loadnotification();
+  //   createChannel();
+  // }, []);
+
+  const sendMobileToken = async () => {
+    const token = await AsyncStorage.getItem('token');
+
+    // const mtoken = await mobileToken;
+    const fetchMYAPI = async () => {
+      fetch('http://192.168.1.7:5000/api/profile/token/mobiletoken', {
+        method: 'POST',
+
+        headers: new Headers({
+          'x-auth-token': token,
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify({
+          mobiletoken: `${mobileToken}`,
+        }),
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+          console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+          console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+          console.log(mobileToken);
+          console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+          console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+          console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+        })
+        .catch(err => {
+          console.log(err);
+          throw err;
+        });
+    };
+    fetchMYAPI();
+  };
+
+  console.log('I am Mobile Token');
+  console.log('I am Mobile Token');
+  console.log(mobileToken);
+  console.log('I am Mobile Token');
+  console.log('I am Mobile Token');
+
   useEffect(() => {
-    PushNotification.configure({
-      // (optional) Called when Token is generated (iOS and Android)
-      onRegister: function (token) {
-        console.log('TOKEN:', token.os);
-        console.log('TOKEN:', token);
-        console.log('TOKEN:', token);
-        console.log('TOKEN:', token);
-        console.log('TOKEN:', token);
-        console.log('TOKEN:', token);
-        setMobileToken(token.token);
-      },
-
-      // (required) Called when a remote is received or opened, or local notification is opened
-      onNotification: function (notification) {
-        console.log('NOTIFICATION:', notification);
-
-        // process the notification
-
-        // (required) Called when a remote is received or opened, or local notification is opened
-        // notification.finish(PushNotificationIOS.FetchResult.NoData);
-      },
-
-      // IOS ONLY (optional): default: all - Permissions to register.
-      permissions: {
-        alert: true,
-        badge: true,
-        sound: true,
-      },
-      popInitialNotification: true,
-      requestPermissions: true,
-    });
+    loadnotification();
     createChannel();
+    // sendMobileToken();
+  }, []);
+
+  const testdata = async vtoken => {
+    const token = await AsyncStorage.getItem('token');
+
+    fetch('http://192.168.1.7:5000/api/profile/token/mobiletoken', {
+      method: 'POST',
+
+      headers: new Headers({
+        'x-auth-token': token,
+        'Content-Type': 'application/json',
+      }),
+      body: JSON.stringify({
+        mobiletoken: vtoken,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+        console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+        console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+        console.log(vtoken);
+        console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+        console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+        console.log('Data from mobiletokennnnnnnnnnnnnnnnn');
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
+  };
+
+  useEffect(() => {
+    const name = mobileToken;
+    Firebase.messaging()
+      .getToken()
+      .then(token => {
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+        let vtoken = token;
+        testdata(vtoken);
+        setMobileToken(vtoken);
+        // sendReduxToken(token);
+
+        // dispatch(
+        //   MyProfileInfo({
+        //     mobiletoken: mobileToken,
+        //   })
+        // )
+        // dispatch(
+        //   MyProfileInfoAction({
+        //     myprofile: data,
+        //     token: token,
+        //     // mobiletoken: mobileToken,
+        //   }),
+        console.log(token);
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+        console.log('Token from swaggggggggggggggggggggggggggggggggg');
+      });
   }, []);
 
   console.log(
@@ -248,7 +386,6 @@ const Home = ({navigation}) => {
       channelId: '123',
       title: 'Slack', // (optional)
       ticker: 'My Notification Ticker',
-      to: 'c31Ga-88TwajoMzEsle7Ir:APA91bHDs3hA8ATza6UyH0-NaM6we29R4RIsBfRaklk4aUVez7QASoGpNjYy4aqUrmB6Yi_2_qLkPpS0Upv3L5HVcE0FZX3EWCwH8E_nv6T3EuYcyGqp9OAx4Zz7fVNMSzF_LlX0yC_w',
       message: 'Ye kaam kar de pehle', // (required)
       picture: 'http://assets.stickpng.com/images/5cb480b85f1b6d3fbadece78.png', // (optional)
       // backgroundColor: '#F65F65',
@@ -310,6 +447,23 @@ const Home = ({navigation}) => {
     });
   };
 
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      PushNotification.localNotification({
+        channelId: '123',
+        message: 'Hello',
+        title: 'Hii',
+        // bigPictureUrl: remoteMessage.notification.android.imageUrl,
+        // smallIcon: remoteMessage.notification.android.imageUrl,
+      });
+    });
+    return unsubscribe;
+  }, []);
+
+  messaging().setBackgroundMessageHandler(async remoteMessage => {
+    console.log('Message handled in the background!', remoteMessage);
+  });
+
   //Notification Sender
   //Notification Sender
   //Notification Sender
@@ -322,10 +476,17 @@ const Home = ({navigation}) => {
   //Notification Sender
   //Notification Sender
   //Notification Sender
-  console.log(mobileToken);
-  console.log(mobileToken);
-  console.log(mobileToken);
-  console.log(mobileToken);
+
+  //mobiletoken saver
+  //mobiletoken saver
+  //mobiletoken saver
+  //mobiletoken saver
+
+  //mobiletoken saver
+  //mobiletoken saver
+  //mobiletoken saver
+  //mobiletoken saver
+  //mobiletoken saver
 
   return (
     <View style={styles.homecontainer}>
@@ -343,13 +504,26 @@ const Home = ({navigation}) => {
             horizontal={true}
             style={styles.storymaincontainer}
             showsHorizontalScrollIndicator={false}>
-            <View style={styles.yourstory}>
-              {/* <AntDesign
-                name="plus"
-                size={15}
-                style={styles.plusIcon}></AntDesign> */}
-              <Story name="You" borderless></Story>
+            <View style={styles.yourstorymain}>
+              <LinearGradient
+                style={styles.yourstory}
+                colors={['#8a3ab9', '#e95950']}>
+                {/* '#bc2a8d', '#fccc63' */}
+                <AntDesign
+                  name="plus"
+                  size={32}
+                  style={styles.plusIcon}></AntDesign>
+                {/* <Story name="You" borderless></Story> */}
+              </LinearGradient>
+              <Text style={styles.youtxt}>You Story</Text>
             </View>
+
+            {/* <LinearGradient
+        style={styles.storyimagemain}
+        colors={['#8a3ab9', '#e95950', '#bc2a8d', '#fccc63']}>
+        
+      </LinearGradient> */}
+            <Story name="Shreyash"></Story>
 
             <Story name="gaurav"></Story>
             <Story name="Ajinkya"></Story>
@@ -389,13 +563,18 @@ const Home = ({navigation}) => {
                   key={index}
                   onPress={() => {
                     let userclickId = friend.user;
+                    let userclickName = friend.name;
 
                     dispatch(
                       UserClickAction({
                         userclickId,
                       }),
                     );
-
+                    dispatch(
+                      UserClickNameAction({
+                        userclickName,
+                      }),
+                    );
                     navigation.navigate('ChatScreen');
                   }}>
                   <Chat name={friend.name}></Chat>
@@ -405,29 +584,12 @@ const Home = ({navigation}) => {
           </>
         )}
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => {
             Test();
           }}>
           <Text>Press me to send notification</Text>
-        </TouchableOpacity>
-
-        {/* <Chat name="arpit jaggi"></Chat> */}
-
-        {/* {friends.map((friend, index) => {
-          // <Chat name={friend.name}></Chat>;
-          console.log(friend.email);
-
-          return (
-            <TouchableRipple
-              onPress={() => navigation.navigate('ChatScreen')}
-              rippleColor="rgba(0, 0, 0, .1)"
-              borderless
-              key={index}>
-              <Chat name={friend.name}></Chat>
-            </TouchableRipple>
-          );
-        })} */}
+        </TouchableOpacity> */}
 
         {/* <Chat name="gaurav burande"></Chat>
         <Chat name="Ajinkya sahu"></Chat>
@@ -437,19 +599,8 @@ const Home = ({navigation}) => {
         <Chat name="vishal singh"></Chat>
         <Chat name="karan mehra"></Chat>
         <Chat name="hemant thackrey"></Chat> */}
-
-        {/* <Text style={styles.txt1}>Email: {data.email}</Text>
-        <Text style={styles.txt1}>Name: {data.name}</Text>
-        <Text style={styles.txt1}>Username :{data.username}</Text>
-        <Text style={styles.txt1}>Err :{profileData.msg}</Text> */}
       </ScrollView>
-      {/* <TouchableOpacity style={styles.btn} onPress={() => LogOut()}>
-        <Text style={styles.btntxt}>LogOut</Text>
-      </TouchableOpacity> */}
 
-      {/* <BottomTabNavigation></BottomTabNavigation> */}
-
-      {/* <Text>I am Home</Text> */}
       <StatusBar barStyle="dark-content" backgroundColor="#FAF5EF"></StatusBar>
     </View>
   );
@@ -506,12 +657,34 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
   },
   yourstory: {
-    marginLeft: 10,
+    // marginLeft: 10,
+    backgroundColor: '#FFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    // marginLeft: 20,
+    // padding: 30,
+    borderRadius: 40,
+    width: 60,
+    height: 60,
+    marginTop: 5,
+    alignSelf: 'center',
+    // marginBottom: 10,
+  },
+  yourstorymain: {
     // backgroundColor: '#FFFF',
     justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 12,
     marginRight: 5,
   },
 
+  youtxt: {
+    fontFamily: 'Poppins-Medium',
+    color: '#000000',
+    fontSize: 11,
+    marginTop: 2,
+  },
   searchinput: {
     // backgroundColor: "#FF7F50",
     width: P90,
@@ -555,13 +728,13 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   plusIcon: {
-    position: 'absolute',
-    right: 10,
-    bottom: 25,
-    backgroundColor: '#3E3C9C',
+    // position: 'absolute',
+    // right: 10,
+    // bottom: 25,
+    // backgroundColor: '#3E3C9C',
     borderRadius: 30,
     zIndex: 111,
-    padding: 2,
+    // padding: 20,
     color: '#FFFF',
   },
   indicatorContainer: {

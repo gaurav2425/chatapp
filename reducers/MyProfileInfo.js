@@ -14,6 +14,7 @@ const MyProfileInfo = {
     username: '',
   },
   token: '',
+  mobiletoken: '',
 };
 const MyProfileInfoReducer = (state = MyProfileInfo, action) => {
   switch (action.type) {

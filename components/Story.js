@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Story = ({name, borderless}) => {
+const Story = ({name, borderless, you}) => {
   {
     /* <LinearGradient
             colors={['#8a3ab9', '#e95950', '#bc2a8d', '#fccc63']}
