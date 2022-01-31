@@ -384,7 +384,7 @@ const Home = ({navigation}) => {
   const Test = () => {
     PushNotification.localNotification({
       channelId: '123',
-      title: 'Slack', // (optional)
+      title: 'plaxbox', // (optional)
       ticker: 'My Notification Ticker',
       message: 'Ye kaam kar de pehle', // (required)
       picture: 'http://assets.stickpng.com/images/5cb480b85f1b6d3fbadece78.png', // (optional)
@@ -508,31 +508,43 @@ const Home = ({navigation}) => {
               <LinearGradient
                 style={styles.yourstory}
                 colors={['#8a3ab9', '#e95950']}>
-                {/* '#bc2a8d', '#fccc63' */}
                 <AntDesign
                   name="plus"
                   size={32}
                   style={styles.plusIcon}></AntDesign>
-                {/* <Story name="You" borderless></Story> */}
               </LinearGradient>
-              <Text style={styles.youtxt}>You Story</Text>
+              <Text style={styles.youtxt}>Your Story</Text>
             </View>
 
-            {/* <LinearGradient
-        style={styles.storyimagemain}
-        colors={['#8a3ab9', '#e95950', '#bc2a8d', '#fccc63']}>
-        
-      </LinearGradient> */}
-            <Story name="Shreyash"></Story>
+            <Story
+              name="Shreyash"
+              you
+              uri="https://images.unsplash.com/photo-1621347310837-8ededa9854dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fG1hbGUlMjBtb2RlbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"></Story>
 
-            <Story name="gaurav"></Story>
-            <Story name="Ajinkya"></Story>
-            <Story name="swaraj"></Story>
-            <Story name="pinky"></Story>
-            <Story name="naman"></Story>
-            <Story name="vishal"></Story>
-            <Story name="karan"></Story>
-            <Story name="hemant"></Story>
+            <Story
+              name="Rosey"
+              uri="https://images2.alphacoders.com/608/thumbbig-608610.webp"></Story>
+            <Story
+              name="Tim"
+              uri="https://media.istockphoto.com/photos/stylish-man-posing-on-grey-background-picture-id973481674?b=1&k=20&m=973481674&s=170667a&w=0&h=N88rKUiC4M3YHGvanhxY5mMfVRsOSEKg9swrpwAnQQ0="></Story>
+            <Story
+              name="Chandler"
+              uri="https://images.unsplash.com/photo-1533488069324-f9265c15d37f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bWFsZSUyMG1vZGVsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"></Story>
+            <Story
+              name="pinky"
+              uri="https://media.istockphoto.com/photos/portrait-of-a-mature-man-with-a-little-smile-at-the-camera-right-side-picture-id1277873802?b=1&k=20&m=1277873802&s=170667a&w=0&h=jkQ_v0-o10phanZhWxRn9QpvCAUKn8qwdWT5BtR9QWk="></Story>
+            <Story
+              name="naman"
+              uri="https://images.unsplash.com/photo-1619182597083-17bda72c1d56?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fG1hbGUlMjBtb2RlbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"></Story>
+            <Story
+              name="Emmie"
+              uri="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZmVtYWxlJTIwbW9kZWx8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60"></Story>
+            <Story
+              name="Kylie"
+              uri="https://images.unsplash.com/photo-1615353616187-e19b09f4b7c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGZlbWFsZSUyMG1vZGVsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"></Story>
+            <Story
+              name="hemant"
+              uri="https://images.unsplash.com/photo-1626978407649-de62156f1548?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG1hbGUlMjBtb2RlbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"></Story>
           </ScrollView>
         </View>
 
@@ -667,7 +679,7 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     width: 60,
     height: 60,
-    marginTop: 5,
+    marginTop: 1,
     alignSelf: 'center',
     // marginBottom: 10,
   },
@@ -683,7 +695,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     color: '#000000',
     fontSize: 11,
-    marginTop: 2,
+    marginTop: 4,
   },
   searchinput: {
     // backgroundColor: "#FF7F50",

@@ -275,10 +275,10 @@ const Explore = ({navigation: {goBack}, navigation}) => {
     fetchMYAPI(iddd);
   };
 
-  const cancelFriendRequest = iddd => {
-    const fetchMYAPI = async iddd => {
+  const cancelFriendRequest = creq => {
+    const fetchMYAPI = async creq => {
       await fetch(
-        `http://192.168.1.7:5000/api/users/${iddd}/removefriendrequest`,
+        `http://192.168.1.7:5000/api/users/${creq}/cancelfriendrequest`,
         {
           method: 'POST',
 
@@ -298,7 +298,7 @@ const Explore = ({navigation: {goBack}, navigation}) => {
           throw err;
         });
     };
-    fetchMYAPI(iddd);
+    fetchMYAPI(creq);
   };
 
   // console.log('MINE________________MINE');
@@ -446,7 +446,7 @@ const Explore = ({navigation: {goBack}, navigation}) => {
 
       {loading ? (
         <View style={styles.exploreloadercontainer}>
-          <ActivityIndicator size={50} color="#3E3C9C" />
+          <ActivityIndicator size={50} color="#3E3C9C"></ActivityIndicator>
         </View>
       ) : (
         <ScrollView>
@@ -476,14 +476,24 @@ const Explore = ({navigation: {goBack}, navigation}) => {
                 myusername={item.username}
                 exploreusers={item.user}
                 clickevents={() => {
-                  let iddd = item._id;
-                  console.log(item._id);
+                  let iddd = item.user;
+                  console.log('I am id from explore chat');
+                  console.log('I am id from explore chat');
+                  console.log('I am id from explore chat');
+                  console.log(iddd);
+                  console.log('I am id from explore chat');
+                  console.log('I am id from explore chat');
+                  console.log('I am id from explore chat');
                   sendFriendRequest(iddd);
                 }}
                 removerequest={() => {
-                  let iddd = item._id;
-                  console.log(item._id);
-                  cancelFriendRequest(iddd);
+                  let creq = item.user;
+                  console.log('I am id from explore chat');
+                  console.log('I am id from explore chat');
+                  console.log(item.user);
+                  console.log('I am id from explore chat');
+                  console.log('I am id from explore chat');
+                  cancelFriendRequest(creq);
                 }}></ExploreChat>
             </TouchableRipple>
           ))}

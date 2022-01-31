@@ -139,6 +139,14 @@ const ExploreChat = ({
   //   fetchMYAPI();
   // };
 
+  let arrName = name.split(' ');
+
+  // Select the first letter of the name
+  let iniName = name.charAt(0).toUpperCase();
+
+  // Select the first letter of the lastname
+  let iniLname = arrName[arrName.length - 1].charAt(0).toUpperCase();
+
   const FetchMineData = async () => {
     const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
@@ -202,7 +210,7 @@ const ExploreChat = ({
 
   const removefriend = () => {
     setAddFriend(!addFriend);
-    // removerequest();
+    removerequest();
   };
 
   // console.log('Request Sent');
@@ -246,7 +254,17 @@ const ExploreChat = ({
           {/* <Image
             source={require('../assets/images/punk8033.png')}
             style={styles.image}></Image> */}
-          <Text style={styles.txtavatar}>GB</Text>
+
+          {name.indexOf(' ') >= 0 ? (
+            <Text style={styles.txtavatar}>
+              {iniName}
+              {iniLname}
+            </Text>
+          ) : (
+            <Text style={styles.txtavatar}>{iniName}</Text>
+          )}
+
+          {/* <Text style={styles.txtavatar}>GB</Text> */}
         </View>
         <View style={styles.txtcontainer}>
           <View style={styles.txtcontainerpart1}>
@@ -266,13 +284,28 @@ const ExploreChat = ({
       })} */}
       <View style={styles.btncontainer}>
         {result ? (
-          <Text
-            style={styles.btntxt1}
-            // onPress={(() => setAddFriend(!addFriend), clickevents)}
-            // onPress={(() => removerequest(), setAddFriend(!addFriend))}
-            onPress={removefriend}>
-            Requested
-          </Text>
+          // <Text style={styles.btntxt1} onPress={removefriend}>
+          //   Requested
+          // </Text>
+          <View>
+            {addFriend ? (
+              <Text
+                style={styles.btntxt1}
+                // onPress={(() => removerequest, setAddFriend(!addFriend))}
+                // onPress={(() => clickevents(), setAddFriend(!addFriend))}
+                onPress={removefriend}>
+                Requested
+              </Text>
+            ) : (
+              <Text
+                style={styles.btntxt}
+                // onPress={(() => removerequest, setAddFriend(!addFriend))}
+                // onPress={(() => clickevents(), setAddFriend(!addFriend))}
+                onPress={addfriend}>
+                Add Friend
+              </Text>
+            )}
+          </View>
         ) : (
           <View>
             {addFriend ? (
@@ -285,7 +318,7 @@ const ExploreChat = ({
               </Text>
             ) : (
               <Text
-                style={styles.btntxt1}
+                style={styles.btntxt}
                 // onPress={(() => removerequest, setAddFriend(!addFriend))}
                 // onPress={(() => clickevents(), setAddFriend(!addFriend))}
                 onPress={removefriend}>

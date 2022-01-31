@@ -6,6 +6,8 @@ import {
   View,
   SafeAreaView,
   Image,
+  TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -18,13 +20,15 @@ const ProfileScreen = ({navigation}) => {
   // const myState = useSelector(state => state.changeTheNumber);
   const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
   console.log('From Profile Screen', MyProfileInfo.myprofile.name);
+  console.log(MyProfileInfo.myprofile.bio);
   return (
     <SafeAreaView style={styles.container_main}>
       <View style={styles.profileheader}>
-        <Ionicons
+        {/* <Ionicons
           name="chevron-back"
           size={30}
-          style={{color: '#000000'}}></Ionicons>
+          style={{color: '#000000'}}></Ionicons> */}
+
         <View style={styles.profileheaderright}>
           <TouchableRipple
             onPress={() => console.log('Pressed')}
@@ -51,49 +55,42 @@ const ProfileScreen = ({navigation}) => {
         </View>
       </View>
 
-      <View style={styles.profileline}>
-        <View style={styles.profile}>
-          {/* <Image
-            style={styles.profileimage}
-            source={require('../assets/images/punk8033.png')}></Image> */}
-          <Text style={styles.txtavatar}>GB</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.profileline}>
+          <View style={styles.profile}>
+            <Image
+              style={styles.profileimage}
+              source={require('../assets/images/myimg.jpeg')}></Image>
+            {/* <Text style={styles.txtavatar}>GB</Text> */}
+          </View>
+
+          <View style={styles.editbiocontainer}>
+            <Text
+              style={styles.editbio}
+              onPress={() => {
+                navigation.navigate('bio');
+              }}>
+              Edit Bio
+            </Text>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.nameline}>
-        <Text style={styles.textname}>{MyProfileInfo.myprofile.name}</Text>
-        <Text style={styles.textusername}>
-          @{MyProfileInfo.myprofile.username}
-        </Text>
-      </View>
+        <View style={styles.nameline}>
+          <Text style={styles.textname}>{MyProfileInfo.myprofile.name}</Text>
+          <Text style={styles.textusername}>
+            @{MyProfileInfo.myprofile.username}
+          </Text>
+        </View>
 
-      <View style={styles.followline}>
-        <Text style={styles.friendstxt}>
-          Friends {MyProfileInfo.myprofile.Friends.length}
-        </Text>
-        {/* <Text style={styles.text4}>
-          {MyProfileInfo.myprofile.RequestSent.length}
-        </Text> */}
-      </View>
+        <View style={styles.followline}>
+          <Text style={styles.friendstxt}>
+            Friends {MyProfileInfo.myprofile.Friends.length}
+          </Text>
+        </View>
 
-      <View style={styles.addbio}>
-        <Text style={styles.addbiotxt}>Add Bio +</Text>
-      </View>
-
-      {/* <View style={styles.bio}>
-        <Text style={styles.biotxt}>
-          Build anything from console widgets to mobile applications, with our
-          free and easy to use API. We provide data on current global outbreaks,
-          including COVID-19 and Influenza.
-        </Text>
-      </View> */}
-
-      {/* <View style={styles.bioline}>
-        <Text style={styles.text5}>Add a bio </Text>
-        <AntDesign name="plus" size={15}></AntDesign>
-      </View> */}
-
-      {/* <StatusBar barStyle="dark-content"></StatusBar> */}
+        <Text style={styles.biotext}>{MyProfileInfo.myprofile.bio}</Text>
+      </ScrollView>
+      <StatusBar barStyle="dark-content"></StatusBar>
     </SafeAreaView>
   );
 };
@@ -110,7 +107,8 @@ const styles = StyleSheet.create({
 
   profileheader: {
     alignItems: 'center',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     paddingLeft: 10,
     display: 'flex',
     flexDirection: 'row',
@@ -136,13 +134,17 @@ const styles = StyleSheet.create({
     // flex: 0.18,
     height: 120,
     // backgroundColor: '#808080',
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   profile: {
     width: 100,
     height: 100,
     borderRadius: 45,
     backgroundColor: '#F3EBE0',
+    // backgroundColor: '#F65F65',
     marginLeft: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -160,31 +162,56 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // backgroundColor: '#FFFF',
   },
-  textname: {
-    marginLeft: 25,
+  editbio: {
+    padding: 5,
+    backgroundColor: '#FFFF',
+    fontFamily: 'Poppins-Medium',
     color: '#000000',
+    borderRadius: 25,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  editbiocontainer: {
+    marginLeft: 50,
+    marginTop: 80,
+  },
+  textname: {
+    // marginLeft: 25,
+    color: '#000000',
+    fontFamily: 'Poppins-Medium',
+    // backgroundColor: '#F65F65',
+    paddingLeft: 31,
+    paddingRight: 40,
+  },
+  biotext: {
+    color: '#000000',
+    paddingLeft: 31,
+    paddingRight: 40,
     fontFamily: 'Poppins-Medium',
   },
   textusername: {
-    marginLeft: 25,
+    // marginLeft: 25,
     fontSize: 12,
     // paddingTop: 3,
     color: '#000000',
+    // backgroundColor: '#F65F65',
     fontFamily: 'Poppins-Medium',
+    paddingLeft: 30,
+    // width: 'auto',
   },
   followline: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 25,
+    paddingLeft: 30,
     // flex: 10,
     height: 50,
     // backgroundColor: '#FFFF',
   },
   friendstxt: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-BoldItalic',
     color: '#000000',
-    marginLeft: 2,
+    // marginLeft: 2,
   },
   text3: {},
   text4: {
@@ -236,10 +263,10 @@ const styles = StyleSheet.create({
   },
   addbiotxt: {
     // backgroundColor: '#FFFF',
-    fontFamily: 'Poppins-Medium',
-    color: '#0B0883',
-    marginLeft: 27,
-    fontSize: 15,
+    fontFamily: 'Poppins-Light',
+    color: '#3E3C9C',
+    paddingLeft: 30,
+    fontSize: 14,
   },
   txtavatar: {
     fontFamily: 'Poppins-Light',

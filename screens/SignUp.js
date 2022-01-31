@@ -12,7 +12,7 @@ import {
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Username from './Username';
-
+import LinearGradient from 'react-native-linear-gradient';
 import {useSelector, useDispatch} from 'react-redux';
 import {incNumber, decNumber} from '../actions/index';
 import {UserData, UserPassword} from '../actions/Useraction';
@@ -58,7 +58,7 @@ const SignUp = ({navigation}) => {
           name: name,
           email: email,
           password: password,
-          username: 'havan',
+          username: username,
         }),
       })
         .then(res => res.json())
@@ -95,14 +95,9 @@ const SignUp = ({navigation}) => {
   // console.log(myemail.password);
   return (
     <View style={styles.signupcontainermain}>
-      {/* <Text style={styles.txtlogo}>SpanCock</Text> */}
-
       <View style={styles.signupcontainer}>
         <View style={styles.fieldscontainer}>
           <View style={styles.txtcontainer}>
-            {/* <Image
-              source={require('../assets/images/span.png')}
-              style={{width: 150, height: 55}}></Image> */}
             <Text style={styles.txthead}>Create a new account</Text>
           </View>
           <TextInput
@@ -112,13 +107,13 @@ const SignUp = ({navigation}) => {
             autoCapitalize="none"
             textContentType="name"
             onChangeText={text => setName(text)}></TextInput>
-          {/* <TextInput
-          placeholder="Username"
-          style={styles.name}
-          value={username}
-          autoCapitalize="none"
-          textContentType="username"
-          onChangeText={text => setUsername(text)}></TextInput> */}
+          <TextInput
+            placeholder="Username"
+            style={styles.name}
+            value={username}
+            autoCapitalize="none"
+            textContentType="username"
+            onChangeText={text => setUsername(text)}></TextInput>
           <TextInput
             placeholder="Email"
             style={styles.email}
@@ -136,22 +131,18 @@ const SignUp = ({navigation}) => {
             autoCapitalize="none"
             onChangeText={text => setPassword(text)}></TextInput>
 
-          {/* <TouchableOpacity
-              style={styles.btn}
-              // onPress={() => sendCredentials()}
-              onPress={() => dispatch(incNumber())}>
-              <Text style={styles.btntxt}>Next</Text>
-            </TouchableOpacity> */}
           <TouchableOpacity
-            style={styles.btn}
-            onPress={() => sendCredentials()}
-            // onPress={() => dispatch(UserData(email))}
-          >
-            <Text style={styles.btntxt}>SignUp</Text>
+            style={styles.btnmaincontainer}
+            onPress={() => sendCredentials()}>
+            <LinearGradient
+              style={styles.btn}
+              colors={['#8a3ab9', '#e95950', '#fccc63']}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}>
+              <Text style={styles.btntxt}>SignUp</Text>
+            </LinearGradient>
           </TouchableOpacity>
         </View>
-
-        {/* <Text>{myemail}</Text> */}
 
         <View style={styles.txt2container}>
           <Text style={styles.txt2}>Already have an Account ?</Text>
@@ -185,10 +176,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: 'Poppins-BlackItalic',
     // textAlign: 'center',
-    marginLeft: 10,
+    // marginLeft: 10,
   },
   txtcontainer: {
-    width: P80,
+    width: P90,
     // justifyContent: 'center',
     // alignItems: 'center',
     // backgroundColor: '#FFFF',
@@ -252,7 +243,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     // alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
+    // marginTop: 20,
   },
   btntxt: {
     alignSelf: 'center',
@@ -265,7 +256,7 @@ const styles = StyleSheet.create({
     // width: P90,
     alignSelf: 'center',
     // paddingTop: 10,
-    marginLeft: 10,
+    // marginLeft: 10,
     fontFamily: 'Poppins-Medium',
   },
   txt2Register: {
@@ -284,8 +275,11 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   txthead: {
-    fontFamily: 'Poppins-Bold',
     color: '#000000',
     fontSize: 28,
+    fontFamily: 'Poppins-Bold',
+  },
+  btnmaincontainer: {
+    marginTop: 20,
   },
 });

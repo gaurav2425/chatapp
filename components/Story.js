@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Story = ({name, borderless, you}) => {
+const Story = ({name, borderless, you, uri}) => {
   {
     /* <LinearGradient
             colors={['#8a3ab9', '#e95950', '#bc2a8d', '#fccc63']}
@@ -17,7 +17,9 @@ const Story = ({name, borderless, you}) => {
         colors={['#8a3ab9', '#e95950', '#bc2a8d', '#fccc63']}>
         <View style={styles.storyimage}>
           <Image
-            source={require('../assets/images/vk.jpg')}
+            source={{
+              uri: `${uri}`,
+            }}
             style={styles.image}></Image>
           {/* <Text style={styles.txtavatar}>GB</Text> */}
         </View>

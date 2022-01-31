@@ -6,14 +6,37 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
+// import {useNavigation} from '@react-navigation/native';
 import {TouchableRipple} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {
+  NavigationAction,
+  StackActions,
+  CommonActions,
+} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import {NavigationAction, StackActions} from 'react-navigation';
+import {NavigationActions} from 'react-navigation';
 
 const Settings = ({navigation: {goBack}, navigation}) => {
+  // const navigation1 = useNavigation();
+
   const LogOut = () => {
     AsyncStorage.removeItem('token').then(() => {
-      navigation.replace('login');
+      // navigation.replace('login');
+      // const resetAction = StackActions.reset({
+      //   index: 0,
+      //   actions: [NavigationActions.navigate({routeName: 'login'})],
+      //   // key: null,
+      // });
+
+      // navigation.dispatch(resetAction);
+      // params: {YOUR_OPTIONAL_DATA}
+      const resetAction = CommonActions.reset({
+        index: 1,
+        routes: [{name: 'login'}],
+      });
+      navigation.dispatch(resetAction);
     });
   };
 

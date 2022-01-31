@@ -60,6 +60,30 @@ const ChatScreen = ({navigation: {goBack}}) => {
   console.log(MyClick);
   console.log('My Click From Chatting');
 
+  const lastmessageupdate = async () => {
+    const token = await AsyncStorage.getItem('token');
+    fetch(`http://192.168.1.7:5000/api/users/chatroom/lastmessage`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
+      },
+      body: JSON.stringify({
+        receiverId: MyClick.userclickId,
+        // senderId: MyProfileInfo.myprofile.user,
+        lastmessage: chats.slice(-1)[0],
+      }),
+    })
+      .then(res => res.json())
+      .then(async data => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const sendCredentials = async () => {
     const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
@@ -89,6 +113,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
         });
     };
     fetchMYAPI();
+    lastmessageupdate();
   };
 
   const sendmsgnotification = async () => {
@@ -280,6 +305,19 @@ const ChatScreen = ({navigation: {goBack}}) => {
     console.log('Pressed');
   };
   console.log(message);
+
+  console.log('last message');
+  console.log('last message');
+  console.log('last message');
+  console.log('last message');
+  console.log('last message');
+  // console.log(chats[0]);
+  console.log(chats.slice(-1)[0]);
+  console.log('last message');
+  console.log('last message');
+  console.log('last message');
+  console.log('last message');
+  console.log('last message');
 
   return (
     <View style={styles.containermain}>

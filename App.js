@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Main from './Main';
 import {Provider} from 'react-redux';
 import store from './store';
+import SplashScreen from 'react-native-splash-screen';
 
 store.subscribe(() => {
   console.log(store.getState());
 });
+
 const App = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     <Provider store={store}>
       <View style={styles.appcontainer}>

@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Home from '../screens/Home';
+import Share from '../screens/Share';
 import SignUp from '../screens/SignUp';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ProfileScreen from '../screens/ProfileScreen';
@@ -15,6 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Todo from '../screens/Todo';
 import Search from '../screens/Search';
+
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigation = () => {
@@ -33,9 +35,9 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <Entypo
+            <Octicons
               name={focused ? 'home' : 'home'}
-              size={26}
+              size={24}
               color={focused ? '#000000' : '#101010'}
             />
           ),
@@ -53,7 +55,7 @@ const BottomTabNavigation = () => {
           tabBarIcon: ({focused}) => (
             <AntDesign
               name={focused ? 'search1' : 'search1'}
-              size={25}
+              size={23}
               color={focused ? '#000000' : '#101010'}
             />
           ),
@@ -69,9 +71,10 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <Octicons
-              name={focused ? 'gist-secret' : 'gist-secret'}
-              size={23}
+            <AntDesign
+              // name={focused ? 'ios-radio-outline' : 'ios-radio-outline'}
+              name={focused ? 'find' : 'find'}
+              size={25}
               color={focused ? '#000000' : '#101010'}
             />
           ),
@@ -87,16 +90,16 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <Feather
-              name={focused ? 'heart' : 'heart'}
-              size={22}
+            <Ionicons
+              name={focused ? 'notifications-outline' : 'notifications-outline'}
+              size={25}
               color={focused ? '#000000' : '#101010'}
             />
           ),
         }}
-        component={Search}></Tab.Screen>
+        component={Share}></Tab.Screen>
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="signup"
         options={{
           headerShown: false,
@@ -112,7 +115,7 @@ const BottomTabNavigation = () => {
             </View>
           ),
         }}
-        component={Todo}></Tab.Screen>
+        component={Todo}></Tab.Screen> */}
     </Tab.Navigator>
   );
 };

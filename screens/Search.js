@@ -16,6 +16,8 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ExploreChat from '../components/ExploreChat';
+import {UserClickAction} from '../actions/UserClick';
+import {useSelector, useDispatch} from 'react-redux';
 
 const SearchScreen = ({navigation}) => {
   const wait = timeout => {
@@ -25,6 +27,11 @@ const SearchScreen = ({navigation}) => {
   const [users, SetUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const MyClick = useSelector(state => state.UserClick);
+  console.log(MyClick);
+
+  const MyProfileInfo = useSelector(state => state.MyProfileInfoReducer);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -57,6 +64,18 @@ const SearchScreen = ({navigation}) => {
     // console.log(friends);
     console.log('_________');
   }, []);
+
+  let x = users;
+  let y = MyProfileInfo.myprofile.Friends;
+  let z = MyProfileInfo.myprofile;
+
+  let yFilter = y.map(itemY => {
+    return itemY.username;
+  });
+
+  let filteredX = x.filter(
+    itemX => !yFilter.includes(itemX.username) && z.username != itemX.username,
+  );
 
   return (
     <View style={styles.searchscreenmain}>
@@ -109,7 +128,8 @@ const SearchScreen = ({navigation}) => {
             <Text style={styles.txt1}>Public Profiles to Connect</Text>
           </View>
           <View style={styles.accountcontainer}>
-            {users
+            {filteredX
+
               .filter(user => {
                 if (searchTerm == '') {
                   return user;
@@ -119,11 +139,29 @@ const SearchScreen = ({navigation}) => {
                   return user;
                 }
               })
+              .slice(0, 8)
               .map((user, index) => (
-                <ExploreChat
-                  name={user.name}
-                  username={user.username}
-                  key={index}></ExploreChat>
+                <TouchableRipple
+                  onPress={() => {
+                    navigation.navigate('profiledetail');
+                    // console.log(item);
+                    let userclickId = user.user;
+
+                    dispatch(
+                      UserClickAction({
+                        userclickId,
+                      }),
+                    );
+                  }}
+                  rippleColor="rgba(0, 0, 0, .1)"
+                  borderless
+                  key={index}>
+                  <ExploreChat
+                    name={user.name}
+                    username={user.username}
+                    key={index}></ExploreChat>
+                </TouchableRipple>
+
                 // <Text key={index}>{item.name}</Text>
               ))}
           </View>

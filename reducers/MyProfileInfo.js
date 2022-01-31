@@ -1,7 +1,3 @@
-// const LoginState = {
-//   email: '',
-// };
-
 const MyProfileInfo = {
   myprofile: {
     Friends: [],
@@ -12,6 +8,7 @@ const MyProfileInfo = {
     name: '',
     user: '',
     username: '',
+    bio: '',
   },
   token: '',
   mobiletoken: '',
@@ -22,10 +19,22 @@ const MyProfileInfoReducer = (state = MyProfileInfo, action) => {
       const {id, myprofile} = action.payload;
       //   return action.payload;
       return myprofile;
-    // case 'SET_PASSWORD':
-    //   return data;
-    //   const {password} = action.payload;
-    //   return password;
+
+    case 'MYPROFILEBIO':
+      const {myprofilebio} = action.payload;
+      //   return action.payload;
+      return {
+        ...state,
+        myprofile: {
+          ...state.myprofile,
+          bio: myprofilebio.myprofilebio,
+        },
+        // myprofile: {
+        //   bio: myprofilebio.myprofilebio,
+        // },
+      };
+      break;
+
     default:
       return state;
   }

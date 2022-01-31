@@ -13,6 +13,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setEmail} from '../actions/index';
 import {useSelector, useDispatch} from 'react-redux';
+import LinearGradient from 'react-native-linear-gradient';
 import PushNotification, {Importance} from 'react-native-push-notification';
 import {UserData, UserPassword, LoginAction} from '../actions/Useraction';
 // import {useSelector, useDispatch} from 'react-redux';
@@ -229,9 +230,13 @@ const Login = ({navigation}) => {
   return (
     <View style={styles.logincontainer}>
       {/* <Text style={styles.txtlogo}>SpanCock</Text> */}
+
       <View style={styles.fieldscontainer}>
+        {/* <Image
+          style={styles.profileimage}
+          source={require('../assets/images/plaxbox2.png')}></Image> */}
         <View style={styles.txtcontainer}>
-          <Text style={styles.txthead}>Let's Get Started With Qunitno 👋</Text>
+          <Text style={styles.txthead}>Let's Get Started With Plaxbox 👋</Text>
           {/* <Image
             source={require('../assets/images/span.png')}
             style={{width: 150, height: 55}}></Image> */}
@@ -260,8 +265,9 @@ const Login = ({navigation}) => {
         {/* <Text style={styles.txt2} onPress={() => navigation.replace('signup')}>
           Create a New Account
         </Text> */}
+        {/* <Text>It is {new Date().toLocaleTimeString()}.</Text> */}
         <TouchableOpacity
-          style={styles.btn}
+          // style={styles.btn}
           // onPress={(() => handleLoginReduxData, sendCredentials)}
           onPress={() => {
             dismissKeyboard(), sendCredentials();
@@ -270,7 +276,13 @@ const Login = ({navigation}) => {
           }}
           // onPress={Keyboard.dismiss}
         >
-          <Text style={styles.btntxt}>Login</Text>
+          <LinearGradient
+            style={styles.btn}
+            colors={['#8a3ab9', '#e95950', '#fccc63']}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}>
+            <Text style={styles.btntxt}>Login</Text>
+          </LinearGradient>
         </TouchableOpacity>
       </View>
       <View style={styles.txt2container}>
@@ -316,7 +328,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontFamily: 'Poppins-BlackItalic',
     textAlign: 'center',
-    paddingTop: 30,
+    // paddingTop: 30,
   },
   email: {
     // backgroundColor: '#000000',
@@ -355,6 +367,7 @@ const styles = StyleSheet.create({
   },
   fieldscontainer: {
     paddingTop: 80,
+    // backgroundColor: '#FFFF',
   },
   btncontainer: {
     width: P80,
@@ -408,4 +421,11 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 27,
   },
+  // profileimage: {
+  //   width: 600,
+  //   height: 150,
+  //   // backgroundColor: '#FFFF',
+  //   alignSelf: 'center',
+  //   marginTop: -20,
+  // },
 });

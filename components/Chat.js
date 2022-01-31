@@ -1,28 +1,50 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {colors} from '../screens/ChatScreen';
-const Chat = ({name}) => {
-  const fullName = name.split(' ');
-  // const initials = fullName.shift().charAt(0) + fullName.pop().charAt(0);
-  // console.log(initials.toUpperCase());
 
-  const initial = fullName[0].charAt(0).toUpperCase();
-  const initial2 = fullName[0].charAt(1).toUpperCase();
-  console.log(initial);
+const Chat = ({name}) => {
+  let arrName = name.split(' ');
+
+  // Select the first letter of the name
+  let iniName = name.charAt(0).toUpperCase();
+
+  // Select the first letter of the lastname
+  let iniLname = arrName[arrName.length - 1].charAt(0).toUpperCase();
+
   return (
     <View style={styles.chatcontainer}>
       <View style={styles.profilecontainer}>
         {/* <Image
-          source={require('../assets/images/punk8033.png')}
+          source={{
+            uri: 'https://images.unsplash.com/photo-1533488069324-f9265c15d37f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bWFsZSUyMG1vZGVsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+          }}
           style={styles.profileimage}></Image> */}
-        <Text style={styles.txtavatar}>
+        {/* <Text style={styles.txtavatar}>
           {initial}
           {initial2}
-        </Text>
+          GB
+        </Text> */}
+
+        {name.indexOf(' ') >= 0 ? (
+          <Text style={styles.txtavatar}>
+            {iniName}
+            {iniLname}
+          </Text>
+        ) : (
+          <Text style={styles.txtavatar}>{iniName}</Text>
+        )}
       </View>
       <View style={styles.txtcontainer}>
         <Text style={styles.txtname}>{name}</Text>
-        {/* <Text style={styles.txtmsg}>{colors.name}</Text> */}
+        {/* {name.indexOf(' ') >= 0 ? (
+          <Text style={styles.txtmsg}>
+            {iniName}
+            {iniLname}
+          </Text>
+        ) : (
+          <Text style={styles.txtmsg}>{iniName}</Text>
+        )} */}
+
         <Text style={styles.txtmsg}>Kya pta bhai</Text>
       </View>
     </View>
@@ -61,13 +83,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#F65F65',
   },
   txtname: {
-    fontSize: 15,
+    fontSize: 16,
     color: '#000000',
     fontFamily: 'Poppins-Bold',
     // paddingTop: 10,
   },
   txtmsg: {
-    fontSize: 10,
+    fontSize: 9,
     paddingBottom: 5,
     // marginBottom: 5,
     marginTop: -3,
@@ -80,6 +102,7 @@ const styles = StyleSheet.create({
   txtavatar: {
     fontFamily: 'Poppins-Medium',
     color: '#000000',
-    fontSize: 19,
+    fontSize: 20,
+    letterSpacing: 1,
   },
 });

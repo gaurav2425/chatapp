@@ -14,6 +14,9 @@ const Header = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.headercontainer}>
+      {/* <Image
+        style={styles.profileimage}
+        source={require('../assets/images/PLAX3.png')}></Image> */}
       <View style={styles.headercontainer1}>
         {/* <Text style={styles.txt}>SpanCock</Text> */}
         <TouchableRipple
@@ -27,6 +30,11 @@ const Header = () => {
             size={27}
             style={styles.exploreicon}></AntDesign>
         </TouchableRipple>
+
+        {/* <Image
+          style={styles.profileimage}
+          source={require('../assets/images/plax1.png')}></Image> */}
+
         <View style={styles.righticons}>
           {/* <SimpleLineIcons
         name="compass"
@@ -225,5 +233,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     color: '#000000',
     fontSize: 14,
+  },
+  profileimage: {
+    width: 100,
+    height: 100,
+    // marginBottom: 100,
+    // backgroundColor: '#FFFF',
+    // marginRight: -50,
+    marginLeft: 20,
   },
 });

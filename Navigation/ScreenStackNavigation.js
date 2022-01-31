@@ -5,6 +5,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import Loading from '../screens/Loading';
+import Bio from '../screens/Bio';
+import Share from '../screens/Share';
+import Browser from '../screens/Browser';
+import SplashScreen from '../screens/SplashScreen';
 import Home from '../screens/Home';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Authenticated from '../screens/Authenticated';
@@ -44,6 +48,7 @@ const ScreenStackNavigation = () => {
         />
         <Stack.Screen name="signup" component={SignUp} />
         <Stack.Screen name="login" component={Login} />
+
         <Stack.Screen
           name="ChatScreen"
           component={ChatScreen}
@@ -66,6 +71,22 @@ const ScreenStackNavigation = () => {
         <Stack.Screen
           name="settings"
           component={Settings}
+          options={{
+            animation: 'none',
+          }}></Stack.Screen>
+
+        <Stack.Screen name="browser" component={Browser} />
+
+        <Stack.Screen
+          name="share"
+          component={Share}
+          options={{
+            animation: 'none',
+          }}></Stack.Screen>
+        <Stack.Screen
+          name="bio"
+          // component={Bio}
+          component={SplashScreen}
           options={{
             animation: 'none',
           }}></Stack.Screen>
