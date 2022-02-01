@@ -17,6 +17,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {incNumber, decNumber} from '../actions/index';
 import {UserData, UserPassword} from '../actions/Useraction';
 import UserReducer from '../reducers/User';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const SignUp = ({navigation}) => {
   const [name, setName] = useState('');
@@ -100,46 +101,55 @@ const SignUp = ({navigation}) => {
           <View style={styles.txtcontainer}>
             <Text style={styles.txthead}>Create a new account</Text>
           </View>
-          <TextInput
+          {/* <TextInput
             placeholder="Name"
             style={styles.name}
             value={name}
             autoCapitalize="none"
             textContentType="name"
-            onChangeText={text => setName(text)}></TextInput>
-          <TextInput
-            placeholder="Username"
-            style={styles.name}
-            value={username}
-            autoCapitalize="none"
-            textContentType="username"
-            onChangeText={text => setUsername(text)}></TextInput>
-          <TextInput
+            onChangeText={text => setName(text)}></TextInput> */}
+          <View style={styles.namecontainer}>
+            <TextInput
+              placeholder="Username"
+              style={styles.name}
+              value={username}
+              autoCapitalize="none"
+              textContentType="username"
+              onChangeText={text => setUsername(text)}></TextInput>
+
+            <Ionicons
+              name="ios-checkmark-circle-outline"
+              size={25}
+              style={styles.checkicon}></Ionicons>
+          </View>
+
+          {/* <TextInput
             placeholder="Email"
             style={styles.email}
             value={email}
             autoCapitalize="none"
             textContentType="emailAddress"
-            onChangeText={text => setEmail(text)}></TextInput>
+            onChangeText={text => setEmail(text)}></TextInput> */}
 
-          <TextInput
+          {/* <TextInput
             placeholder="Password"
             style={styles.password}
             secureTextEntry={true}
             textContentType="password"
             value={password}
             autoCapitalize="none"
-            onChangeText={text => setPassword(text)}></TextInput>
+            onChangeText={text => setPassword(text)}></TextInput> */}
 
           <TouchableOpacity
             style={styles.btnmaincontainer}
-            onPress={() => sendCredentials()}>
+            // onPress={() => sendCredentials()}
+          >
             <LinearGradient
               style={styles.btn}
               colors={['#8a3ab9', '#e95950', '#fccc63']}
               start={{x: 0, y: 0}}
               end={{x: 1, y: 0}}>
-              <Text style={styles.btntxt}>SignUp</Text>
+              <Text style={styles.btntxt}>Next</Text>
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -203,6 +213,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#D9D3D3',
   },
+  namecontainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: '#FFFF',
+  },
   name: {
     // backgroundColor: '#FFFF',
     width: P90,
@@ -214,6 +231,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     borderBottomWidth: 1,
     borderColor: '#D9D3D3',
+  },
+  checkicon: {
+    bottom: 5,
+    alignSelf: 'flex-start',
+    color: '#11B902',
+    position: 'absolute',
+    right: "",
   },
   password: {
     // backgroundColor: '#FFFF',
