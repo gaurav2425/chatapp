@@ -7,7 +7,11 @@ const Notification = ({notification}) => {
       <View style={styles.container1}>
         <View style={styles.imagecontainer}>
           <Image
-            source={require('.././assets/images/punk8033.png')}
+            // source={require('.././assets/images/punk8033.png')}
+            source={{
+              // uri: 'https://cdn.pixabay.com/photo/2015/03/08/17/25/musician-664432__340.jpg',
+              uri: 'https://images.pexels.com/photos/1674752/pexels-photo-1674752.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            }}
             style={styles.image}></Image>
         </View>
         <View style={styles.notificationtxt}>
@@ -63,8 +67,8 @@ const styles = StyleSheet.create({
   },
   timetxt: {
     fontFamily: 'Poppins-Medium',
-    color: '#000000',
+    color: '#696969',
     marginTop: 5,
-    fontSize: 13,
+    fontSize: 11,
   },
 });

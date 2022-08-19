@@ -9,17 +9,27 @@ import {
   Image,
   Alert,
   Keyboard,
+  KeyboardAvoidingView,
+  Modal,
+  Pressable,
+  StatusBar,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setEmail} from '../actions/index';
+// import {setEmail} from '../actions/index';
+import {showMessage, hideMessage} from 'react-native-flash-message';
+import FlashMessage from 'react-native-flash-message';
 import {useSelector, useDispatch} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import PushNotification, {Importance} from 'react-native-push-notification';
 import {UserData, UserPassword, LoginAction} from '../actions/Useraction';
 // import {useSelector, useDispatch} from 'react-redux';
+import {TouchableRipple} from 'react-native-paper';
+
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const myLoginState = useSelector(state => state.LoginReducer);
 
@@ -41,6 +51,57 @@ const Login = ({navigation}) => {
     );
   };
 
+  const Invalid = () => {
+    showMessage({
+      message: 'Please Fill all the fields',
+      type: 'info',
+      color: '#FFFF',
+      backgroundColor: '#ff4d4d',
+      // hideStatusBar: true,
+      floating: true,
+      style: {
+        height: 60,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      textStyle: {
+        color: '#000000',
+
+        fontFamily: 'Poppins-Medium',
+      },
+      titleStyle: {
+        fontSize: 14,
+        fontFamily: 'Poppins-Medium',
+      },
+    });
+  };
+
+  const Invalid1 = () => {
+    // showMessage({
+    //   message: 'Invalid Credentials',
+    //   type: 'info',
+    //   color: '#FFFF',
+    //   backgroundColor: '#ff4d4d',
+    //   floating: true,
+    //   style: {
+    //     height: 60,
+    //     borderRadius: 20,
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    //   },
+    //   textStyle: {
+    //     color: '#000000',
+
+    //     fontFamily: 'Poppins-Medium',
+    //   },
+    //   titleStyle: {
+    //     fontSize: 14,
+    //     fontFamily: 'Poppins-Medium',
+    //   },
+    // });
+    setModalVisible(true);
+  };
   // const createChannel = () => {
   //   PushNotification.createChannel(
   //     {
@@ -172,11 +233,11 @@ const Login = ({navigation}) => {
   const showAlert = e =>
     Alert.alert(
       'Invalid Credientials',
-      'Entered Email or Password is Invalid',
+      'Please fill all the fields',
       [
         {
           text: 'ok',
-          // onPress: () => Alert.alert('Cancel Pressed'),
+
           style: 'ok',
         },
       ],
@@ -190,48 +251,124 @@ const Login = ({navigation}) => {
       },
     );
 
-  const sendCredentials = () => {
-    const fetchMYAPI = async () => {
-      fetch('http://192.168.1.7:5000/api/auth', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      })
-        .then(res => res.json())
-        .then(async data => {
-          console.log(data);
+  const FillAllFields = () => {
+    showMessage({
+      message: 'please fill all the fields',
+      type: 'info',
+      color: '#FFFF',
+      backgroundColor: '#ff4d4d',
+      // hideStatusBar: true,
+      floating: true,
+      position: 'top',
+      style: {
+        height: 60,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      textStyle: {
+        color: '#000000',
 
-          try {
-            await AsyncStorage.setItem('token', data.token);
-            navigation.replace('home');
-          } catch (e) {
-            //saving error
-            console.log('Error hai', e);
-            showAlert(e);
+        fontFamily: 'Poppins-Medium',
+      },
+      titleStyle: {
+        fontSize: 11,
+        fontFamily: 'Poppins-Medium',
+      },
+    });
+  };
+
+  const sendCredentials = async () => {
+    fetch('http://13.232.252.51:5000/api/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then(res => res.json())
+      .then(async data => {
+        console.log(data);
+        console.log(data);
+
+        try {
+          await AsyncStorage.setItem('token', data.token);
+          navigation.replace('home');
+        } catch (e) {
+          console.log('Error hai', e);
+          // showAlert(e);
+          {
+            email.length == 0 || password.length == 0 ? Invalid() : Invalid1();
           }
-        })
-        .catch(err => {
-          console.log(err);
-          throw err;
-        });
-    };
-    fetchMYAPI();
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
   };
 
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
 
+  console.log('my email and password');
+
+  console.log(email);
+  console.log(password);
+
+  console.log('my email and password');
+
+  const removetoken = () => {
+    AsyncStorage.removeItem('token', err => console.log('userId', err));
+  };
+
+  const token11 = AsyncStorage.getItem('token');
+  console.log(token11);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      },
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
+  const P100 = '100%';
+
   return (
-    <View style={styles.logincontainer}>
+    <KeyboardAvoidingView
+      style={styles.logincontainer}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      keyboardVerticalOffset={Platform.select({ios: 0, android: 500})}>
       {/* <Text style={styles.txtlogo}>SpanCock</Text> */}
 
       <View style={styles.fieldscontainer}>
+        <View style={styles.initialscreencontainer1}>
+          <Image
+            source={require('../assets/images/group14.png')}
+            style={styles.mainlogo}></Image>
+          {/* <Image
+              source={require('../assets/images/plaxbox1.png')}
+              style={styles.maintext}></Image> */}
+        </View>
+
         {/* <Image
           style={styles.profileimage}
           source={require('../assets/images/plaxbox2.png')}></Image> */}
@@ -266,25 +403,40 @@ const Login = ({navigation}) => {
           Create a New Account
         </Text> */}
         {/* <Text>It is {new Date().toLocaleTimeString()}.</Text> */}
-        <TouchableOpacity
-          // style={styles.btn}
-          // onPress={(() => handleLoginReduxData, sendCredentials)}
-          onPress={() => {
-            dismissKeyboard(), sendCredentials();
-            // Test();
-            // pushschedule();
-          }}
-          // onPress={Keyboard.dismiss}
-        >
-          <LinearGradient
+
+        {email.length > 0 && password.length > 0 ? (
+          <TouchableRipple
             style={styles.btn}
-            colors={['#8a3ab9', '#e95950', '#fccc63']}
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}>
-            <Text style={styles.btntxt}>Login</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+            rippleColor="rgba(255, 255, 255, .4)"
+            onPress={() => {
+              sendCredentials();
+            }}>
+            <View>
+              <Text style={styles.btntxt}>Login</Text>
+            </View>
+          </TouchableRipple>
+        ) : (
+          <TouchableRipple
+            style={styles.btnvaluesinvalid}
+            rippleColor="rgba(255, 255, 255, .4)"
+            onPress={() => {
+              FillAllFields();
+            }}>
+            <View>
+              <Text style={styles.btntxt}>Login</Text>
+            </View>
+          </TouchableRipple>
+        )}
       </View>
+
+      {isKeyboardVisible == true ? null : (
+        <View style={styles.svgcontainer}>
+          <Image
+            style={styles.svgimage}
+            source={require('../assets/images/svg5.png')}></Image>
+        </View>
+      )}
+
       <View style={styles.txt2container}>
         <Text style={styles.txt2} onPress={() => navigation.replace('signup')}>
           Create a New Account ?
@@ -295,19 +447,82 @@ const Login = ({navigation}) => {
           Register
         </Text>
       </View>
-    </View>
+
+      <View
+        style={[
+          styles.container,
+          modalVisible === true
+            ? {
+                backgroundColor: 'rgba(0,0,0,0.75)',
+                width: P100,
+                height: P100,
+                position: 'absolute',
+              }
+            : '',
+        ]}>
+        <Modal
+          // animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          animationType="fade"
+          // style={{
+          //   backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          // }}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <View style={styles.modalViewuppertext}>
+                <Text style={styles.modalText}>Invalid Credientials</Text>
+                <Text style={styles.modalTextSmall}>
+                  The credientials you entered is incorrect. Please try again
+                </Text>
+              </View>
+
+              <TouchableOpacity
+                style={styles.modalViewdowntext}
+                onPress={() => {
+                  setModalVisible(false);
+                }}>
+                <Text style={styles.tryagain}>Try again</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </View>
+      {/* <Pressable
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => setModalVisible(true)}>
+        <Text style={styles.textStyle}>Show Modal</Text>
+      </Pressable> */}
+
+      {modalVisible === true ? (
+        <StatusBar
+          barStyle="dark-content"
+          hidden={false}
+          backgroundColor="rgba(250,245,239,0.75)"
+        />
+      ) : null}
+
+      <FlashMessage position="top" />
+    </KeyboardAvoidingView>
   );
 };
 
 export default Login;
+const P100 = '100%';
 const P90 = '90%';
 const P80 = '85%';
+const P75 = '75%';
+const P60 = '60%';
 
 const styles = StyleSheet.create({
   logincontainer: {
     flex: 1,
     backgroundColor: '#FAF5EF',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   txt: {
     color: '#000000',
@@ -322,6 +537,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     // alignItems: 'center',
     alignSelf: 'center',
+    marginTop: 20,
   },
   txtlogo: {
     color: '#000000',
@@ -334,7 +550,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#000000',
     width: P80,
     alignSelf: 'center',
-    marginTop: 40,
+    marginTop: 10,
     // borderRadius: 10,
     // paddingLeft: 10,
     fontFamily: 'Poppins-Medium',
@@ -366,7 +582,7 @@ const styles = StyleSheet.create({
     borderColor: '#D9D3D3',
   },
   fieldscontainer: {
-    paddingTop: 80,
+    paddingTop: 60,
     // backgroundColor: '#FFFF',
   },
   btncontainer: {
@@ -377,12 +593,29 @@ const styles = StyleSheet.create({
     height: 50,
     width: P80,
     backgroundColor: '#12BF0E',
+    backgroundColor: '#F6421B',
+    backgroundColor: '#ff4d4d',
     // backgroundColor: '#0FA60C',
     alignSelf: 'center',
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 30,
+    // opacity: 0.3,
+  },
+  btnvaluesinvalid: {
+    height: 50,
+    width: P80,
+    backgroundColor: '#12BF0E',
+    backgroundColor: '#F6421B',
+    backgroundColor: '#ff4d4d',
+    // backgroundColor: '#0FA60C',
+    alignSelf: 'center',
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 30,
+    opacity: 0.3,
   },
   btntxt: {
     alignSelf: 'center',
@@ -414,7 +647,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     display: 'flex',
     flexDirection: 'row',
-    paddingBottom: 30,
+    // paddingBottom: 10,
+    marginTop: 10,
   },
   txthead: {
     fontFamily: 'Poppins-Bold',
@@ -428,4 +662,134 @@ const styles = StyleSheet.create({
   //   alignSelf: 'center',
   //   marginTop: -20,
   // },
+  mainlogo: {
+    width: 55,
+    height: 55,
+  },
+  maintext: {
+    width: 250,
+    height: 200,
+    marginTop: -50,
+  },
+  modalViewdowntext: {
+    // backgroundColor: '#696969',
+    borderTopColor: 'gray',
+    borderTopWidth: 0.5,
+    height: 50,
+    width: P100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+  },
+  initialscreencontainer1: {
+    // backgroundColor: '#F65F65',
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    // marginTop: P40,
+    alignSelf: 'center',
+  },
+  svgimage: {
+    width: 220,
+    height: 110,
+  },
+  svgcontainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 2,
+  },
+  mainlogo: {
+    width: 55,
+    height: 55,
+  },
+  maintext: {
+    width: 270,
+    height: 200,
+    marginTop: -50,
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    // marginTop: -50,
+  },
+  modalView: {
+    // margin: 20,
+    // backgroundColor: 'white',
+    borderRadius: 20,
+    // padding: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+
+    shadowOpacity: 0.25,
+    shadowRadius: 3,
+    elevation: 1,
+    justifyContent: 'space-between',
+    display: 'flex',
+    direction: 'column',
+    backgroundColor: '#FFFFFF',
+    width: P75,
+    height: 150,
+  },
+  tryagain: {
+    fontFamily: 'Poppins-Bold',
+    // paddingTop: 10,
+    // width: P75,
+    // height: 10,
+    color: '#ff4d4d',
+    fontSize: 15,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+    padding: 20,
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+    marginTop: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    // marginBottom: 10,
+    textAlign: 'center',
+    fontFamily: 'Poppins-Bold',
+    color: '#000000',
+    fontSize: 20,
+  },
+  modalTextSmall: {
+    // marginBottom: 15,
+    textAlign: 'center',
+    fontFamily: 'Poppins-Medium',
+    color: '#696969',
+    fontSize: 12,
+    paddingRight: 20,
+    // marginTop: -10,
+    paddingLeft: 20,
+  },
+  modalViewuppertext: {
+    height: 100,
+    // backgroundColor: '#F15F15',
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+  },
 });

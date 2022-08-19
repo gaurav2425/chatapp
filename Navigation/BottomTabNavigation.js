@@ -14,6 +14,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Zocial from 'react-native-vector-icons/Zocial';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Octicons from 'react-native-vector-icons/Octicons';
+import {TouchableRipple} from 'react-native-paper';
 import Todo from '../screens/Todo';
 import Search from '../screens/Search';
 
@@ -25,6 +26,11 @@ const BottomTabNavigation = () => {
       screenOptions={{
         keyboardHidesTabBar: true,
         tabBarHideOnKeyboard: true,
+        tabBarStyle: {
+          // marginHorizontal: 10,
+          // marginBottom: 10,
+          // borderRadius: 20,
+        },
       }}>
       <Tab.Screen
         name="hometab"
@@ -71,9 +77,12 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <AntDesign
-              // name={focused ? 'ios-radio-outline' : 'ios-radio-outline'}
-              name={focused ? 'find' : 'find'}
+            <Ionicons
+              name={
+                focused
+                  ? 'ios-chatbox-ellipses-outline'
+                  : 'ios-chatbox-ellipses-outline'
+              }
               size={25}
               color={focused ? '#000000' : '#101010'}
             />
@@ -81,7 +90,75 @@ const BottomTabNavigation = () => {
         }}
         component={ProfileScreen}></Tab.Screen>
 
+      {/* <AntDesign
+            name="find"
+            size={27}
+            style={styles.exploreicon}></AntDesign> */}
+
       <Tab.Screen
+        name="hearttab"
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarActiveBackgroundColor: '#FAF5EF',
+          tabBarInactiveBackgroundColor: '#FAF5EF',
+
+          tabBarIcon: ({focused}) => (
+            <Feather
+              name={focused ? 'phone-call' : 'phone-call'}
+              size={23}
+              color={focused ? '#000000' : '#101010'}
+            />
+          ),
+        }}
+        component={ProfileScreen}></Tab.Screen>
+
+      <Tab.Screen
+        name="testtab"
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarActiveBackgroundColor: '#FAF5EF',
+          tabBarInactiveBackgroundColor: '#FAF5EF',
+
+          tabBarIcon: ({focused}) => (
+            // <AntDesign
+
+            //   name={focused ? 'find' : 'find'}
+            //   size={25}
+            //   color={focused ? '#000000' : '#101010'}
+            // />
+
+            <TouchableRipple
+              onPress={() => console.log('Pressed')}
+              rippleColor="rgba(0, 0, 0, .1)"
+              borderless
+              style={styles.profilecontainerripple}>
+              <View style={styles.profilecontainer}>
+                {/* <Image
+                  source={require('../assets/images/punk8033.png')}
+                  style={styles.image}></Image> */}
+                <Text style={styles.txtavatar}>GB</Text>
+              </View>
+            </TouchableRipple>
+          ),
+        }}
+        component={ProfileScreen}></Tab.Screen>
+
+      {/* <TouchableRipple
+            onPress={() => console.log('Pressed')}
+            rippleColor="rgba(0, 0, 0, .1)"
+            borderless
+            style={styles.profilecontainerripple}>
+            <View style={styles.profilecontainer}>
+              <Image
+                source={require('../assets/images/punk8033.png')}
+                style={styles.image}></Image>
+              <Text style={styles.txtavatar}>GB</Text>
+            </View>
+          </TouchableRipple> */}
+
+      {/* <Tab.Screen
         name="plus"
         options={{
           headerShown: false,
@@ -97,7 +174,7 @@ const BottomTabNavigation = () => {
             />
           ),
         }}
-        component={Share}></Tab.Screen>
+        component={Share}></Tab.Screen> */}
 
       {/* <Tab.Screen
         name="signup"
@@ -122,4 +199,33 @@ const BottomTabNavigation = () => {
 
 export default BottomTabNavigation;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  profilecontainerripple: {
+    // padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    marginRight: 4,
+    padding: 3,
+    borderRadius: 15,
+    marginRight: 10,
+    paddingRight: 5,
+    paddingLeft: 5,
+  },
+  txtavatar: {
+    fontFamily: 'Poppins-Medium',
+    color: '#000000',
+    fontSize: 17,
+  },
+  profilecontainer: {
+    width: 32,
+    height: 32,
+    backgroundColor: '#F3EBE0',
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // borderWidth: 1,
+    // borderColor: '#696969',
+  },
+});

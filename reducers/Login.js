@@ -2,7 +2,7 @@
 //   email: '',
 // };
 
-const LoginState = null;
+const LoginState = {};
 const LoginReducer = (state = LoginState, action) => {
   switch (action.type) {
     case 'ADD_LOGIN_DATA':

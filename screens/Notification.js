@@ -15,10 +15,11 @@ import {TouchableRipple} from 'react-native-paper';
 const NotificationScreen = ({navigation: {goBack}}) => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const fetchNotificationData = async () => {
     const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
-      fetch(`http://192.168.1.7:5000/api/users/mine/notifications`, {
+      fetch(`http://13.232.252.51:5000/api/users/mine/notifications`, {
         method: 'GET',
         headers: {
           Accept: 'application/json',

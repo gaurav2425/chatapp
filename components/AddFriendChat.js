@@ -75,7 +75,7 @@ const AddFriendChat = ({name, username, clickevents, removerequest}) => {
               // onPress={(() => removerequest, setAddFriend(!addFriend))}
               // onPress={(() => clickevents(), setAddFriend(!addFriend))}
               onPress={addfriend}>
-              Add Friend
+              Follow
             </Text>
           )}
         </View>

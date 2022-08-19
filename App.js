@@ -4,6 +4,7 @@ import Main from './Main';
 import {Provider} from 'react-redux';
 import store from './store';
 import SplashScreen from 'react-native-splash-screen';
+import FlashMessage from 'react-native-flash-message';
 
 store.subscribe(() => {
   console.log(store.getState());
@@ -17,6 +18,7 @@ const App = () => {
     <Provider store={store}>
       <View style={styles.appcontainer}>
         <Main></Main>
+        <FlashMessage position="bottom" />
       </View>
     </Provider>
   );

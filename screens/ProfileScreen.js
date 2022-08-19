@@ -28,6 +28,9 @@ const ProfileScreen = ({navigation}) => {
           name="chevron-back"
           size={30}
           style={{color: '#000000'}}></Ionicons> */}
+        <View style={styles.profileheaderleft}>
+          <Text style={styles.username}>iamgauravx</Text>
+        </View>
 
         <View style={styles.profileheaderright}>
           <TouchableRipple
@@ -35,10 +38,10 @@ const ProfileScreen = ({navigation}) => {
             rippleColor="rgba(0, 0, 0, .1)"
             borderless
             style={styles.profileheaderrighticon1ripple}>
-            <Ionicons
-              name="share-social-outline"
-              size={25}
-              style={styles.profileheaderrighticon1}></Ionicons>
+            <AntDesign
+              name="sharealt"
+              size={24}
+              style={styles.profileheaderrighticon1}></AntDesign>
           </TouchableRipple>
 
           {/* <Text>{myState}</Text> */}
@@ -64,7 +67,19 @@ const ProfileScreen = ({navigation}) => {
             {/* <Text style={styles.txtavatar}>GB</Text> */}
           </View>
 
-          <View style={styles.editbiocontainer}>
+          <View style={styles.users_container}>
+            <View style={styles.followers_container}>
+              <Text style={styles.followers_count}>24.7k</Text>
+              <Text style={styles.followers_txt}>Followers</Text>
+            </View>
+
+            <View style={styles.following_container}>
+              <Text style={styles.following_count}>24</Text>
+              <Text style={styles.following_txt}>Following</Text>
+            </View>
+          </View>
+
+          {/* <View style={styles.editbiocontainer}>
             <Text
               style={styles.editbio}
               onPress={() => {
@@ -72,14 +87,16 @@ const ProfileScreen = ({navigation}) => {
               }}>
               Edit Bio
             </Text>
-          </View>
+          </View> */}
         </View>
 
         <View style={styles.nameline}>
-          <Text style={styles.textname}>{MyProfileInfo.myprofile.name}</Text>
-          <Text style={styles.textusername}>
+          {/* <Text style={styles.textname}>{MyProfileInfo.myprofile.name}</Text> */}
+          <Text style={styles.textname}>Gaurav Burande</Text>
+          <Text style={styles.profession}>Developer</Text>
+          {/* <Text style={styles.textusername}>
             @{MyProfileInfo.myprofile.username}
-          </Text>
+          </Text> */}
         </View>
 
         <View style={styles.followline}>
@@ -107,8 +124,8 @@ const styles = StyleSheet.create({
 
   profileheader: {
     alignItems: 'center',
-    // justifyContent: 'space-between',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    // justifyContent: 'flex-end',
     paddingLeft: 10,
     display: 'flex',
     flexDirection: 'row',
@@ -116,6 +133,16 @@ const styles = StyleSheet.create({
     // flex: 0.09,
     color: '#000000',
     height: 55,
+  },
+  username: {
+    // padding: 5,
+    // backgroundColor: '#FFFF',
+    fontFamily: 'Poppins-Bold',
+    color: '#000000',
+    // borderRadius: 25,
+    paddingLeft: 20,
+    fontSize: 17,
+    // paddingRight: 20,
   },
   profileheaderright: {
     display: 'flex',
@@ -135,13 +162,66 @@ const styles = StyleSheet.create({
     height: 120,
     // backgroundColor: '#808080',
     // justifyContent: 'center',
+    // justifyContent: 'space-between',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
   },
+  users_container: {
+    paddingLeft: 20,
+    // backgroundColor: '#FFFF',
+  },
+  followers_txt: {
+    fontFamily: 'Poppins-Bold',
+    color: '#000000',
+    fontSize: 15,
+  },
+
+  followers_container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    // height: 19,
+    height: 28,
+    marginLeft: 15,
+
+    display: 'flex',
+  },
+
+  followers_txt: {
+    fontFamily: 'Poppins-Medium',
+    color: '#000000',
+    fontSize: 15,
+  },
+
+  followers_count: {
+    fontFamily: 'Poppins-Bold',
+    color: '#000000',
+    fontSize: 18,
+  },
+
+  following_container: {
+    justifyContent: 'center',
+    height: 28,
+    marginLeft: 20,
+    alignItems: 'center',
+    display: 'flex',
+  },
+
+  following_txt: {
+    fontFamily: 'Poppins-Medium',
+    color: '#000000',
+    fontSize: 15,
+  },
+
+  following_count: {
+    fontFamily: 'Poppins-Bold',
+    color: '#000000',
+    fontSize: 18,
+  },
+
   profile: {
-    width: 100,
-    height: 100,
+    width: 95,
+    height: 95,
     borderRadius: 45,
     backgroundColor: '#F3EBE0',
     // backgroundColor: '#F65F65',
@@ -150,9 +230,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileimage: {
-    width: 100,
-    height: 100,
-    borderRadius: 45,
+    width: 95,
+    height: 95,
+    borderRadius: 55,
     zIndex: -1,
   },
 
@@ -178,9 +258,17 @@ const styles = StyleSheet.create({
   textname: {
     // marginLeft: 25,
     color: '#000000',
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Bold',
     // backgroundColor: '#F65F65',
-    paddingLeft: 31,
+    paddingLeft: 25,
+    fontSize: 15,
+    paddingRight: 40,
+  },
+  profession: {
+    color: '#696969',
+    fontFamily: 'Poppins-Medium',
+    paddingLeft: 25,
+    fontSize: 14,
     paddingRight: 40,
   },
   biotext: {
@@ -207,6 +295,13 @@ const styles = StyleSheet.create({
     // flex: 10,
     height: 50,
     // backgroundColor: '#FFFF',
+  },
+
+  users_container: {
+    display: 'flex',
+    flexDirection: 'row',
+    // backgroundColor: '#FFFF',
+    marginLeft: 20,
   },
   friendstxt: {
     fontFamily: 'Poppins-BoldItalic',

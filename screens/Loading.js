@@ -9,14 +9,17 @@ const Loading = ({navigation}) => {
       if (token) {
         navigation.replace('home');
       } else {
-        navigation.replace('login');
+        navigation.replace('initialscreen');
       }
     };
     LoadData();
   }, []);
   return (
     <View style={styles.loadingcontainer}>
-      <ActivityIndicator size={50} color="#3E3C9C" />
+      {/* <ActivityIndicator size={50} color="#3E3C9C" /> */}
+
+      {/* <ActivityIndicator size={50} color="#F6421B" /> */}
+      <Text style={styles.loadingtext}>Loading ...</Text>
     </View>
   );
 };
@@ -30,5 +33,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FAF5EF',
     fontFamily: 'Poppins-Medium',
+  },
+  loadingtext: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 15,
+    color: '#000000',
   },
 });

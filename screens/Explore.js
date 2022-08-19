@@ -44,7 +44,7 @@ const Explore = ({navigation: {goBack}, navigation}) => {
 
   const sendCredentials = () => {
     const fetchMYAPI = async () => {
-      fetch('http://192.168.1.7:5000/api/users', {
+      fetch('http://13.232.252.51:5000/api/users', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -83,7 +83,7 @@ const Explore = ({navigation: {goBack}, navigation}) => {
   const FetchMinemeData = async () => {
     const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
-      fetch(`http://192.168.1.7:5000/api/users/mine/me`, {
+      fetch(`http://13.232.252.51:5000/api/users/mine/me`, {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -110,7 +110,7 @@ const Explore = ({navigation: {goBack}, navigation}) => {
 
   const FetchMineData = () => {
     const fetchMYAPI = async () => {
-      fetch('http://192.168.1.7:5000/api/users/mine/me', {
+      fetch('http://13.232.252.51:5000/api/users/mine/me', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -138,7 +138,7 @@ const Explore = ({navigation: {goBack}, navigation}) => {
 
   const fetchMyApi = () => {
     const fetchMYAPI = async () => {
-      fetch('http://192.168.1.7:5000/api/users/myfriends/all', {
+      fetch('http://13.232.252.51:5000/api/users/myfriends/all', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -193,7 +193,7 @@ const Explore = ({navigation: {goBack}, navigation}) => {
   const fetchMe = async () => {
     const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
-      fetch('http://192.168.1.7:5000/api/users/mine/profile', {
+      fetch('http://13.232.252.51:5000/api/users/mine/profile', {
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -253,7 +253,7 @@ const Explore = ({navigation: {goBack}, navigation}) => {
   const sendFriendRequest = iddd => {
     const fetchMYAPI = async iddd => {
       await fetch(
-        `http://192.168.1.7:5000/api/users/${iddd}/addfriendrequest`,
+        `http://13.232.252.51:5000/api/users/${iddd}/addfriendrequest`,
         {
           method: 'POST',
           headers: new Headers({
@@ -278,7 +278,7 @@ const Explore = ({navigation: {goBack}, navigation}) => {
   const cancelFriendRequest = creq => {
     const fetchMYAPI = async creq => {
       await fetch(
-        `http://192.168.1.7:5000/api/users/${creq}/cancelfriendrequest`,
+        `http://13.232.252.51:5000/api/users/${creq}/cancelfriendrequest`,
         {
           method: 'POST',
 
@@ -429,11 +429,10 @@ const Explore = ({navigation: {goBack}, navigation}) => {
         <TouchableRipple
           onPress={() => {
             goBack();
-            // console.log('Pressed');
           }}
           rippleColor="rgba(0, 0, 0, .1)"
           borderless
-          style={{marginLeft: 25}}
+          // style={{marginLeft: 25}}
           style={styles.rippleexploreback}>
           <Ionicons
             name="chevron-back-sharp"

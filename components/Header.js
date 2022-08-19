@@ -18,18 +18,18 @@ const Header = () => {
         style={styles.profileimage}
         source={require('../assets/images/PLAX3.png')}></Image> */}
       <View style={styles.headercontainer1}>
-        {/* <Text style={styles.txt}>SpanCock</Text> */}
-        <TouchableRipple
+        <Text style={styles.txt}>Plaxbox</Text>
+        {/* <TouchableRipple
           onPress={() => navigation.navigate('explore')}
           rippleColor="rgba(0, 0, 0, .1)"
           borderless
-          style={{marginLeft: 25}}
+          // style={{marginLeft: 25}}
           style={styles.rippleexplore}>
           <AntDesign
             name="find"
             size={27}
             style={styles.exploreicon}></AntDesign>
-        </TouchableRipple>
+        </TouchableRipple> */}
 
         {/* <Image
           style={styles.profileimage}
@@ -50,43 +50,69 @@ const Header = () => {
               style={styles.clubiconimage}></Image>
           </TouchableRipple> */}
 
-          <TouchableRipple
+          {/* <TouchableRipple
             onPress={() => navigation.navigate('FriendRequests')}
-            // onPress={() => navigation.navigate('ChatScreen')}
+           
             rippleColor="rgba(0, 0, 0, .1)"
             borderless
             style={styles.profilecontainerripple1}>
             <Ionicons
-              name="person-add"
-              size={24}
+              name="create-outline"
+              size={27}
               style={styles.addfriendicon}></Ionicons>
-          </TouchableRipple>
+          </TouchableRipple> */}
 
-          <TouchableRipple
-            onPress={() => navigation.navigate('notification')}
-            rippleColor="rgba(0, 0, 0, .1)"
-            borderless
-            style={styles.profilecontainerripple}>
-            <FontAwesome
-              name="bell-o"
-              size={25}
-              style={styles.bellicon}></FontAwesome>
-          </TouchableRipple>
+          <View style={styles.notificationcontainer}>
+            <TouchableRipple
+              onPress={() => navigation.navigate('notification')}
+              rippleColor="rgba(0, 0, 0, .1)"
+              borderless
+              style={styles.profilecontainerripple}>
+              <FontAwesome
+                name="bell-o"
+                size={25}
+                style={styles.bellicon}></FontAwesome>
+            </TouchableRipple>
+            <View style={styles.notificationno}>
+              <View style={styles.notificationnosub}>
+                <Text style={styles.notificationnotxt}>2</Text>
+              </View>
+            </View>
+          </View>
+
+          <View>
+            <TouchableRipple
+              onPress={() => navigation.navigate('notification')}
+              rippleColor="rgba(0, 0, 0, .1)"
+              borderless
+              style={styles.aeroplaneiconripple}>
+              <Ionicons
+                name="ios-paper-plane-outline"
+                size={26}
+                style={styles.aeroplaneicon}></Ionicons>
+            </TouchableRipple>
+
+            <View style={styles.directmessageno}>
+              <View style={styles.directmessagenosub}>
+                <Text style={styles.directmessagenotxt}>2</Text>
+              </View>
+            </View>
+          </View>
 
           {/* <AntDesign name="plus" size={25}></AntDesign> */}
 
-          <TouchableRipple
+          {/* <TouchableRipple
             onPress={() => console.log('Pressed')}
             rippleColor="rgba(0, 0, 0, .1)"
             borderless
             style={styles.profilecontainerripple}>
             <View style={styles.profilecontainer}>
-              {/* <Image
+              <Image
                 source={require('../assets/images/punk8033.png')}
-                style={styles.image}></Image> */}
+                style={styles.image}></Image>
               <Text style={styles.txtavatar}>GB</Text>
             </View>
-          </TouchableRipple>
+          </TouchableRipple> */}
 
           {/* <Icon name="plus" size={27} style={styles.icon}></Icon> */}
         </View>
@@ -157,7 +183,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontFamily: 'Poppins-Bold',
-    color: '#322F2F',
+    color: '#000000',
     fontSize: 18,
     marginLeft: 20,
   },
@@ -167,12 +193,17 @@ const styles = StyleSheet.create({
     // marginRight: 20,
   },
   addfriendicon: {
+    // color: '#ff4d4d',
     color: '#000000',
     fontWeight: 'bold',
   },
   bellicon: {
     color: '#000000',
     // marginRight: 20,
+  },
+  aeroplaneicon: {
+    color: '#000000',
+    // marginRight: 10,
   },
   clubiconimage: {
     width: 25,
@@ -211,6 +242,9 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     paddingLeft: 5,
   },
+  notificationcontainer: {
+    paddingTop: 4,
+  },
   profilecontainerripple1: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -223,6 +257,19 @@ const styles = StyleSheet.create({
     paddingRight: 7,
 
     paddingLeft: 7,
+  },
+  aeroplaneiconripple: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    // marginRight: 4,
+    // padding: 3,
+    borderRadius: 30,
+    marginRight: 10,
+    padding: 7,
+
+    // paddingLeft: 7,
   },
   rippleexplore: {
     padding: 10,
@@ -241,5 +288,55 @@ const styles = StyleSheet.create({
     // backgroundColor: '#FFFF',
     // marginRight: -50,
     marginLeft: 20,
+  },
+
+  directmessageno: {
+    position: 'absolute',
+    width: 15,
+    height: 15,
+    backgroundColor: '#FFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100,
+    left: 17,
+    top: 5,
+  },
+  notificationno: {
+    position: 'absolute',
+    width: 15,
+    height: 15,
+    backgroundColor: '#FFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100,
+    left: 17,
+    top: 5,
+  },
+  directmessagenosub: {
+    width: 13,
+    height: 13,
+    backgroundColor: '#ff4d4d',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  notificationnosub: {
+    width: 13,
+    height: 13,
+    backgroundColor: '#ff4d4d',
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  directmessagenotxt: {
+    fontFamily: 'Poppins-Bold',
+    color: '#FFFF',
+    fontSize: 9,
+  },
+
+  notificationnotxt: {
+    fontFamily: 'Poppins-Bold',
+    color: '#FFFF',
+    fontSize: 9,
   },
 });

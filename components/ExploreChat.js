@@ -302,7 +302,7 @@ const ExploreChat = ({
                 // onPress={(() => removerequest, setAddFriend(!addFriend))}
                 // onPress={(() => clickevents(), setAddFriend(!addFriend))}
                 onPress={addfriend}>
-                Add Friend
+                Follow
               </Text>
             )}
           </View>
@@ -314,7 +314,7 @@ const ExploreChat = ({
                 // onPress={(() => removerequest, setAddFriend(!addFriend))}
                 // onPress={(() => clickevents(), setAddFriend(!addFriend))}
                 onPress={addfriend}>
-                Add Friend
+                Follow
               </Text>
             ) : (
               <Text
@@ -366,8 +366,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   btntxt: {
-    paddingLeft: 10,
-    paddingRight: 10,
+    // paddingLeft: 10,
+    // paddingRight: 10,
+    width: 90,
     paddingTop: 5,
     paddingBottom: 5,
     backgroundColor: '#FFFF',
@@ -375,12 +376,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
     borderRadius: 20,
+    textAlign: 'center',
   },
   btntxt1: {
-    paddingLeft: 10,
-    paddingRight: 10,
+    // paddingLeft: 10,
+    // paddingRight: 10,
+    width: 90,
     paddingTop: 5,
     paddingBottom: 5,
+    textAlign: 'center',
     backgroundColor: '#1A4493',
     color: '#FFFF',
     fontFamily: 'Poppins-Medium',

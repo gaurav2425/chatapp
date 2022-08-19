@@ -41,7 +41,7 @@ const SearchScreen = ({navigation}) => {
   const fetchFriends = async () => {
     const token = await AsyncStorage.getItem('token');
     // setToken(tokenauth);
-    fetch('http://192.168.1.7:5000/api/profile/users/all', {
+    fetch('http://13.232.252.51:5000/api/profile/users/all', {
       headers: new Headers({
         'x-auth-token': token,
       }),
@@ -96,10 +96,10 @@ const SearchScreen = ({navigation}) => {
               style={styles.iconsearch}></EvilIcons>
             <TextInput
               placeholder="Search For People"
-              style={{
-                fontSize: 12,
-                fontFamily: 'Poppins-Medium',
-              }}
+              // style={{
+              //   fontSize: 12,
+              //   fontFamily: 'Poppins-Medium',
+              // }}
               value={searchTerm}
               // onChange={e => {
               //   setSearchTerm(e.target.value);

@@ -27,7 +27,7 @@ import ChatInput from '../components/ChatInput';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 import Loading from '../screens/Loading';
 import {MyProfileInfoAction} from '../actions/MyProfileInfoaction';
-const ENDPOINT = 'http://192.168.1.7:5000/';
+const ENDPOINT = 'http://13.232.252.51:5000/';
 
 const ChatScreen = ({navigation: {goBack}}) => {
   const [message, setMessage] = useState('');
@@ -62,7 +62,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
 
   const lastmessageupdate = async () => {
     const token = await AsyncStorage.getItem('token');
-    fetch(`http://192.168.1.7:5000/api/users/chatroom/lastmessage`, {
+    fetch(`http://13.232.252.51:5000/api/users/chatroom/lastmessage`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -88,7 +88,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
     const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
       fetch(
-        `http://192.168.1.7:5000/api/users/${MyClick.userclickId}/newmessage`,
+        `http://13.232.252.51:5000/api/users/${MyClick.userclickId}/newmessage`,
         {
           method: 'POST',
           headers: {
@@ -113,12 +113,12 @@ const ChatScreen = ({navigation: {goBack}}) => {
         });
     };
     fetchMYAPI();
-    lastmessageupdate();
+    // lastmessageupdate();
   };
 
   const sendmsgnotification = async () => {
     const token = await AsyncStorage.getItem('token');
-    fetch(`http://192.168.1.7:5000/api/notification`, {
+    fetch(`http://13.232.252.51:5000/api/notification`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -158,7 +158,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
     const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
       fetch(
-        `http://192.168.1.7:5000/api/users/myfriends/all/${MyClick.userclickId}`,
+        `http://13.232.252.51:5000/api/users/myfriends/all/${MyClick.userclickId}`,
         {
           method: 'GET',
           headers: {
@@ -174,6 +174,9 @@ const ChatScreen = ({navigation: {goBack}}) => {
           console.log(data);
           console.log('Data Of FriendUser');
           setFriendUser(data);
+
+          
+
         })
         .catch(err => {
           console.log(err);
@@ -182,23 +185,22 @@ const ChatScreen = ({navigation: {goBack}}) => {
     fetchMYAPI();
   };
 
+
+
   const fetchUserMessges = async () => {
     const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
       fetch(
-        `http://192.168.1.7:5000/api/users/${MyClick.userclickId}/readmessage`,
-        // http://localhost:5000/api/users/61ae09b48c78c1f58a5db727/readmessage
+        `http://13.232.252.51:5000/api/users/${MyClick.userclickId}/readmessage`,
         {
           method: 'GET',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             'x-auth-token': token,
+            // 123456789
+            // 98712345
           },
-          // body: JSON.stringify({
-          //   message: message,
-          //   received: false,
-          // }),
         },
       )
         .then(res => res.json())
@@ -364,7 +366,7 @@ const ChatScreen = ({navigation: {goBack}}) => {
       <View style={styles.chatsection}>
         {loading ? (
           <View style={styles.indicatorContainer}>
-            <ActivityIndicator size={40} color="#3E3C9C" />
+            <ActivityIndicator size={30} color="#3E3C9C" />
           </View>
         ) : (
           <ScrollView
@@ -469,6 +471,7 @@ const styles = StyleSheet.create({
     width: P80,
     borderRadius: 30,
     // justifyContent: 'center',
+    maxHeight: 100,
   },
   plusicon: {
     // backgroundColor: '#F3EBE0',
@@ -498,7 +501,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     fontFamily: 'Poppins-Medium',
-    height: 50,
+    // height: 50,
+    maxHeight: 250,
     marginTop: 3,
   },
   txtinputnew: {
@@ -506,8 +510,10 @@ const styles = StyleSheet.create({
     width: P75,
     fontFamily: 'Poppins-Medium',
     fontSize: 13,
-    minHeight: 10,
-    maxHeight: 50,
+    maxHeight: 150,
+    // minHeight: 10,
+    // maxHeight: 50,
+    // height: 100,
     // backgroundColor: '#FFFF',
   },
 
@@ -539,7 +545,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#8B4513',
     backgroundColor: '#F8F6EC',
     height: 50,
-
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

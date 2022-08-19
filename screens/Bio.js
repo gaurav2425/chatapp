@@ -24,7 +24,7 @@ const Bio = ({navigation: {goBack}}) => {
   const updateBio = async () => {
     const token = await AsyncStorage.getItem('token');
 
-    fetch('http://192.168.1.7:5000/api/bio/updatebio', {
+    fetch('http://192.168.0.103:5000/api/bio/updatebio', {
       method: 'POST',
       headers: new Headers({
         'x-auth-token': token,

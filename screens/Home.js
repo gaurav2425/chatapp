@@ -27,6 +27,7 @@ import {UserData, UserPassword} from '../actions/Useraction';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import messaging from '@react-native-firebase/messaging';
 import {state} from 'react-native-push-notification/component';
+import RoomsBar from '../components/RoomsBar';
 const Home = ({navigation}) => {
   const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -69,7 +70,7 @@ const Home = ({navigation}) => {
     console.log(token);
     console.log(token);
     // setToken(tokenauth);
-    fetch('http://192.168.1.7:5000/api/auth', {
+    fetch('http://13.232.252.51:5000/api/auth', {
       headers: new Headers({
         'x-auth-token': token,
       }),
@@ -134,7 +135,7 @@ const Home = ({navigation}) => {
   const fetchMyProfileInfo = async () => {
     const token = await AsyncStorage.getItem('token');
     // setToken(tokenauth);
-    fetch('http://192.168.1.7:5000/api/profile/myprofileinfo', {
+    fetch('http://13.232.252.51:5000/api/profile/myprofileinfo', {
       headers: new Headers({
         'x-auth-token': token,
       }),
@@ -179,7 +180,7 @@ const Home = ({navigation}) => {
   const fetchProfile = async () => {
     const token = await AsyncStorage.getItem('token');
     // setToken(tokenauth);
-    fetch('http://192.168.1.7:5000/api/profile/me', {
+    fetch('http://13.232.252.51:5000/api/profile/me', {
       headers: new Headers({
         'x-auth-token': token,
       }),
@@ -204,7 +205,7 @@ const Home = ({navigation}) => {
   const fetchFriends = async () => {
     const token = await AsyncStorage.getItem('token');
     // setToken(tokenauth);
-    fetch('http://192.168.1.7:5000/api/users/myfriends/all', {
+    fetch('http://13.232.252.51:5000/api/users/myfriends/all', {
       headers: new Headers({
         'x-auth-token': token,
       }),
@@ -273,7 +274,7 @@ const Home = ({navigation}) => {
 
     // const mtoken = await mobileToken;
     const fetchMYAPI = async () => {
-      fetch('http://192.168.1.7:5000/api/profile/token/mobiletoken', {
+      fetch('http://13.232.252.51:5000/api/profile/token/mobiletoken', {
         method: 'POST',
 
         headers: new Headers({
@@ -317,7 +318,7 @@ const Home = ({navigation}) => {
   const testdata = async vtoken => {
     const token = await AsyncStorage.getItem('token');
 
-    fetch('http://192.168.1.7:5000/api/profile/token/mobiletoken', {
+    fetch('http://13.232.252.51:5000/api/profile/token/mobiletoken', {
       method: 'POST',
 
       headers: new Headers({
@@ -499,7 +500,7 @@ const Home = ({navigation}) => {
             refreshing={refreshing}
             onRefresh={onRefresh}></RefreshControl>
         }>
-        <View style={styles.storymaincontainer}>
+        {/* <View style={styles.storymaincontainer}>
           <ScrollView
             horizontal={true}
             style={styles.storymaincontainer}
@@ -546,9 +547,9 @@ const Home = ({navigation}) => {
               name="hemant"
               uri="https://images.unsplash.com/photo-1626978407649-de62156f1548?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG1hbGUlMjBtb2RlbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"></Story>
           </ScrollView>
-        </View>
+        </View> */}
 
-        <View style={styles.searchinputcontainer}>
+        {/* <View style={styles.searchinputcontainer}>
           <View style={styles.searchcontainer}>
             <EvilIcons
               name="search"
@@ -559,41 +560,73 @@ const Home = ({navigation}) => {
               placeholder="Search For Friends"
               style={styles.searchinput}></TextInput>
           </View>
+        </View> */}
+
+        {/* <RoomsBar></RoomsBar> */}
+
+        <View style={styles.inputcontainermain}>
+          <View style={styles.inputcontainer}>
+            <EvilIcons
+              name="search"
+              size={25}
+              style={styles.iconsearch}></EvilIcons>
+            <TextInput
+              placeholder="Search For People"
+              // value={searchTerm}
+
+              // onChangeText={text => setSearchTerm(text)}
+              style={styles.txtinput}></TextInput>
+          </View>
         </View>
-        <Text style={styles.chattxt}>Friends Chat</Text>
+
+        <Text style={styles.chattxt}>Personal Chats</Text>
         {loading ? (
           <View style={styles.indicatorContainer}>
-            <ActivityIndicator size={40} color="#3E3C9C" />
+            <ActivityIndicator size={40} color="#ff4d4d" />
           </View>
         ) : (
-          <>
-            {MyProfileInfo.myprofile.Friends.map((friend, index) => {
-              return (
-                <TouchableRipple
-                  rippleColor="rgba(0, 0, 0, .1)"
-                  borderless
-                  key={index}
-                  onPress={() => {
-                    let userclickId = friend.user;
-                    let userclickName = friend.name;
+          <View>
+            {MyProfileInfo.myprofile.Friends?.length === 0 ? (
+              <View style={styles.nofriendscontainer}>
+                <Image
+                  style={styles.svgimage}
+                  source={require('../assets/images/Tipp1.png')}></Image>
 
-                    dispatch(
-                      UserClickAction({
-                        userclickId,
-                      }),
-                    );
-                    dispatch(
-                      UserClickNameAction({
-                        userclickName,
-                      }),
-                    );
-                    navigation.navigate('ChatScreen');
-                  }}>
-                  <Chat name={friend.name}></Chat>
-                </TouchableRipple>
-              );
-            })}
-          </>
+                <Text style={styles.nofriendscontainertxt}>
+                  👍You're all good! You don't have any friends
+                </Text>
+              </View>
+            ) : (
+              <>
+                {MyProfileInfo.myprofile.Friends?.map((friend, index) => {
+                  return (
+                    <TouchableRipple
+                      rippleColor="rgba(0, 0, 0, .1)"
+                      borderless
+                      key={index}
+                      onPress={() => {
+                        let userclickId = friend.user;
+                        let userclickName = friend.name;
+
+                        dispatch(
+                          UserClickAction({
+                            userclickId,
+                          }),
+                        );
+                        dispatch(
+                          UserClickNameAction({
+                            userclickName,
+                          }),
+                        );
+                        navigation.navigate('ChatScreen');
+                      }}>
+                      <Chat name={friend.name}></Chat>
+                    </TouchableRipple>
+                  );
+                })}
+              </>
+            )}
+          </View>
         )}
 
         {/* <TouchableOpacity
@@ -603,14 +636,14 @@ const Home = ({navigation}) => {
           <Text>Press me to send notification</Text>
         </TouchableOpacity> */}
 
-        {/* <Chat name="gaurav burande"></Chat>
+        <Chat name="gaurav burande"></Chat>
         <Chat name="Ajinkya sahu"></Chat>
         <Chat name="swaraj pawar"></Chat>
         <Chat name="pinky sharma"></Chat>
         <Chat name="naman yadav"></Chat>
         <Chat name="vishal singh"></Chat>
         <Chat name="karan mehra"></Chat>
-        <Chat name="hemant thackrey"></Chat> */}
+        <Chat name="hemant thackrey"></Chat>
       </ScrollView>
 
       <StatusBar barStyle="dark-content" backgroundColor="#FAF5EF"></StatusBar>
@@ -619,7 +652,9 @@ const Home = ({navigation}) => {
 };
 
 export default Home;
+const P70 = '70%';
 const P90 = '90%';
+const P50 = '50%';
 const P100 = '100%';
 const styles = StyleSheet.create({
   homecontainer: {
@@ -667,6 +702,7 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     color: '#000000',
     fontFamily: 'Poppins-Medium',
+    marginTop: 10,
   },
   yourstory: {
     // marginLeft: 10,
@@ -754,6 +790,65 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     // backgroundColor: '#FFFF',
-    height: 200,
+    marginTop: P50,
+  },
+  nofriendscontainer: {
+    width: P100,
+    // backgroundColor: '#FFFF',
+    alignSelf: 'center',
+    // height: P70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  svgimage: {
+    width: 106,
+    height: 197,
+    alignSelf: 'center',
+    marginTop: 50,
+  },
+  nofriendscontainertxt: {
+    fontFamily: 'Poppins-Medium',
+    color: '#000000',
+    fontSize: 15,
+    marginTop: 45,
+    width: P70,
+  },
+
+  inputcontainermain: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    backgroundColor: '#FAF5EF',
+  },
+  inputcontainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: P90,
+    alignItems: 'center',
+    // paddingTop: 10,
+    // paddingBottom: 10,
+    borderRadius: 17,
+    backgroundColor: '#FFE4E1',
+    backgroundColor: '#F3EBE0',
+    backgroundColor: '#FFE4E1',
+    backgroundColor: '#F3EBE0',
+  },
+  iconsearch: {
+    marginLeft: 10,
+    marginRight: 5,
+    // backgroundColor: '#FFFF',
+    alignSelf: 'center',
+    fontSize: 30,
+    color: '#000000',
+  },
+  txtinput: {
+    height: 50,
+    width: P90,
+    borderRadius: 15,
+    fontFamily: 'Poppins-Medium',
+    paddingTop: 14,
+    // backgroundColor: '#FFFF',
   },
 });

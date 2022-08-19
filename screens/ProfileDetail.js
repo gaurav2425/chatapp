@@ -36,14 +36,17 @@ const ProfileDetail = ({navigation: {goBack}}) => {
   const FetchUserData = async () => {
     const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
-      fetch(`http://192.168.1.7:5000/api/users/public/${MyClick.userclickId}`, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'x-auth-token': token,
+      fetch(
+        `http://13.232.252.51:5000/api/users/public/${MyClick.userclickId}`,
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+          },
         },
-      })
+      )
         .then(res => res.json())
         .then(data => {
           console.log('Not Mineeeeeeeeeeeeeeeeeeee');
@@ -67,7 +70,7 @@ const ProfileDetail = ({navigation: {goBack}}) => {
   const FetchMineData = async () => {
     const token = await AsyncStorage.getItem('token');
     const fetchMYAPI = async () => {
-      fetch(`http://192.168.1.7:5000/api/users/mine/me`, {
+      fetch(`http://13.232.252.51:5000/api/users/mine/me`, {
         method: 'GET',
         headers: {
           Accept: 'application/json',
