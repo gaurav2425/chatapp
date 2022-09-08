@@ -28,6 +28,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import messaging from '@react-native-firebase/messaging';
 import {state} from 'react-native-push-notification/component';
 import RoomsBar from '../components/RoomsBar';
+import Header1 from '../components/Header1';
 const Home = ({navigation}) => {
   const wait = timeout => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -491,7 +492,8 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.homecontainer}>
-      <Header></Header>
+      {/* <Header></Header> */}
+      <Header1></Header1>
       <ScrollView
         style={styles.scrollview}
         showsVerticalScrollIndicator={false}
@@ -500,7 +502,7 @@ const Home = ({navigation}) => {
             refreshing={refreshing}
             onRefresh={onRefresh}></RefreshControl>
         }>
-        {/* <View style={styles.storymaincontainer}>
+        <View style={styles.storymaincontainer}>
           <ScrollView
             horizontal={true}
             style={styles.storymaincontainer}
@@ -547,7 +549,7 @@ const Home = ({navigation}) => {
               name="hemant"
               uri="https://images.unsplash.com/photo-1626978407649-de62156f1548?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG1hbGUlMjBtb2RlbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"></Story>
           </ScrollView>
-        </View> */}
+        </View>
 
         {/* <View style={styles.searchinputcontainer}>
           <View style={styles.searchcontainer}>

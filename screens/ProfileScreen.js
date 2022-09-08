@@ -99,13 +99,19 @@ const ProfileScreen = ({navigation}) => {
           </Text> */}
         </View>
 
-        <View style={styles.followline}>
+        {/* <View style={styles.followline}>
           <Text style={styles.friendstxt}>
             Friends {MyProfileInfo.myprofile.Friends.length}
           </Text>
-        </View>
+        </View> */}
 
         <Text style={styles.biotext}>{MyProfileInfo.myprofile.bio}</Text>
+
+        <View style={styles.profile_button_container}>
+          <View style={styles.profile_button}>
+            <Text style={styles.profile_button_txt}>Edit Profile</Text>
+          </View>
+        </View>
       </ScrollView>
       <StatusBar barStyle="dark-content"></StatusBar>
     </SafeAreaView>
@@ -115,6 +121,7 @@ const ProfileScreen = ({navigation}) => {
 export default ProfileScreen;
 
 const P100 = '100%';
+const P90 = '86%';
 const styles = StyleSheet.create({
   container_main: {
     backgroundColor: '#FAF5EF',
@@ -273,9 +280,10 @@ const styles = StyleSheet.create({
   },
   biotext: {
     color: '#000000',
-    paddingLeft: 31,
+    paddingLeft: 25,
     paddingRight: 40,
     fontFamily: 'Poppins-Medium',
+    fontSize: 13,
   },
   textusername: {
     // marginLeft: 25,
@@ -368,5 +376,28 @@ const styles = StyleSheet.create({
     color: '#101010',
     fontSize: 45,
     letterSpacing: 2,
+  },
+  profile_button_container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    marginTop: 10,
+  },
+  profile_button: {
+    backgroundColor: '#F9EFE3',
+    width: P90,
+    textAlign: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
+    marginTop: 10,
+    borderRadius: 10,
+  },
+  profile_button_txt: {
+    fontFamily: 'Poppins-Bold',
+    color: '#101010',
+    fontSize: 15,
+    // letterSpacing: 2,
   },
 });

@@ -174,9 +174,6 @@ const ChatScreen = ({navigation: {goBack}}) => {
           console.log(data);
           console.log('Data Of FriendUser');
           setFriendUser(data);
-
-          
-
         })
         .catch(err => {
           console.log(err);
@@ -184,8 +181,6 @@ const ChatScreen = ({navigation: {goBack}}) => {
     };
     fetchMYAPI();
   };
-
-
 
   const fetchUserMessges = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -342,7 +337,10 @@ const ChatScreen = ({navigation: {goBack}}) => {
 
           <View style={styles.imagecontainer}>
             <Image
-              source={require('.././assets/images/punk8033.png')}
+              // source={require('.././assets/images/punk8033.png')}
+              source={{
+                uri: 'https://images.pexels.com/photos/13252219/pexels-photo-13252219.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+              }}
               style={styles.image}></Image>
           </View>
           <View>
@@ -576,7 +574,7 @@ const styles = StyleSheet.create({
   image: {
     width: 35,
     height: 35,
-    borderRadius: 15,
+    borderRadius: 25,
   },
   chatscreenheaderleft: {
     display: 'flex',
