@@ -86,7 +86,7 @@ const SearchScreen = ({navigation}) => {
             size={30}
             style={styles.icon1}></Ionicons> */}
           <Text style={styles.txt}>Explore</Text>
-          <AntDesign name="contacts" size={27} style={styles.icon2}></AntDesign>
+          <AntDesign name="contacts" size={25} style={styles.icon2}></AntDesign>
         </View>
         <View style={styles.inputcontainermain}>
           <View style={styles.inputcontainer}>
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // paddingTop: 10,
     // paddingBottom: 10,
-    borderRadius: 10,
+    borderRadius: 20,
     backgroundColor: '#FFE4E1',
     backgroundColor: '#F3EBE0',
     // borderWidth: 0.5,
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#F65F65',
   },
   txt: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'Poppins-Bold',
     color: '#000000',
     marginLeft: 25,

@@ -502,7 +502,7 @@ const Home = ({navigation}) => {
             refreshing={refreshing}
             onRefresh={onRefresh}></RefreshControl>
         }>
-        <View style={styles.storymaincontainer}>
+        {/* <View style={styles.storymaincontainer}>
           <ScrollView
             horizontal={true}
             style={styles.storymaincontainer}
@@ -549,7 +549,7 @@ const Home = ({navigation}) => {
               name="hemant"
               uri="https://images.unsplash.com/photo-1626978407649-de62156f1548?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG1hbGUlMjBtb2RlbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"></Story>
           </ScrollView>
-        </View>
+        </View> */}
 
         {/* <View style={styles.searchinputcontainer}>
           <View style={styles.searchcontainer}>
@@ -588,7 +588,7 @@ const Home = ({navigation}) => {
           </View>
         ) : (
           <View>
-            {MyProfileInfo.myprofile.Friends?.length === 0 ? (
+            {MyProfileInfo.myprofile.Friends?.length == 0 ? (
               <View style={styles.nofriendscontainer}>
                 <Image
                   style={styles.svgimage}
@@ -638,14 +638,14 @@ const Home = ({navigation}) => {
           <Text>Press me to send notification</Text>
         </TouchableOpacity> */}
 
-        <Chat name="gaurav burande"></Chat>
+        {/* <Chat name="gaurav burande"></Chat>
         <Chat name="Ajinkya sahu"></Chat>
         <Chat name="swaraj pawar"></Chat>
         <Chat name="pinky sharma"></Chat>
         <Chat name="naman yadav"></Chat>
         <Chat name="vishal singh"></Chat>
         <Chat name="karan mehra"></Chat>
-        <Chat name="hemant thackrey"></Chat>
+        <Chat name="hemant thackrey"></Chat> */}
       </ScrollView>
 
       <StatusBar barStyle="dark-content" backgroundColor="#FAF5EF"></StatusBar>
@@ -831,7 +831,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // paddingTop: 10,
     // paddingBottom: 10,
-    borderRadius: 17,
+    borderRadius: 20,
     backgroundColor: '#FFE4E1',
     backgroundColor: '#F3EBE0',
     backgroundColor: '#FFE4E1',

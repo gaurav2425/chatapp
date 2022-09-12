@@ -17,8 +17,8 @@ const Chat = ({name}) => {
       <View style={styles.profilecontainer}>
         <Image
           source={{
-            // uri: 'https://cdn.pixabay.com/photo/2015/03/08/17/25/musician-664432__340.jpg',
-            uri: 'https://images.pexels.com/photos/8903965/pexels-photo-8903965.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            uri: 'https://img.seadn.io/files/f10386a1d9330f9cc12879154e6457cd.png?fit=max&w=600',
+            // uri: 'https://images.pexels.com/photos/8903965/pexels-photo-8903965.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
             // uri: 'https://images.pexels.com/photos/1674752/pexels-photo-1674752.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
           }}
           style={styles.profileimage}></Image>
@@ -40,23 +40,24 @@ const Chat = ({name}) => {
       <View style={styles.txtcontainer}>
         <View style={styles.txtcontainer_up}>
           <Text style={styles.txtname}>{name}</Text>
+          <Text style={styles.txtmsg}>Hey! I will try to let them down</Text>
+        </View>
 
-          <View style={styles.txtcontainer_date}>
-            <View>
-              <Text style={styles.txttime}>12:15 am</Text>
+        <View style={styles.txtcontainer_date}>
+          <View>
+            <Text style={styles.txttime}>12:15 am</Text>
+          </View>
+
+          <View style={styles.notificationno}>
+            <View style={styles.notificationnosub}>
+              <Text style={styles.notificationnotxt}>2</Text>
             </View>
+          </View>
 
-            <View style={styles.notificationno}>
-              <View style={styles.notificationnosub}>
-                <Text style={styles.notificationnotxt}>2</Text>
-              </View>
-            </View>
-
-            {/* <Ionicons
+          {/* <Ionicons
               name="chevron-forward-outline"
               size={15}
               style={styles.txtcontainer_forward_icon}></Ionicons> */}
-          </View>
         </View>
         {/* {name.indexOf(' ') >= 0 ? (
           <Text style={styles.txtmsg}>
@@ -67,7 +68,7 @@ const Chat = ({name}) => {
           <Text style={styles.txtmsg}>{iniName}</Text>
         )} */}
 
-        <Text style={styles.txtmsg}>Hey! I will try to let them down</Text>
+        {/* <Text style={styles.txtmsg}>Hey! I will try to let them down</Text> */}
       </View>
     </View>
   );
@@ -80,10 +81,13 @@ const styles = StyleSheet.create({
   chatcontainer: {
     backgroundColor: '#FAF5EF',
     width: P100,
-    height: 70,
+    // height: 70,
+    // paddingTop: 10,
+    // paddingBottom: 10,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     // backgroundColor: '#696969',
     // borderBottomColor: '#F65F65',
     // borderBottomWidth: 1,
@@ -117,9 +121,9 @@ const styles = StyleSheet.create({
   },
   txtmsg: {
     fontSize: 10,
-    paddingBottom: 5,
+    // paddingBottom: 5,
     // marginBottom: 5,
-    marginTop: -10,
+    // marginTop: -15,
     // marginLeft: 4,
     fontFamily: 'Poppins-Medium',
   },
@@ -130,13 +134,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     display: 'flex',
     // height: 70,
-    paddingBottom: 10,
+    flexDirection: 'row',
+    // paddingBottom: 10,
     // paddingTop: 10,
-    marginBottom: -10,
+    // marginBottom: -10,
+    paddingTop: 11,
+    paddingBottom: 11,
     flex: 1,
     borderColor: '#F1EFE5',
     borderBottomColor: '#F1EFE5',
-    borderBottomWidth: 4,
+    borderBottomWidth: 1,
+    // height: 70,
   },
   txtavatar: {
     fontFamily: 'Poppins-Medium',
@@ -151,8 +159,8 @@ const styles = StyleSheet.create({
   },
   txtcontainer_up: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    // justifyContent: 'space-between',
     // backgroundColor: '#FFFF',
   },
   txtcontainer_date: {
@@ -168,7 +176,7 @@ const styles = StyleSheet.create({
   txtcontainer_forward_icon: {
     color: '#000000',
     // backgroundColor: '#696969',
-    marginTop: -3,
+    // marginTop: -3,
   },
   notificationnotxt: {
     fontFamily: 'Poppins-Bold',

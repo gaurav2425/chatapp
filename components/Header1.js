@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
   logotxt: {
     fontFamily: 'Poppins-Bold',
-    marginLeft: 10,
+    marginLeft: 20,
     fontSize: 20,
     color: '#000000',
   },

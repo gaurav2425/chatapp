@@ -9,8 +9,9 @@ const Notification = ({notification}) => {
           <Image
             // source={require('.././assets/images/punk8033.png')}
             source={{
+              uri: 'https://img.seadn.io/files/f10386a1d9330f9cc12879154e6457cd.png?fit=max&w=600',
               // uri: 'https://cdn.pixabay.com/photo/2015/03/08/17/25/musician-664432__340.jpg',
-              uri: 'https://images.pexels.com/photos/1674752/pexels-photo-1674752.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+              // uri: 'https://images.pexels.com/photos/1674752/pexels-photo-1674752.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
             }}
             style={styles.image}></Image>
         </View>
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
   image: {
     width: 50,
     height: 50,
-    borderRadius: 20,
+    borderRadius: 25,
     marginLeft: 15,
   },
   notificationmsg: {

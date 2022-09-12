@@ -2,9 +2,11 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Home from '../screens/Home';
+import ChatBox from '../screens/TabBarScreens/ChatBox';
 import Share from '../screens/Share';
 import SignUp from '../screens/SignUp';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Call from '../screens/TabBarScreens/Call';
 import ProfileScreen from '../screens/ProfileScreen';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -13,6 +15,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Zocial from 'react-native-vector-icons/Zocial';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Foundation from 'react-native-vector-icons/Foundation';
 import Octicons from 'react-native-vector-icons/Octicons';
 import {TouchableRipple} from 'react-native-paper';
 import Todo from '../screens/Todo';
@@ -26,10 +29,17 @@ const BottomTabNavigation = () => {
       screenOptions={{
         keyboardHidesTabBar: true,
         tabBarHideOnKeyboard: true,
+
         tabBarStyle: {
           // marginHorizontal: 10,
           // marginBottom: 10,
           // borderRadius: 20,
+          borderTopWidth: 0,
+          elevation: 0, // for Android
+          shadowOffset: {
+            width: 0,
+            height: 0, // for iOS
+          },
         },
       }}>
       <Tab.Screen
@@ -41,10 +51,12 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <Octicons
+            <Foundation
               name={focused ? 'home' : 'home'}
-              size={24}
-              color={focused ? '#000000' : '#101010'}
+              size={30}
+              suppressHighlighting={true}
+              // color={focused ? '#ff4d4d' : '#000000'}
+              color={focused ? '#000000' : '#696969'}
             />
           ),
         }}
@@ -57,12 +69,17 @@ const BottomTabNavigation = () => {
           tabBarShowLabel: false,
           tabBarActiveBackgroundColor: '#FAF5EF',
           tabBarInactiveBackgroundColor: '#FAF5EF',
+          tabBarActiveTintColor: '#F65F65',
 
           tabBarIcon: ({focused}) => (
-            <AntDesign
-              name={focused ? 'search1' : 'search1'}
-              size={23}
-              color={focused ? '#000000' : '#101010'}
+            <Feather
+              name={focused ? 'search' : 'search'}
+              size={26}
+              suppressHighlighting={true}
+              // color={focused ? '#000000' : '#101010'}
+              // color={focused ? '#ff4d4d' : '#000000'}
+
+              color={focused ? '#000000' : '#696969'}
             />
           ),
         }}
@@ -77,18 +94,16 @@ const BottomTabNavigation = () => {
           tabBarInactiveBackgroundColor: '#FAF5EF',
 
           tabBarIcon: ({focused}) => (
-            <Ionicons
-              name={
-                focused
-                  ? 'ios-chatbox-ellipses-outline'
-                  : 'ios-chatbox-ellipses-outline'
-              }
+            <AntDesign
+              name={focused ? 'message1' : 'message1'}
               size={25}
-              color={focused ? '#000000' : '#101010'}
+              // color={focused ? '#000000' : '#101010'}
+              // color={focused ? '#ff4d4d' : '#000000'}
+              color={focused ? '#000000' : '#696969'}
             />
           ),
         }}
-        component={ProfileScreen}></Tab.Screen>
+        component={ChatBox}></Tab.Screen>
 
       {/* <AntDesign
             name="find"
@@ -107,11 +122,13 @@ const BottomTabNavigation = () => {
             <Feather
               name={focused ? 'phone-call' : 'phone-call'}
               size={23}
-              color={focused ? '#000000' : '#101010'}
+              // color={focused ? '#000000' : '#101010'}
+              // color={focused ? '#ff4d4d' : '#000000'}
+              color={focused ? '#000000' : '#696969'}
             />
           ),
         }}
-        component={ProfileScreen}></Tab.Screen>
+        component={Call}></Tab.Screen>
 
       <Tab.Screen
         name="testtab"
@@ -129,18 +146,21 @@ const BottomTabNavigation = () => {
             //   color={focused ? '#000000' : '#101010'}
             // />
 
-            <TouchableRipple
-              onPress={() => console.log('Pressed')}
-              rippleColor="rgba(0, 0, 0, .1)"
-              borderless
-              style={styles.profilecontainerripple}>
-              <View style={styles.profilecontainer}>
-                {/* <Image
-                  source={require('../assets/images/punk8033.png')}
-                  style={styles.image}></Image> */}
-                <Text style={styles.txtavatar}>GB</Text>
-              </View>
-            </TouchableRipple>
+            // <TouchableRipple
+            //   onPress={() => console.log('Pressed')}
+            //   rippleColor="rgba(0, 0, 0, .1)"
+            //   borderless
+            //   style={styles.profilecontainerripple}>
+
+            <View style={styles.profilecontainer}>
+              <Image
+                source={{
+                  uri: 'https://img.seadn.io/files/f10386a1d9330f9cc12879154e6457cd.png?fit=max&w=600',
+                }}
+                style={styles.image}></Image>
+              {/* <Text style={styles.txtavatar}>GB</Text> */}
+            </View>
+            // </TouchableRipple>
           ),
         }}
         component={ProfileScreen}></Tab.Screen>
@@ -207,11 +227,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginRight: 4,
-    padding: 3,
-    borderRadius: 15,
+    padding: 4,
+    borderRadius: 20,
     marginRight: 10,
-    paddingRight: 5,
-    paddingLeft: 5,
+    paddingRight: 4,
+    paddingLeft: 4,
   },
   txtavatar: {
     fontFamily: 'Poppins-Medium',
@@ -219,13 +239,18 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   profilecontainer: {
-    width: 32,
-    height: 32,
+    width: 29,
+    height: 29,
     backgroundColor: '#F3EBE0',
-    borderRadius: 12,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
     // borderWidth: 1,
     // borderColor: '#696969',
+  },
+  image: {
+    width: 29,
+    height: 29,
+    borderRadius: 20,
   },
 });

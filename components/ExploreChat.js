@@ -251,18 +251,20 @@ const ExploreChat = ({
     <View style={styles.chatcontainer}>
       <View style={styles.chatcontainerleft}>
         <View style={styles.imagecontainer}>
-          {/* <Image
-            source={require('../assets/images/punk8033.png')}
-            style={styles.image}></Image> */}
+          <Image
+            source={{
+              uri: 'https://img.seadn.io/files/53ffe6133524547032288e5effe4d12a.png?fit=max&w=600',
+            }}
+            style={styles.image}></Image>
 
-          {name.indexOf(' ') >= 0 ? (
+          {/* {name.indexOf(' ') >= 0 ? (
             <Text style={styles.txtavatar}>
               {iniName}
               {iniLname}
             </Text>
           ) : (
             <Text style={styles.txtavatar}>{iniName}</Text>
-          )}
+          )} */}
 
           {/* <Text style={styles.txtavatar}>GB</Text> */}
         </View>
@@ -318,7 +320,7 @@ const ExploreChat = ({
               </Text>
             ) : (
               <Text
-                style={styles.btntxt}
+                style={styles.btntxt1}
                 // onPress={(() => removerequest, setAddFriend(!addFriend))}
                 // onPress={(() => clickevents(), setAddFriend(!addFriend))}
                 onPress={removefriend}>
@@ -368,14 +370,16 @@ const styles = StyleSheet.create({
   btntxt: {
     // paddingLeft: 10,
     // paddingRight: 10,
-    width: 90,
-    paddingTop: 5,
-    paddingBottom: 5,
-    backgroundColor: '#FFFF',
-    color: '#000000',
+    width: 80,
+    paddingTop: 4.5,
+    paddingBottom: 4.5,
+    backgroundColor: '#0096FF',
+    // 0096FF
+    // 4682B4
+    color: '#FFFFFF',
     fontFamily: 'Poppins-Medium',
-    fontSize: 12,
-    borderRadius: 20,
+    fontSize: 12.5,
+    borderRadius: 12,
     textAlign: 'center',
   },
   btntxt1: {
@@ -385,8 +389,8 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     textAlign: 'center',
-    backgroundColor: '#1A4493',
-    color: '#FFFF',
+    backgroundColor: '#87CEEB',
+    color: '#FFFFFF',
     fontFamily: 'Poppins-Medium',
     fontSize: 12,
     borderRadius: 20,
@@ -396,12 +400,12 @@ const styles = StyleSheet.create({
   },
 
   imagecontainer: {
-    width: 58,
+    width: 55,
     height: 55,
     backgroundColor: '#F65F65',
     backgroundColor: '#F3EBE0',
     alignItems: 'center',
-    borderRadius: 27,
+    borderRadius: 50,
     marginLeft: 15,
     justifyContent: 'center',
   },
@@ -421,7 +425,7 @@ const styles = StyleSheet.create({
   image: {
     width: 55,
     height: 55,
-    borderRadius: 25,
+    borderRadius: 35,
   },
   txtcontainer: {
     height: 70,
@@ -443,7 +447,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     // marginTop: 0,
     fontFamily: 'Poppins-Medium',
-    color: '#000000',
+    color: '#696969',
   },
   txttime: {
     color: '#708090',

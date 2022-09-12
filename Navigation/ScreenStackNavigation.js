@@ -110,37 +110,13 @@ const ScreenStackNavigation = () => {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen
-          name="loading"
-          component={Loading}
-          options={{
-            animation: 'none',
-          }}
-        />
+        <Stack.Screen name="loading" component={Loading} options={options} />
 
-        <Stack.Screen
-          name="dob"
-          component={DOB}
-          options={{
-            animation: 'none',
-          }}
-        />
+        <Stack.Screen name="dob" component={DOB} options={options} />
 
-        <Stack.Screen
-          name="name"
-          component={Name}
-          options={{
-            animation: 'none',
-          }}
-        />
+        <Stack.Screen name="name" component={Name} options={options} />
 
-        <Stack.Screen
-          name="password"
-          component={Password}
-          options={{
-            animation: 'none',
-          }}
-        />
+        <Stack.Screen name="password" component={Password} options={options} />
 
         <Stack.Screen
           name="otp"
@@ -220,9 +196,7 @@ const ScreenStackNavigation = () => {
         <Stack.Screen
           name="settings"
           component={Settings}
-          options={{
-            animation: 'none',
-          }}></Stack.Screen>
+          options={options}></Stack.Screen>
 
         <Stack.Screen
           name="plaxroom"
@@ -234,35 +208,21 @@ const ScreenStackNavigation = () => {
         <Stack.Screen
           name="share"
           component={Share}
-          options={{
-            animation: 'none',
-          }}></Stack.Screen>
+          options={options}></Stack.Screen>
         <Stack.Screen
           name="bio"
           component={Bio}
           // component={SplashScreen}
-          options={{
-            animation: 'none',
-          }}></Stack.Screen>
+          options={options}></Stack.Screen>
         <Stack.Screen
           name="profiledetail"
           component={ProfileDetail}
-          options={{
-            animation: 'none',
-          }}></Stack.Screen>
+          options={options}></Stack.Screen>
         <Stack.Screen
           name="explore"
           component={Explore}
-          options={{
-            animation: 'none',
-          }}></Stack.Screen>
-        <Stack.Screen
-          name="home"
-          component={Authenticated}
-          options={{
-            animation: 'none',
-          }}
-        />
+          options={options}></Stack.Screen>
+        <Stack.Screen name="home" component={Authenticated} options={options} />
 
         {/* {isloggedin == null ? (
           <Stack.Screen name="loading" component={Loading} />

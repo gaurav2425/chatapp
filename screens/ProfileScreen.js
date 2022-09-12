@@ -63,7 +63,9 @@ const ProfileScreen = ({navigation}) => {
           <View style={styles.profile}>
             <Image
               style={styles.profileimage}
-              source={require('../assets/images/myimg.jpeg')}></Image>
+              source={{
+                uri: 'https://img.seadn.io/files/f10386a1d9330f9cc12879154e6457cd.png?fit=max&w=600',
+              }}></Image>
             {/* <Text style={styles.txtavatar}>GB</Text> */}
           </View>
 
@@ -384,7 +386,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   profile_button: {
-    backgroundColor: '#F9EFE3',
+    backgroundColor: '#F3EBE0',
     width: P90,
     textAlign: 'center',
     display: 'flex',
